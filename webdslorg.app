@@ -1,11 +1,10 @@
-application org.webdsl.www
+application org.webdsl.wwww
 
 description {
   This application is the website for webdsl.org
 }
 
 imports templates/main
-
 imports wiki/data
 imports wiki/page
 imports wiki/init

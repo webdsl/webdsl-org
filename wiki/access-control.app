@@ -2,10 +2,6 @@ module wiki-access-control
 
 section principal
 
-  access control rules {
-    principal is User with credentials username, password
-  }
-
   access control rules 
   {
     rules page home() {

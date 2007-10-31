@@ -81,9 +81,9 @@ sections constants
     var bug     : IssueType := IssueType { type := "Bug" };
     var feature : IssueType := IssueType { type := "Feature" };
     
-    var critical : IssuePriority : IssuePriority { priority := "critical" };
-    var major    : IssuePriority : IssuePriority { priority := "major" };
-    var minor    : IssuePriority : IssuePriority { priority := "minor" };
+    var critical : IssuePriority := IssuePriority { priority := "critical" };
+    var major    : IssuePriority := IssuePriority { priority := "major" };
+    var minor    : IssuePriority := IssuePriority { priority := "minor" };
     
   }
   

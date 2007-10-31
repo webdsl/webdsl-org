@@ -1,6 +1,10 @@
-module wiki-authorization
+module users/authentication
 
-section authorization
+section authentication
+
+  access control rules {
+    principal is User with credentials username, password
+  }
 
   define currentUser() {
     signin() 
@@ -49,3 +53,5 @@ section authorization
   }
   
   // ensure that principal is null when signing off
+  
+  

@@ -1,10 +1,8 @@
 module issues/pages
 
-imports issues/data
+section projects
 
-section 
-
-  define page viewProject(p : Project)
+  define page viewProject(p : Project) 
   {
     main()
     title{"Project - " output(p.name)}
