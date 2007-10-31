@@ -14,6 +14,9 @@ imports wiki/access-control
 imports users/profiles
 imports users/authentication
 
+imports issues/data
+imports issues/pages
+
 section home
 
   define page home() 
@@ -21,20 +24,6 @@ section home
     title{"WebDSL"}
     main()
     define body() {
-      section{
-        section {
-          header{"Topic Index"}
-          list { for(p : Page) { 
-            listitem{ navigate(viewPage(p)) { output(p.name) } } } 
-          }
-        }
-        section {
-          header{"User Index"}
-          list { for(p : User) { 
-            listitem{ navigate(viewUser(p)) { output(p.name) } } }
-          }
-        }
-      }
     }
   }
 
