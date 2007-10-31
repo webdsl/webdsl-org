@@ -36,7 +36,7 @@ section issues
     dependson   -> Set<Issue> (inverse=Issue.requiredby)
     requiredby  -> Set<Issue> (inverse=Issue.dependson)
     
-    themes      -> Set<Themes> (inverse=Theme.issues)
+    themes      -> Set<Theme> (inverse=Theme.issues)
     release     -> Release (inverse=Release.issues)
   }
   

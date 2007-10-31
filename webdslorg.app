@@ -10,6 +10,7 @@ imports wiki/page
 imports wiki/init
 imports wiki/access-control
 
+imports users/data
 imports users/profiles
 imports users/authentication
 
