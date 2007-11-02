@@ -1,4 +1,4 @@
-module wiki-page
+module wiki/page
 
 section pages
   

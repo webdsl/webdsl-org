@@ -33,8 +33,8 @@ section issues
     created     :: Date
     updated     :: Date
     
-    dependson   -> Set<Issue> (inverse=Issue.requiredby)
-    requiredby  -> Set<Issue> (inverse=Issue.dependson)
+    //requires    -> Set<Issue> (inverse=Issue.requiredby)
+    //requiredby  -> Set<Issue> (inverse=Issue.requires)
     
     themes      -> Set<Theme> (inverse=Theme.issues)
     release     -> Release (inverse=Release.issues)
