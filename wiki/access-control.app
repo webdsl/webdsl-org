@@ -1,4 +1,4 @@
-module wiki-access-control
+module wiki/access-control
 
 section principal
 
@@ -46,7 +46,7 @@ section users
     }
   }
   
-section authorization actions
+section authentication actions
 
   access control rules {
     rules template signin() {

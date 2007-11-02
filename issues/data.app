@@ -3,7 +3,7 @@ module issues/data
 section projects
 
   entity Project {
-    title       :: String (name)
+    projectname :: String (name)
     key         :: String (unique)
     description :: Text
     
@@ -13,12 +13,16 @@ section projects
     issues      -> Set<Issue>
     themes      -> Set<Theme>
     releases    -> Set<Release>
+    
+    nextkey     :: Int
   }
 
 section issues
   
   entity Issue {
-    key         :: String (unique, name)
+    key         :: String (id, unique, name) 
+                   // new number should be automatically formed as project.key + "-" + id
+                   // numbering should be done in project
     type        -> IssueType
     priority    -> IssuePriority
     status      -> IssueStatus
@@ -30,11 +34,11 @@ section issues
     reporter    -> User
     assignee    -> User
     
-    created     :: Date
+    submitted   :: Date
     updated     :: Date
     
-    //requires    -> Set<Issue> (inverse=Issue.requiredby)
-    //requiredby  -> Set<Issue> (inverse=Issue.requires)
+    requires    -> Set<Issue> (inverse=Issue.requiredby)
+    requiredby  -> Set<Issue> (inverse=Issue.requires)
     
     themes      -> Set<Theme> (inverse=Theme.issues)
     release     -> Release (inverse=Release.issues)
