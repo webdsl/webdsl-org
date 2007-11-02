@@ -21,21 +21,22 @@ section authentication
       }
       actionLink("Sign in", signin())
       action signin() {
-        var users : List<User> :=
-          select u from User as u 
-          where (u._username = ~usr.username) and (u._password = ~usr.password);
-            	
-        for (us : User in users) {
-          securityContext.principal := us;
-          securityContext.loggedIn  := true;
-          return viewUser(securityContext.principal);
-          // here you want to return to the page where the user was when signing in
-        }
-        securityContext.loggedIn := false;
-        return home();
-        // here we want to give an error message 'incorrect user or password'
       }
-      par{ navigate(register()){"Register new user"} }
+  //      var users : List<User> :=
+  //        select u from User as u 
+  //        where (u._username = ~usr.username);
+
+  //      for (us : User in users ) {
+  //        if (us.password.check(usr.password)) {
+  //          securityContext.principal := us;
+  //          securityContext.loggedIn := true;
+  //          return viewUser(securityContext.principal)
+  //        }
+  //      }
+  //      securityContext.loggedIn := false;
+  //      return home();
+  //    }
+  //    par{ navigate(register()){"Register new user"} }
     }
   }
 

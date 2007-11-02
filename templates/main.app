@@ -1,4 +1,4 @@
-module app/templates
+module templates
 
 section main template.
 
