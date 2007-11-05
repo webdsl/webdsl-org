@@ -77,13 +77,13 @@ section viewing issues
       section{
         header{output(i.title)}
         
-        Section{
+        section{
           header{"Dependencies"}
           "Requires"    output(i.requires)
           "Required by" output(i.requiredby)
         }
     
-        Section{
+        section{
           header{"Description"}
           output(i.description)
         }
