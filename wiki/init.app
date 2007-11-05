@@ -13,6 +13,12 @@ section globals
       Page {
         name    := "MainPage"
 	authors := {zef}
-	content := "This is a simple main page."
+	content := "This is a simple main page. Here's An[[page(OtherPage)]]."
       };
+    var otherPage : Page := 
+      Page {
+        name    := "OtherPage"
+	      authors := {zef}
+    	  content := "This is anoter page, refering to the [[page(MainPage)]]."
+        };
   }

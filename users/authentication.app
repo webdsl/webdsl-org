@@ -29,7 +29,7 @@ section authentication
           if (us.password.check(usr.password)) {
             securityContext.principal := us;
             securityContext.loggedIn := true;
-            return viewUser(securityContext.principal);
+            return user(securityContext.principal);
           }
         }
        securityContext.loggedIn := false;

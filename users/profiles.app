@@ -2,7 +2,7 @@ module wiki-users
 
 section pages
   
-  define page viewUser(u : User)
+  define page user(u : User)
   {
     main()
     title{"Profile of " output(u.name)}
@@ -30,7 +30,7 @@ section pages
           actionLink("Save profile", save())
           action save() {
             u.persist();
-            return viewUser(u);
+            return user(u);
           }
         }
       }
