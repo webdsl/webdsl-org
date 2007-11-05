@@ -5,7 +5,7 @@ section projects
   entity Project {
     projectname :: String (name)
     key         :: String (id)
-    description :: Text
+    description :: WikiText
     
     lead        -> User
     members     -> Set<User>
@@ -26,7 +26,7 @@ section issues
     status      -> IssueStatus
     
     title       :: String 
-    description :: Text
+    description :: WikiText
     project     -> Project (inverse=Project.issues)
     
     reporter    -> User
@@ -62,7 +62,7 @@ section themes
   entity Theme {
     codename    :: String (name)
     title       :: String
-    description :: Text
+    description :: WikiText
     issues      -> Set<Issue> (inverse=Issue.themes)
     project     -> Project (inverse=Project.themes)
   }
@@ -72,7 +72,7 @@ section releases
   entity Release {
     codename    :: String (name)
     title       :: String
-    description :: Text
+    description :: WikiText
     released    :: Date
     issues      -> Set<Issue> (inverse=Issue.release)
     project     -> Project (inverse=Project.releases)
@@ -88,9 +88,9 @@ sections constants
     var bug     : IssueType := IssueType { type := "Bug" };
     var feature : IssueType := IssueType { type := "Feature" };
     
-    var critical : IssuePriority := IssuePriority { priority := "critical" };
-    var major    : IssuePriority := IssuePriority { priority := "major" };
-    var minor    : IssuePriority := IssuePriority { priority := "minor" };
+    var critical : IssuePriority := IssuePriority { priority := "Critical" };
+    var major    : IssuePriority := IssuePriority { priority := "Major" };
+    var minor    : IssuePriority := IssuePriority { priority := "Minor" };
     
   }
   

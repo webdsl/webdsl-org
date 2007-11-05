@@ -14,6 +14,8 @@ section pages
       }
     }
   }
+
+section edit profile information
   
   define page editUser(u : User)
   {
@@ -37,6 +39,8 @@ section pages
     }
   }
   
+section create new user
+  
   define page register()
   { 
     main()
@@ -53,6 +57,7 @@ section pages
           }
           actionLink("Register", createUser())
           action createUser() {
+            newUser.password := newUser.password.digest();
             newUser.persist();
             securityContext.principal := newUser;
             securityContext.loggedIn  := true;

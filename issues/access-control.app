@@ -8,8 +8,9 @@ section foo
   
     rules page issue(*) { true }
     
-    rules page newIssue(*) { true rules action submit() { true } }
+    rules template newIssue(*) { true }
     
     rules page editIssue(*) { true }
   
   }
+  

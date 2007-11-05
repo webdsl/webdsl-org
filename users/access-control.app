@@ -20,8 +20,7 @@ section authentication actions
 
   access control rules {
     rules template signin() {
-      true
-      // !securityContext.loggedIn
+      !securityContext.loggedIn
     }
     rules template signoff() {
       securityContext.loggedIn
