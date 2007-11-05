@@ -5,6 +5,7 @@ description {
 }
 
 imports templates/main
+
 imports wiki/data
 imports wiki/page
 imports wiki/init
@@ -13,9 +14,12 @@ imports wiki/access-control
 imports users/data
 imports users/profiles
 imports users/authentication
+imports users/access-control
 
 imports issues/data
 imports issues/pages
+imports issues/access-control
+imports issues/init
 
 section home
 
@@ -24,6 +28,12 @@ section home
     title{"WebDSL"}
     main()
     define body() {
+      section { 
+        header{"Projects"}
+        list { for(p : Project) { 
+          listitem { output(p) }
+        } }
+      }
     }
   }
 

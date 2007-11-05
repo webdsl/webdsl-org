@@ -13,7 +13,7 @@ section page
   
   access control rules {
   
-    rules page viewPage(*) {
+    rules page page(*) {
       true
     }
 
@@ -26,33 +26,6 @@ section page
     }
 
     rules template editLink(*) {
-      securityContext.loggedIn
-    }
-  }
-
-section users
-
-  access control rules {
-    rules page viewUser(*) {
-      true
-    }
-    
-    rules page editUser(u : User) {
-      securityContext.principal = u
-    }
-    
-    rules page register() {
-      true
-    }
-  }
-  
-section authentication actions
-
-  access control rules {
-    rules template signin() {
-      !securityContext.loggedIn
-    }
-    rules template signoff() {
       securityContext.loggedIn
     }
   }

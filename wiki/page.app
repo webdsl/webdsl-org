@@ -2,7 +2,7 @@ module wiki/page
 
 section pages
   
-  define page viewPage(p : Page)
+  define page page(p : Page)
   {
     main()
     title{output(p.name)}
@@ -42,7 +42,7 @@ section pages
             p.authors.add(securityContext.principal);
             securityContext.principal.authored.add(p);
             p.persist();
-	    return viewPage(p);
+	    return page(p);
           }
 	}
       }

@@ -21,22 +21,21 @@ section authentication
       }
       actionLink("Sign in", signin())
       action signin() {
-      }
-  //      var users : List<User> :=
-  //        select u from User as u 
-  //        where (u._username = ~usr.username);
+        var users : List<User> :=
+          select u from User as u 
+          where (u._username = ~usr.username);
 
-  //      for (us : User in users ) {
-  //        if (us.password.check(usr.password)) {
-  //          securityContext.principal := us;
-  //          securityContext.loggedIn := true;
-  //          return viewUser(securityContext.principal)
-  //        }
-  //      }
-  //      securityContext.loggedIn := false;
-  //      return home();
-  //    }
-  //    par{ navigate(register()){"Register new user"} }
+        for (us : User in users ) {
+          if (us.password.check(usr.password)) {
+            securityContext.principal := us;
+            securityContext.loggedIn := true;
+            return viewUser(securityContext.principal);
+          }
+        }
+       securityContext.loggedIn := false;
+        return home();
+      }
+      par{ navigate(register()){"Register new user"} }
     }
   }
 

@@ -1,16 +1,14 @@
 module issues/init
 
-module initial project
-
+section initial project
   
   globals {
   
     var webdslproject : Project :=
       Project {
-      }
-      
-    var webdslorgproject : Project :=
-      Project {
-      }
+        projectname := "WebDSL"
+        key         := "WEBDSL"
+        description := "A domain-specific language for web applications"
+      };
       
   }

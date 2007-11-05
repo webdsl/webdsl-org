@@ -2,7 +2,7 @@ module issues/pages
 
 section projects
 
-  define page viewProject(p : Project) 
+  define page project(p : Project) 
   {
     main()
     title{"Project - " output(p.name)}
@@ -10,13 +10,56 @@ section projects
     {
       section{
         header{output(p.name)}
+          
+        par{ output(p.description) }
         
-        output(p.issues)
+        par{ newIssue(p) }
+        
+        section{
+          header{"Open Issues"}
+          //output([i in for(i in p.issues where i.status = open)])
+        }
       }
     }
   }
   
-  define page viewIssue(i : Issue)
+section creating themes
+
+  define newTheme(p : Project)
+  {
+    var newTheme : Theme := Theme{};  
+  }
+  
+section creating issues
+  
+  define newIssue(p : Project)
+  { 
+    var newIssue : Issue := Issue { };
+    //var theme : Theme := null;
+    
+    form {
+      input(newIssue.title)
+      input(newIssue.type)
+      input(newIssue.priority)
+      //input(theme)
+      actionLink("Submit", submit())
+    }
+    
+    action submit() {
+      newIssue.key      := p.key + "-" + p.nextkey.toString();
+      newIssue.project  := p;
+      p.nextkey         := p.nextkey + 1;
+      newIssue.status   := open;
+      newIssue.reporter := securityContext.principal;
+      //newIssue.themes   := {theme};
+      newIssue.persist();
+      return editIssue(newIssue);
+    }
+  }
+ 
+section viewing issues
+
+  define page issue(i : Issue)
   {
     main()
     title{output(i.key) ": " output(i.title)}
@@ -24,6 +67,7 @@ section projects
     define sidebar()
     {
       issueProperties(i)
+      issueOperations(i)
     }
     
     define body() 
@@ -59,28 +103,12 @@ section projects
     }
   }
   
-  define newIssue(p : Project)
-  { 
-    var newIssue : Issue := Issue { };
-    var theme : Theme := null;
-    
-    input(newIssue.title)
-    input(newIssue.type)
-    input(newIssue.priority)
-    input(theme)
-    
-    actionLink("Submit", submit())
-    
-    action submit() {
-      newIssue.key := p.key + "-" + p.nextkey;
-      p.nextkey := p.nextkey + 1;
-      newIssue.status := open;
-      newIssue.reporter := securityContext.principal;
-      newIssue.themes := {theme};
-      //newIssue.submitted := today();
-      //newIssue.updated := today();
-      newIssue.persist();
-      return editIssue(newIssue);
+section issue operations
+
+  define issueOperations(i : Issue)
+  {
+    list{
+      listitem{ navigate(editIssue(i)){"Edit"} " this issue" }
     }
-  
   }
+  

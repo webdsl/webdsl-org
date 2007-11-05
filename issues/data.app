@@ -4,15 +4,15 @@ section projects
 
   entity Project {
     projectname :: String (name)
-    key         :: String (unique)
+    key         :: String (id)
     description :: Text
     
     lead        -> User
     members     -> Set<User>
     
-    issues      -> Set<Issue>
-    themes      -> Set<Theme>
-    releases    -> Set<Release>
+    issues      -> Set<Issue>   (inverse=Issue.project)
+    themes      -> Set<Theme>   (inverse=Theme.project)
+    releases    -> Set<Release> (inverse=Release.project)
     
     nextkey     :: Int
   }
@@ -21,15 +21,13 @@ section issues
   
   entity Issue {
     key         :: String (id, unique, name) 
-                   // new number should be automatically formed as project.key + "-" + id
-                   // numbering should be done in project
     type        -> IssueType
     priority    -> IssuePriority
     status      -> IssueStatus
     
     title       :: String 
     description :: Text
-    project     -> Project
+    project     -> Project (inverse=Project.issues)
     
     reporter    -> User
     assignee    -> User
@@ -43,6 +41,9 @@ section issues
     themes      -> Set<Theme> (inverse=Theme.issues)
     release     -> Release (inverse=Release.issues)
   }
+  
+  // issue keys should be automatically generated as project.key + "-" + n
+  // where n is the next issue number in the project
   
   entity IssueType {
     type :: String (name)
@@ -63,6 +64,7 @@ section themes
     title       :: String
     description :: Text
     issues      -> Set<Issue> (inverse=Issue.themes)
+    project     -> Project (inverse=Project.themes)
   }
  
 section releases
@@ -73,6 +75,7 @@ section releases
     description :: Text
     released    :: Date
     issues      -> Set<Issue> (inverse=Issue.release)
+    project     -> Project (inverse=Project.releases)
   }
   
 sections constants
