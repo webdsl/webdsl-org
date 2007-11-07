@@ -67,7 +67,6 @@ section viewing issues
   {
     main()
     title{output(i.key) ": " output(i.title)}
-    
     define sidebar()
     {
       issueProperties(i)
@@ -83,16 +82,16 @@ section viewing issues
         
         par{ output(i.description) }
         
-        section{
-          header{"Dependencies"}
-          "Requires"    output(i.requires)
-          "Required by" output(i.requiredby)
-        }
+        //section{
+        //  header{"Dependencies"}
+        //  "Requires"    output(i.requires)
+        //  "Required by" output(i.requiredby)
+        //}
     
-        section{
-          header{"Description"}
-          output(i.description)
-        }
+        //section{
+        //  header{"Description"}
+        //  output(i.description)
+        //}
       }
     }
   }

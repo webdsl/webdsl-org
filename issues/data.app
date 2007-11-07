@@ -11,8 +11,8 @@ section projects
     members     -> Set<User>
     
     issues      -> Set<Issue>   (inverse=Issue.project)
-    themes      -> Set<Theme>   (inverse=Theme.project)
-    releases    -> Set<Release> (inverse=Release.project)
+  //themes      -> Set<Theme>   (inverse=Theme.project)
+  //releases    -> Set<Release> (inverse=Release.project)
     
     nextkey     :: Int
   }
@@ -35,16 +35,18 @@ section issues
     submitted   :: Date
     updated     :: Date
     
-    requires    -> Set<Issue> (inverse=Issue.requiredby)
-    requiredby  -> Set<Issue> (inverse=Issue.requires)
+  //requires    -> Set<Issue> (inverse=Issue.requiredby)
+  //requiredby  -> Set<Issue> (inverse=Issue.requires)
     
-    themes      -> Set<Theme> (inverse=Theme.issues)
-    release     -> Release (inverse=Release.issues)
+  //themes      -> Set<Theme> (inverse=Theme.issues)
+  //release     -> Release (inverse=Release.issues)
   }
   
   // issue keys should be automatically generated as project.key + "-" + n
   // where n is the next issue number in the project
   
+sections issue properties
+
   entity IssueType {
     type :: String (name)
   }
@@ -56,30 +58,7 @@ section issues
   entity IssueStatus {
     status :: String (name)
   }
- 
-section themes
-
-  entity Theme {
-    codename    :: String (name)
-    title       :: String
-    description :: WikiText
-    issues      -> Set<Issue> (inverse=Issue.themes)
-    project     -> Project (inverse=Project.themes)
-  }
- 
-section releases
-
-  entity Release {
-    codename    :: String (name)
-    title       :: String
-    description :: WikiText
-    released    :: Date
-    issues      -> Set<Issue> (inverse=Issue.release)
-    project     -> Project (inverse=Project.releases)
-  }
   
-sections constants
-
   globals {
   
     var open   : IssueStatus := IssueStatus { status := "Open" };
@@ -93,6 +72,28 @@ sections constants
     var minor    : IssuePriority := IssuePriority { priority := "Minor" };
     
   }
+  
+section themes
+
+  entity Theme {
+    codename    :: String (name)
+    title       :: String
+    description :: WikiText
+    //issues      -> Set<Issue> (inverse=Issue.themes)
+    //project     -> Project (inverse=Project.themes)
+  }
+ 
+section releases
+
+  entity Release {
+    codename    :: String (name)
+    title       :: String
+    description :: WikiText
+    released    :: Date
+    //issues      -> Set<Issue> (inverse=Issue.release)
+    //project     -> Project (inverse=Project.releases)
+  }
+  
   
   
   

@@ -34,6 +34,18 @@ section home
           listitem { output(p) }
         } }
       }
+      section { 
+        header{"Users"}
+        list { for(u : User) { 
+          listitem { output(u) }
+        } }
+      }
+      section { 
+        header{"Pages"}
+        list { for(p : Page) { 
+          listitem { output(p) }
+        } }
+      }
     }
   }
 
