@@ -4,6 +4,12 @@ section pages
   
   define page page(p : Page)
   {
+    init {
+      if(p.authors.length = 0) {
+        // This is a new page
+        goto editPage(p);
+      }
+    }
     main()
     title{output(p.name)}
     define sidebar() {
