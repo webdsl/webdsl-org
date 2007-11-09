@@ -1,144 +1,114 @@
-module app/blog
+module blog/pages
 
-description {
-  A blog is a journal-like sequence of time-stamped entries. The
-  main page of a blog shows the n most recent entries. Entries also
-  have their own page.
-}
-
-section domain
-
-  entity Blog {
-    title      :: String (name)
-    author     -> Person
-    entries    <> List<BlogEntry>
-    categories -> List<Category> // share categories between blogs?
-  }
+section queries
   
-  entity BlogEntry {
-    blog     -> Blog
-    title    :: String (name)
-    created  :: Date
-    category -> Category // select from categories defined in blog
-    intro    :: Text
-    body     :: Text
-    comments <> List<BlogComment>
-  }
+  globals {
   
-  entity Category {
-    name :: String
-  }
-  
-  entity BlogComment {
-    author -> Person
-    text :: Text
-  }
-
-section pages
-
-  define blogSidebar(blog : Blog) {
-    personSidebar(blog.author)
-  }
-  
-  define blogEntries() {}
-    
-  define page viewBlog(blog : Blog) {
-    main()
-    
-    var entries : List<BlogEntry> := 
+    function sortedBlogEntries(b : Blog) : List<BlogEntry> {
+      var entries : List<BlogEntry> := 
         select distinct e from BlogEntry as e, Blog as b
-         where e member of b._entries
+         where (b = ~b) and (e member of b._entries)
          order by e._created descending;
-    
-    define blogEntries() {
-      list{
-        for(entry : BlogEntry in entries) {
-          listitem { navigate(entry.name, viewBlogEntry(entry)) }
-        }
-      }
+      return entries;
     }
     
-    define sidebar(){ blogSidebar(blog) }
-    
-    define manageMenu() { 
-       navigate("Edit", editBlog(blog))
-       
-       form{actionLink("New Blog", createNewBlogEntry())} 
-       action createNewBlogEntry() {
-         var entry : BlogEntry := 
-           BlogEntry{
-             blog := blog
-             title := "title here"
-           };
-         blog.entries.add(entry);
-         blog.persist();
-         return editBlogEntry(entry);
-       }
+  }
+  
+section sidebar
+
+  define blogSidebar(b : Blog, entries : List<BlogEntry>)
+  {
+    output(entries)
+    //newBlogEntry(b)
+  }
+  
+  define newBlogEntry(b : Blog)
+  {
+    var entry : BlogEntry := BlogEntry{ blog := b };
+    form{
+      actionLink("Blog this", createNewBlogEntry())
+      input(entry.title)
     }
-    
+    action createNewBlogEntry() {
+      b.entries.add(entry);
+      b.persist();
+      return editBlogEntry(entry);
+    }
+  }
+  
+section blog frontpage
+
+  define page blog(b : Blog) 
+  {
+    main()
+    var entries : List<BlogEntry> := b.entries; // sortedBlogEntries(b);
+    // this variable declaration causes page not to be compiled
+    title{text(b.title)}
+    define applicationSidebar() { 
+      //blogSidebar(b, entries) 
+      navigate("Edit", editBlog(b))
+    }
     define body() {
-      title{text(blog.title)}
-      
-      tabs {
-      
-        tab("Foo") {
-        
-        }
-        
-      }
-      
       section{ 
-        header{ text(blog.title) }
-        for(entry : BlogEntry in entries) {
-          section{ 
-            header{ text(entry.title) }
-            output(entry.created)
+        header{ text(b.title) }
+        //for(entry : BlogEntry in entries) {
+        //  blogEntryIntro(entry, b)
+        //}
+      }
+    }
+  }
+  
+  define blogEntryIntro(entry : BlogEntry, b : Blog)
+  {
+    section{ 
+      header{output(entry.title)}
+      output(entry.created)
             
-            par{outputText(entry.intro)}
+      par{outputText(entry.intro)}
             
-            par{ 
-              form{
-                navigate("Read more", viewBlogEntry(entry))
-                " | "
-                navigate("Edit", editBlogEntry(entry))
-                " | "
-                actionLink("Delete", delete(entry))
-                action delete(entry : BlogEntry) {
-                  blog.entries.remove(entry);
-                  blog.save();
-                  return viewBlog(blog);
-                }
-              }
-            }
+      par{ 
+        form{
+          navigate("Read more", blogEntry(entry))
+          " | "
+          navigate("Edit", editBlogEntry(entry))
+          " | "
+          actionLink("Delete", delete(entry))
+          action delete(entry : BlogEntry) {
+            b.entries.remove(entry);
+            b.save();
+            return blog(b);
           }
         }
       }
     }
   }
+  
+section blog entry page
 
-  define page viewBlogEntry(entry : BlogEntry) {
+  define page blogEntry(entry : BlogEntry) 
+  {
     main()
-    define sidebar(){ blogSidebar(entry.blog) }
-    define manageMenu() { navigate("Edit", editBlogEntry(entry)) }
+    
+    title{output(entry.blog.title) " / " output(entry.title)}
+    
+    var entries : List<BlogEntry> := sortedBlogEntries(entry.blog);
+    
+    define applicationSidebar(){ 
+      blogSidebar(entry.blog, entries) 
+      navigate("Edit", editBlogEntry(entry))
+    }
+    
     define body() {
-      title{text(entry.title)}
       section{
         header{text(entry.title)}
           div("blogDate"){outputDate(entry.created)}
           div("blogIntro"){outputText(entry.intro)}
           div("blogBody"){outputText(entry.body)}
-          
         section{ 
           header{"Comments"}
           output(entry.comments)
         }
       }
     }
-    define blogEntries() {
-      list{
-        for(entry : BlogEntry in entry.blog.entries) {
-          listitem { navigate(entry.name, viewBlogEntry(entry)) }
-        }
-      }
-    }
+    
   }

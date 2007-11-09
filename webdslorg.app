@@ -5,21 +5,11 @@ description {
 }
 
 imports templates/main
-
-imports wiki/data
-imports wiki/page
-imports wiki/init
-imports wiki/access-control
-
-imports users/data
-imports users/profiles
-imports users/authentication
-imports users/access-control
-
-imports issues/data
-imports issues/pages
-imports issues/access-control
-imports issues/init
+imports wiki/main
+imports users/main
+imports issues/main
+imports blog/main
+imports contexts/main
 
 section home
 
@@ -44,6 +34,12 @@ section home
         header{"Pages"}
         list { for(p : Page) { 
           listitem { output(p) }
+        } }
+      }
+      section { 
+        header{"Blogs"}
+        list { for(b : Blog) { 
+          listitem { output(b) }
         } }
       }
     }

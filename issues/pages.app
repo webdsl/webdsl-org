@@ -67,7 +67,8 @@ section viewing issues
   {
     main()
     title{output(i.key) ": " output(i.title)}
-    define sidebar()
+    
+    define applicationSidebar()
     {
       issueProperties(i)
       issueOperations(i)

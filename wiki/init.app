@@ -9,6 +9,12 @@ section globals
         password   := "secret"
       };
 
+    var eelco : User := 
+      User {
+        username   := "EelcoVisser"
+        password   := "foo"
+      };
+
     var mainPage : Page := 
       Page {
         name    := "MainPage"

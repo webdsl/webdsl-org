@@ -12,11 +12,9 @@ section pages
     }
     main()
     title{output(p.name)}
-    define sidebar() {
-      list { 
-	listitem { navigate(home()) { "Home" } }
-        listitem { currentUser() }
-        // listitem { newPage() } // triggers bug in renaming ??
+    define applicationSidebar() {
+      list {
+        listitem { newPage() } // triggers bug in renaming ??
       	listitem { editLink(p) }
       }
     }

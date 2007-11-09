@@ -17,21 +17,20 @@ section main template.
 
 section basic page elements.
 
-  define homesidebar() {
+  define homeSidebar() {
     list { 
       listitem{ navigate("Home", home()) } 
       listitem { currentUser() }
-      listitem { newPage() }
     }
   }
   
   define sidebar() {
-    list { 
-      listitem { navigate(home()) { "Home" } }
-      listitem { currentUser() }
-      listitem { newPage() }
-    }
+    homeSidebar()
+    contextSidebar()
+    applicationSidebar()
   }
+  
+  define applicationSidebar() { }
   
   define footer() {
     "generated with "

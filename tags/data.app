@@ -1,4 +1,4 @@
-module tags
+module tags/data
 
   description {
     A tag is a name-based identifier for an object. Entity types can

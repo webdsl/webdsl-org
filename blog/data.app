@@ -6,40 +6,58 @@ description {
   have their own page.
 }
 
+imports tags/data
+
 section domain
 
   entity Blog {
     title      :: String (name)
-    author     -> Person
-    entries    <> List<BlogEntry>
-    categories -> List<Category> // share categories between blogs?
+    authors    -> Set<User>          // group of authors?
+    entries    -> List<BlogEntry>    (inverse=BlogEntry.blog)
+    categories -> List<Category>     // share categories between blogs?
   }
   
   entity BlogEntry {
-    blog     -> Blog
+    blog     -> Blog (inverse=Blog.entries)
     title    :: String (name)
+    author   -> User
     created  :: Date
+    updated  :: Date
     category -> Category // select from categories defined in blog
-    intro    :: Text
-    body     :: Text
+    intro    :: WikiText
+    body     :: WikiText
     comments <> List<BlogComment>
   }
+  
+section authorship
+
+  extend entity User {
+    blogs -> Set<Blog> (inverse=Blog.authors)
+  }
+ 
+  extend entity User {
+    blogentries -> Set<BlogEntry> (inverse=BlogEntry.author)
+  }
+ 
+section categories
   
   entity Category {
     name :: String
   }
   
+section comments
+
   entity BlogComment {
-    author -> Person
-    text :: Text
+    author -> User
+    text   :: WikiText
   }
 
 section blog tagging
 
   extend entity BlogEntry {
-    tags -> Set<Tag> {inverse=Tag.blogentries}
+    tags -> Set<Tag> (inverse=Tag.blogentries)
   }
   
   extend entity Tag {
-    blogentries -> Set<BlogEntry> {inverse=Blog.tags}
+    blogentries -> Set<BlogEntry> (inverse=BlogEntry.tags)
   }
