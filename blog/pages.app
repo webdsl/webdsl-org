@@ -18,8 +18,9 @@ section sidebar
 
   define blogSidebar(b : Blog, entries : List<BlogEntry>)
   {
+    output(b)
     output(entries)
-    //newBlogEntry(b)
+    newBlogEntry(b)
   }
   
   define newBlogEntry(b : Blog)
@@ -30,6 +31,7 @@ section sidebar
       input(entry.title)
     }
     action createNewBlogEntry() {
+      entry.author := securityContext.principal;
       b.entries.add(entry);
       b.persist();
       return editBlogEntry(entry);
@@ -41,19 +43,18 @@ section blog frontpage
   define page blog(b : Blog) 
   {
     main()
-    var entries : List<BlogEntry> := b.entries; // sortedBlogEntries(b);
-    // this variable declaration causes page not to be compiled
+    var entries : List<BlogEntry> := sortedBlogEntries(b);
     title{text(b.title)}
     define applicationSidebar() { 
-      //blogSidebar(b, entries) 
+      blogSidebar(b, entries) 
       navigate("Edit", editBlog(b))
     }
     define body() {
       section{ 
         header{ text(b.title) }
-        //for(entry : BlogEntry in entries) {
-        //  blogEntryIntro(entry, b)
-        //}
+        for(entry : BlogEntry in entries) {
+          blogEntryIntro(entry, b)
+        }
       }
     }
   }

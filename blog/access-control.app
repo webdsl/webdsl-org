@@ -20,4 +20,8 @@ section blog
       securityContext.loggedIn
     }
     
+    rules template newBlogEntry(*) {
+      securityContext.loggedIn
+    }
+    
   }
