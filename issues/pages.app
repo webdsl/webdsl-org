@@ -1,5 +1,22 @@
 module issues/pages
 
+section issue tracker main page
+
+  define page issues()
+  { 
+    main()
+    title{"Issue Tracker"}
+    define body()
+    {
+      section{
+        header{"Projects"}
+        list { for(p : Project) {
+          listitem { output(p) }
+        } }
+      }
+    }
+  }
+
 section projects
 
   define page project(p : Project) 
@@ -65,6 +82,14 @@ section viewing issues
 
   define page issue(i : Issue)
   {
+    // make sure this is a proper issue
+    // otherwise go to error page
+    init {
+      if(i.project = null) {
+        // This is a new issue
+        goto issues();
+      }
+    }
     main()
     title{output(i.key) ": " output(i.title)}
     
@@ -77,21 +102,16 @@ section viewing issues
     define body() 
     {
       output(i.project)
-    
       section{
         header{output(i.title)}
-        
-        par{ output(i.description) }
-        
+        section{ 
+          header{"Description"}
+          output(i.description)
+        }
         //section{
         //  header{"Dependencies"}
         //  "Requires"    output(i.requires)
         //  "Required by" output(i.requiredby)
-        //}
-    
-        //section{
-        //  header{"Description"}
-        //  output(i.description)
         //}
       }
     }

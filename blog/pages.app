@@ -24,8 +24,12 @@ section sidebar
         list { for(entry : BlogEntry in entries) {
           listitem{ output(entry) output(entry.created) }
         } } }
-      listitem{navigate(newBlogEntry(b)){"New Blog"}}
+      newBlogEntryLink(b)
     }
+  }
+  
+  define newBlogEntryLink(b : Blog) {
+    listitem{ navigate(newBlogEntry(b)){"New Blog"} }
   }
   
 section blog frontpage
@@ -36,8 +40,8 @@ section blog frontpage
     var entries : List<BlogEntry> := sortedBlogEntries(b);
     title{text(b.title)}
     define applicationSidebar() { 
-      blogSidebar(b, entries) 
-      navigate("Edit", editBlog(b))
+      blogSidebar(b, entries)
+      editBlogLink(b)
     }
     define body() {
       section{ 
@@ -47,6 +51,10 @@ section blog frontpage
         }
       }
     }
+  }
+  
+  define editBlogLink(b : Blog) {
+    navigate("Edit", editBlog(b))
   }
   
   define blogEntryIntro(entry : BlogEntry, b : Blog)

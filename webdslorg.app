@@ -13,13 +13,25 @@ imports contexts/main
 
 section home
 
+  globals {
+    var homePage : Page := Page{
+      name := "WebDSL"
+      content := "See also [[page(MainPage)]]. I am [[page(WebDSL)]]."
+    };
+  }
+
   define page home() 
   {
-    title{"WebDSL"}
+    var hp : Page := homePage;
+    title{output(homePage.name)}
     main()
     define body() {
+      section{
+        header{output(hp)}
+        par{ output(hp.content) }
+      }
       section { 
-        header{"Projects"}
+        header{navigate(issues()){"Projects"}}
         list { for(p : Project) { 
           listitem { output(p) }
         } }
@@ -44,6 +56,7 @@ section home
       }
     }
   }
+
 
   
 

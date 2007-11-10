@@ -4,6 +4,8 @@ section foo
 
   access control rules {
   
+    rules page issues() { true }
+  
     rules page project(*) { true }
   
     rules page issue(*) { true }

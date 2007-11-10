@@ -40,7 +40,7 @@ section basic page elements.
 section menus.
   
   define menu() {
-    //list { listitem{  } }
+    list { listitem{ navigate(issues()){"Issues"} } }
   }
   
 section entity management.
