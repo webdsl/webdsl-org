@@ -166,7 +166,7 @@ li {
 /* see http://www.css3.com/property/list-style/ */
 
 .sidebar {
-  font-size : 1em;
+  font-size : 90%;
 }
 
 .sidebar ul {
