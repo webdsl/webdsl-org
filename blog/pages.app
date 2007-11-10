@@ -18,27 +18,13 @@ section sidebar
 
   define blogSidebar(b : Blog, entries : List<BlogEntry>)
   {
-    output(b)
-    output(entries)
-    newBlogEntry(b)
-  }
-  
-  define newBlogEntry(b : Blog)
-  {
-    var entry : BlogEntry := BlogEntry{ blog := b };
-    form{
-      actionLink("Blog this", createNewBlogEntry())
-      input(entry.key)
-    }
-    action createNewBlogEntry() {
-      var newEntry : BlogEntry := BlogEntry{ blog := b };
-      newEntry.key := entry.key;
-      newEntry.title := entry.key;
-      newEntry.author := securityContext.principal;
-      entry := BlogEntry{ blog := b };
-      b.entries.add(newEntry);
-      b.persist();
-      return editBlogEntry(newEntry);
+    list{
+      listitem{ "Recent Entries" }
+      listitem{
+        list { for(entry : BlogEntry in entries) {
+          listitem{ output(entry) output(entry.created) }
+        } } }
+      listitem{navigate(newBlogEntry(b)){"New Blog"}}
     }
   }
   
@@ -55,7 +41,7 @@ section blog frontpage
     }
     define body() {
       section{ 
-        header{ text(b.title) }
+        header{ output(b) }
         for(entry : BlogEntry in entries) {
           blogEntryIntro(entry, b)
         }
@@ -66,25 +52,10 @@ section blog frontpage
   define blogEntryIntro(entry : BlogEntry, b : Blog)
   {
     section{ 
-      header{output(entry.title)}
-      output(entry.created)
-            
+      header{output(entry)}
+      entryByline(entry)
       par{output(entry.intro)}
-            
-      par{ 
-        form{
-          navigate("Read more", blogEntry(entry))
-          " | "
-          navigate("Edit", editBlogEntry(entry))
-          " | "
-          actionLink("Delete", delete(entry))
-          action delete(entry : BlogEntry) {
-            b.entries.remove(entry);
-            b.save();
-            return blog(b);
-          }
-        }
-      }
+      par{ editBlogEntryLinks(entry) }
     }
   }
   
@@ -99,21 +70,79 @@ section blog entry page
     var entries : List<BlogEntry> := sortedBlogEntries(entry.blog);
     
     define applicationSidebar(){ 
-      blogSidebar(entry.blog, entries) 
-      navigate("Edit", editBlogEntry(entry))
+      blogSidebar(entry.blog, entries)
     }
     
     define body() {
       section{
+        output(entry.blog)
         header{text(entry.title)}
-          block("blogDate"){outputDate(entry.created)}
-          block("blogIntro"){output(entry.intro)}
-          block("blogBody"){output(entry.body)}
+          entryByline(entry)
+          par{ output(entry.intro) }
+          par{ output(entry.body) }
+          par{ form{ editBlogEntryLinks(entry) } }
         section{ 
           header{"Comments"}
           output(entry.comments)
         }
       }
     }
+  }
+
+  define editBlogEntryLinks(entry : BlogEntry) {
+    form {
+      navigate("Edit", editBlogEntry(entry))
+      " | "
+      actionLink("Delete", delete(entry))
+      action delete(entry : BlogEntry) {
+        entry.blog.entries.remove(entry);
+        entry.blog.save();
+        return blog(entry.blog);
+      }
+    }
+  }
+  
+  define entryByline(entry : BlogEntry) {
+     par{
+       "by " output(entry.author) 
+       " at " outputDate(entry.created)
+    }
+  }
+  
+section new blog
+
+  define page newBlogEntry(b : Blog)
+  {
+    main()
     
+    title{output(b.title) " / New Blog" }
+    
+    define applicationSidebar(){ 
+      blogSidebar(b, sortedBlogEntries(b))
+    }
+    
+    define body() {
+      var newKey : String;
+      
+      section{ 
+        header{ output(b) }
+        form{
+          table{row{"Key: " input(newKey)}}
+          action("Create it", createBlog())
+        }
+      }
+      
+      action createBlog() {
+        var entry : BlogEntry := 
+          BlogEntry {
+            key    := newKey
+            title  := newKey
+            blog   := b
+            author := securityContext.principal
+          };
+        b.entries.add(entry);
+        b.persist();
+        return editBlogEntry(entry);
+      }
+    }
   }

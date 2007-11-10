@@ -8,6 +8,10 @@ section blog
       true
     }
     
+    rules template blogEntryIntro(entry : BlogEntry, b : Blog) {
+      true
+    }
+    
     rules page blogEntry(*) {
       true
     }
@@ -20,11 +24,11 @@ section blog
       securityContext.loggedIn
     }
     
-    rules template newBlogEntry(*) {
+    rules page newBlogEntry(*) {
       securityContext.loggedIn
     }
     
-    rules template createBlogEntry(*) {
+    rules template editBlogEntryLinks(entry : BlogEntry) {
       securityContext.loggedIn
     }
     
