@@ -28,13 +28,17 @@ section sidebar
     var entry : BlogEntry := BlogEntry{ blog := b };
     form{
       actionLink("Blog this", createNewBlogEntry())
-      input(entry.title)
+      input(entry.key)
     }
     action createNewBlogEntry() {
-      entry.author := securityContext.principal;
-      b.entries.add(entry);
+      var newEntry : BlogEntry := BlogEntry{ blog := b };
+      newEntry.key := entry.key;
+      newEntry.title := entry.key;
+      newEntry.author := securityContext.principal;
+      entry := BlogEntry{ blog := b };
+      b.entries.add(newEntry);
       b.persist();
-      return editBlogEntry(entry);
+      return editBlogEntry(newEntry);
     }
   }
   
@@ -65,7 +69,7 @@ section blog frontpage
       header{output(entry.title)}
       output(entry.created)
             
-      par{outputText(entry.intro)}
+      par{output(entry.intro)}
             
       par{ 
         form{
@@ -86,7 +90,7 @@ section blog frontpage
   
 section blog entry page
 
-  define page blogEntry(entry : BlogEntry) 
+  define page blogEntry(entry : BlogEntry)
   {
     main()
     
@@ -102,9 +106,9 @@ section blog entry page
     define body() {
       section{
         header{text(entry.title)}
-          div("blogDate"){outputDate(entry.created)}
-          div("blogIntro"){outputText(entry.intro)}
-          div("blogBody"){outputText(entry.body)}
+          block("blogDate"){outputDate(entry.created)}
+          block("blogIntro"){output(entry.intro)}
+          block("blogBody"){output(entry.body)}
         section{ 
           header{"Comments"}
           output(entry.comments)

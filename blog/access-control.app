@@ -24,4 +24,8 @@ section blog
       securityContext.loggedIn
     }
     
+    rules template createBlogEntry(*) {
+      securityContext.loggedIn
+    }
+    
   }

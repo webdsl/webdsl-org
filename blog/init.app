@@ -6,7 +6,8 @@ section create a blog
   
     var eelcosBlog : Blog :=
       Blog {
-        title := "Transformations and Abstractions"
+        key     := "TransformationsAndAbstractions"
+        title   := "Transformations and Abstractions"
         authors := {eelco}
       };
       

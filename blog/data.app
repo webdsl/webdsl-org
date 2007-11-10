@@ -11,6 +11,7 @@ imports tags/data
 section domain
 
   entity Blog {
+    key        :: String (id)
     title      :: String (name)
     authors    -> Set<User>          // group of authors?
     entries    -> List<BlogEntry>    (inverse=BlogEntry.blog)
@@ -18,15 +19,16 @@ section domain
   }
   
   entity BlogEntry {
-    blog     -> Blog (inverse=Blog.entries)
-    title    :: String (name)
-    author   -> User
-    created  :: Date
-    updated  :: Date
-    category -> Category // select from categories defined in blog
-    intro    :: WikiText
-    body     :: WikiText
-    comments <> List<BlogComment>
+    blog      -> Blog (inverse=Blog.entries)
+    key       :: String (id)
+    title     :: String (name)
+    author    -> User
+    created   :: Date
+    updated   :: Date
+    category  -> Category // select from categories defined in blog
+    intro     :: WikiText
+    body      :: WikiText
+    comments  <> List<BlogComment>
   }
   
 section authorship
