@@ -7,6 +7,10 @@ section users
       true
     }
     
+    rules page users() {
+      true
+    }
+    
     rules page editUser(u : User) {
       securityContext.principal = u
     }

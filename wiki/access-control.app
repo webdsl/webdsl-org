@@ -16,6 +16,10 @@ section page
     rules page page(*) {
       true
     }
+    
+    rules page wiki() {
+      true
+    }
 
     rules page editPage(*) {
       securityContext.loggedIn

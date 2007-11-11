@@ -8,6 +8,10 @@ section blog
       return securityContext.loggedIn;
     }
     
+    rules page blogs() {
+      true
+    }
+    
     rules page blog(b : Blog) {
       true
     }

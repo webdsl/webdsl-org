@@ -45,7 +45,10 @@ section basic page elements.
 section menus.
   
   define menu() {
+    list { listitem{ navigate(wiki()){"Wiki"} } }
+    list { listitem{ navigate(blogs()){"Blogs"} } }
     list { listitem{ navigate(issues()){"Issues"} } }
+    list { listitem{ navigate(users()){"Users"} } }
     list { listitem{ currentUser() } }
   }
   
@@ -61,4 +64,3 @@ section entity management.
       allMenu()
     }
   }
-
