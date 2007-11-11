@@ -7,10 +7,22 @@ section authentication
   }
 
   define currentUser() {
-    signin() 
-    signoff()
+    signinMenu()
+    signoffMenu()
+  }
+  
+  define page login() {
+    main()
+    define body() {
+      signin()
+      signoff()
+    }
   }
 
+  define signinMenu() {
+    navigate(login()){"Sign in"}
+  }
+  
   define signin() 
   {
     var usr : User := User{};
@@ -42,16 +54,25 @@ section authentication
   define signoff() 
   {
     "Signed in as " output(securityContext.principal)
+    signoffAction()
+  }
+  
+  define signoffAction() {
     form {
       actionLink("sign off", signoff())
       action signoff() {
         securityContext.loggedIn := false;
         securityContext.principal := null;
+        // ensure that principal is null when signing off
         return home();
       }
     }
   }
-  
-  // ensure that principal is null when signing off
+    
+  define signoffMenu() 
+  {
+    "Signed in as " output(securityContext.principal)
+    list{ listitem{ signoffAction() } }
+  }
   
   

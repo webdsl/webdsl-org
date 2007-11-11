@@ -14,15 +14,34 @@ section users
     rules page register() {
       true
     }
+    
+    rules page login() {
+      true
+    }
   }
   
 section authentication actions
 
   access control rules {
+  
     rules template signin() {
       !securityContext.loggedIn
     }
+    
+    rules template signinMenu() {
+      !securityContext.loggedIn
+    }
+    
     rules template signoff() {
       securityContext.loggedIn
     }
+    
+    rules template signoffMenu() {
+      securityContext.loggedIn
+    }
+    
+    rules template signoffAction() {
+      securityContext.loggedIn
+    }
+    
   }

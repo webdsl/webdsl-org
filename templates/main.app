@@ -4,6 +4,7 @@ section main template.
 
   define main() {
     div("outersidebar") {
+      logo()
       sidebar()
     }
     div("outerbody") {
@@ -17,10 +18,14 @@ section main template.
 
 section basic page elements.
 
+  define logo() {
+    section{header{navigate(home()){"WebDSL"}}}
+  }
+
   define homeSidebar() {
     list { 
-      listitem{ navigate("Home", home()) } 
-      listitem { currentUser() }
+      listitem{ navigate(home()){"Home"} } 
+      //listitem { currentUser() }
     }
   }
   
@@ -41,6 +46,7 @@ section menus.
   
   define menu() {
     list { listitem{ navigate(issues()){"Issues"} } }
+    list { listitem{ currentUser() } }
   }
   
 section entity management.
