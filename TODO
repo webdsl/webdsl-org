@@ -1,0 +1,75 @@
+General WebDSL Issues
+---------------------
+
+- backing into edit screen causes crash on subsequent save
+- ordered lists; lists tend to lose ordering, e.g. author list
+
+
+Interaction Patterns
+--------------------
+
+- creating new objects (especially objects with a symbolic id)
+  - wiki page
+  - issue
+  - blog entry and comments
+  - registering new users
+
+Navigation
+----------
+
+- entry points
+  - home page of complete app
+  - start pages for sub-apps (e.g. issues)
+  - need to identify recently added objects, important
+    objects, etc.
+- how to organize navigation between sub-applications
+
+- examples
+  - start pages of a wiki
+  - road map for issue tracker
+
+Wiki
+----
+
+- edit history
+- categories
+- tags
+- name should be read-only
+- add title to override reference
+- start pages should be shown on wiki front-page
+- name spaces: foo/bar already works
+  - it should be possible to use this notion in access control,
+    e.g. owner of foo owns all foo/* pages
+
+Issues
+------
+
+- key should be read-only
+- themes and releases to organize views on 
+  collections of issues
+
+
+Tags
+----
+
+- generic mechanism for categorizing content (objects)
+- should be possible to add tags by name, but also
+  select tags from (user's) collection
+
+News
+----
+
+- news items
+- show most n recent items
+
+
+Forum
+-----
+
+- discussion threads
+- adding replies 
+
+FAQ
+---
+
+- finding questions

@@ -2,7 +2,7 @@ module wiki-users
 
 section pages
   
-  define page user(u : User)
+  define page userFoo(u : User)
   {
     main()
     title{"Profile of " output(u.name)}
@@ -17,7 +17,7 @@ section pages
 
 section edit profile information
   
-  define page editUser(u : User)
+  define page editUserFoo(u : User)
   {
     main()
     title{"Edit profile of " output(u.name)}

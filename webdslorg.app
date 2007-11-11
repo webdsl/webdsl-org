@@ -15,8 +15,9 @@ section home
 
   globals {
     var homePage : Page := Page{
-      name := "WebDSL"
-      content := "See also [[page(MainPage)]]. I am [[page(WebDSL)]]."
+      name    := "WebDSL"
+      content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)][domain-specific language.]] for webapplications with a rich data model."
+      authors := {eelco}
     };
   }
 
