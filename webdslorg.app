@@ -16,6 +16,8 @@ section application configuration
   entity Configuration {
     blogs      -> Set<Blog>
     homepage   -> Page
+    sidebar    -> Page
+    users      -> Page
     startpages -> Set<Page>
     projects   -> Set<Project>
   }
@@ -36,6 +38,16 @@ section initialization of application configuration
 
   globals {
   
+    var appSidebar : Page := Page{
+      name := "Sidebar"
+      content := ""
+    };
+    
+    var usersMenu : Page := Page{
+      name := "UsersMenu"
+      content := "- [[user(EelcoVisser)]]\n- [[user(ZefHemel)]]"
+    };
+  
     var homePage : Page := Page{
       name    := "WebDSL"
       content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)]] for webapplications with a rich data model."
@@ -44,6 +56,9 @@ section initialization of application configuration
     
     var theApp : Configuration := Configuration {
       homepage := homePage
+      sidebar  := appSidebar
+      users    := usersMenu
+      blogs    := {eelcosBlog}
     }; 
     
   }
@@ -55,6 +70,9 @@ section home page
     var config : Configuration := theApp;
     title{output(homePage.name)}
     main()
+    define sidebar() {
+      output(config.sidebar.content)
+    }
     define body() {
       output(config.homepage.content)
     }
