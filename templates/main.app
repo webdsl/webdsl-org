@@ -47,7 +47,6 @@ section basic page elements.
 section menus.
   
   define menu() {
-    var config : Configuration := theApp;
     list { 
       listitem{ navigate(wiki()){"Wiki"} 
         output(config.startpages)}
@@ -75,6 +74,7 @@ section menus.
         }
       }
     }
+
   }
   
 section entity management.

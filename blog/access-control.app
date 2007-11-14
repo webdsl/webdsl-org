@@ -5,7 +5,7 @@ section blog
   access control rules {
   
     predicate mayEditBlog(b : Blog) {
-      return securityContext.loggedIn;
+      securityContext.loggedIn
     }
     
     rules page blogs() {
@@ -29,23 +29,23 @@ section blog
     }
     
     rules page editBlog(b : Blog) {
-      securityContext.loggedIn
+      mayEditBlog(b)
     }
     
     rules page editBlogEntry(entry : BlogEntry) {
-      securityContext.loggedIn
+      mayEditBlog(entry.blog)
     }
     
     rules page newBlogEntry(b : Blog) {
-      securityContext.loggedIn
+      mayEditBlog(b)
     }
     
     rules template newBlogEntryLink(b : Blog) {
-      securityContext.loggedIn
+      mayEditBlog(b)
     }
     
     rules template editBlogEntryLinks(entry : BlogEntry) {
-      securityContext.loggedIn
+      mayEditBlog(entry.blog)
     }
     
   }

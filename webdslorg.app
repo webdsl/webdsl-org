@@ -54,7 +54,7 @@ section initialization of application configuration
       authors := {eelco}
     };
     
-    var theApp : Configuration := Configuration {
+    var config : Configuration := Configuration {
       homepage := homePage
       sidebar  := appSidebar
       users    := usersMenu
@@ -67,8 +67,7 @@ section home page
 
   define page home() 
   {
-    var config : Configuration := theApp;
-    title{output(homePage.name)}
+    title{output(config.homepage.name)}
     main()
     define sidebar() {
       output(config.sidebar.content)
