@@ -11,3 +11,15 @@ section definition
   extend entity User {
     authored -> Set<Page> (inverseSlave=Page.authors)
   }
+  
+section tag relation
+
+  extend entity Tag {
+    pages -> Set<Page>
+  }
+  
+  extend entity Page {
+    tags -> Set<Tag>
+  }
+
+  

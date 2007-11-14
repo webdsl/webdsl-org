@@ -11,23 +11,52 @@ imports issues/main
 imports blog/main
 imports contexts/main
 
-section home
+section application configuration
+
+  entity Configuration {
+    blogs      -> Set<Blog>
+    homepage   -> Page
+    startpages -> Set<Page>
+    projects   -> Set<Project>
+  }
+  
+  access control rules {
+    
+    rules page configuration(*) {
+      true
+    }
+    
+    rules page editConfiguration(*) {
+      securityContext.loggedIn
+    }
+    
+  }
+   
+section initialization of application configuration
 
   globals {
+  
     var homePage : Page := Page{
       name    := "WebDSL"
-      content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)][domain-specific language.]] for webapplications with a rich data model."
+      content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)]] for webapplications with a rich data model."
       authors := {eelco}
     };
+    
+    var theApp : Configuration := Configuration {
+      homepage := homePage
+    }; 
+    
   }
+  
+section home page
 
   define page home() 
   {
-    var hp : Page := homePage;
+    var config : Configuration := theApp;
     title{output(homePage.name)}
     main()
     define body() {
-      output(hp.content)
+      output(config.homepage.content)
     }
   }
 

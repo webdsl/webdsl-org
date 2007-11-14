@@ -135,7 +135,7 @@ section new blog
       section{ 
         header{ output(b) }
         form{
-          table{row{"Key: " input(newKey)}}
+          table{row{"Key: " input(newKey)} }
           action("Create it", createBlog())
         }
       }

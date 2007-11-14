@@ -42,14 +42,38 @@ section basic page elements.
     navigate("Stratego/XT", url("http://www.strategoxt.org"))
   }
   
+  define contextSidebar() { }
+  
 section menus.
   
   define menu() {
-    list { listitem{ navigate(wiki()){"Wiki"} } }
-    list { listitem{ navigate(blogs()){"Blogs"} } }
-    list { listitem{ navigate(issues()){"Issues"} } }
+    var config : Configuration := theApp;
+    list { 
+      listitem{ navigate(wiki()){"Wiki"} 
+        output(config.startpages)}
+    }
+    
+    list { 
+      listitem{ navigate(blogs()){"Blogs"} 
+        output(config.blogs) } 
+    }
+    
+    list { listitem{ navigate(issues()){"Issues"} 
+      output(config.projects) }
+    }
+    
     list { listitem{ navigate(users()){"Users"} } }
+    
     list { listitem{ currentUser() } }
+    
+    list { 
+      listitem{ "Admin" 
+        list{ 
+          listitem{ navigate(configuration(config)){"Configuration"} }
+          listitem{ navigate(editConfiguration(config)){"Edit Configuration"} }
+        }
+      }
+    }
   }
   
 section entity management.
