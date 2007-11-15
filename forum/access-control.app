@@ -32,6 +32,10 @@ section AC
       securityContext.loggedIn
     }
     
+    rules page reply(*) {
+      true
+    }
+    
     rules page editReply(*) {
       securityContext.loggedIn
     }

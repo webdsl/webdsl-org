@@ -30,6 +30,26 @@ section pages
   define editLink(p : Page)
   {
     navigate(editPage(p)) { "Edit" }
+    
+    if (p in config.startpages) {
+      form {
+        actionLink("Remove from startpages", unmakeStartpage())
+        action unmakeStartpage() {
+          config.startpages.remove(p);
+          config.persist();
+        }
+      }
+    }
+      
+    if (!(p in config.startpages)) {
+      form{
+        actionLink("Make startpage", makeStartpage())
+        action makeStartpage() {
+          config.startpages.add(p);
+          config.persist();
+        }
+      }
+    }
   }
 
   define page editPage(p : Page) 
@@ -51,7 +71,7 @@ section pages
 	}
       }
     }
-  }        
+  }
   
   define newPage() 
   {
