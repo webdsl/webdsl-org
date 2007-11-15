@@ -9,12 +9,15 @@ imports wiki/main
 imports users/main
 imports issues/main
 imports blog/main
+imports forum/main
 imports contexts/main
+
 
 section application configuration
 
   entity Configuration {
     blogs      -> Set<Blog>
+    forums     -> Set<Forum>
     homepage   -> Page
     sidebar    -> Page
     users      -> Page
@@ -52,6 +55,10 @@ section initialization of application configuration
       name    := "WebDSL"
       content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)]] for webapplications with a rich data model."
       authors := {eelco}
+    };
+    
+    var webdslForum : Forum := Forum{
+      title := "The WebDSL Forum"
     };
     
     var config : Configuration := Configuration {

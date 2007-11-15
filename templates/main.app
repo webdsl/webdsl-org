@@ -57,6 +57,11 @@ section menus.
         output(config.blogs) } 
     }
     
+    list { 
+      listitem{ navigate(forums()){"Forums"} 
+        output(config.forums) } 
+    }
+    
     list { listitem{ navigate(issues()){"Issues"} 
       output(config.projects) }
     }
@@ -74,7 +79,6 @@ section menus.
         }
       }
     }
-
   }
   
 section entity management.
