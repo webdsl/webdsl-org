@@ -55,6 +55,7 @@ section initialization of application configuration
       name    := "WebDSL"
       content := "WebDSL\n-------\n[[page(WebDSL)]] is a [[page(DSL)]] for webapplications with a rich data model."
       authors := {eelco}
+      author  := eelco
     };
     
     var webdslForum : Forum := Forum{
@@ -81,9 +82,55 @@ section home page
     }
     define body() {
       output(config.homepage.content)
+      navigate(getname()){"Conversation test"}
     }
   }
 
+  
+section conversation test
+
+  access control rules {
+  
+    rules page getname() {
+      true
+    }
+    
+    rules page greet(*) {
+      true
+    }
+  }
+
+  entity Counter { accesses :: Int }
+  
+  globals { var stats : Counter := Counter { accesses := 0 }; }
+  
+  entity Visitor { name :: String (name) }
+
+  define page getname() {
+    var s : Counter := stats;
+    main()
+    define body(){ 
+      form {
+        var n : String; 
+        "Enter your name: " input(n)
+        action("Go", go())
+        action go() { 
+          var v : Visitor := Visitor{ name := n };
+          s.accesses := s.accesses + 1;
+          v.persist(); 
+          return greet(v); 
+        }
+      }
+    }
+  }
+  
+  define page greet(v : Visitor)
+  {
+    main()
+    define body(){ 
+      "Hello, " output(v.name) " you are visitor number " output(stats.accesses)
+    }
+  }
 
   
 

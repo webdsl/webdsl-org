@@ -21,6 +21,18 @@ section page
       true
     }
 
+    rules page pageDiff(*) {
+      securityContext.loggedIn
+    }
+    
+    rules page diff(*) {
+      securityContext.loggedIn
+    }
+    
+    rules page editPageDiff(*) {
+      securityContext.loggedIn
+    }
+    
     rules page editPage(*) {
       securityContext.loggedIn
     }

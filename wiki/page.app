@@ -22,7 +22,36 @@ section pages
       section {
         header{output(p.name)}
 	par { output(p.content) }
-	section { header{"Authors"} output(p.authors) }
+	par{"Authors" output(p.authors) }
+	par{navigate(diff(p.previous)){"Previous"}}
+      }
+    }
+  }
+  
+  define page diff(diff : PageDiff)
+  {
+    main()
+    define body() {
+      section{
+        header{output(diff.page)}
+        if (diff.next != null ) {
+          navigate(diff(diff.next)){"Next"} " "
+        }
+        if (diff.next = null ) {
+          navigate(page(diff.page)){"Next"} " "
+        }
+        if (diff.previous != null ) {
+          navigate(diff(diff.previous)){"Previous"}
+        }
+        section{
+          header{"Content"}
+          output(diff.content)
+          par{ "Changes by " output(diff.author) }
+        }
+        //section{
+        //  header{"Patch"}
+        //  output(diff.patch)
+        //}
       }
     }
   }
@@ -54,17 +83,20 @@ section pages
 
   define page editPage(p : Page) 
   {
+    var content : WikiText := p.content;
+    //init{
+    //  content := p.content;
+    //}
     main()
     title{"Edit page " output(p.name)}
     define body() {
       section {
         form { 
           header{input(p.name)}
-	  par { input(p.content) }
+	  par { input(content) }
 	  par { actionLink("Save changes", savePage()) }
           action savePage() {
-            p.authors.add(securityContext.principal);
-            securityContext.principal.authored.add(p);
+            p.makeChange(content, securityContext.principal);
             p.persist();
 	    return page(p);
           }
@@ -82,6 +114,7 @@ section pages
       action createPage() {
         // check that name is not empty ; as part of validation?
         newPage.authors.add(securityContext.principal);
+        newPage.author := securityContext.principal;
         newPage.persist();
         return editPage(newPage);
       }
