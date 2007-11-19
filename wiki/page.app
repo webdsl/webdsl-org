@@ -16,38 +16,42 @@ section pages
       list {
         listitem { newPage() } // triggers bug in renaming ??
       	listitem { editLink(p) }
+      	listitem { previousLink(p) }
       }
     }
     define body() {
       section {
         header{output(p.name)}
+        listitem{ "foo" }
 	par { output(p.content) }
 	par{"Authors" output(p.authors) }
-	par{navigate(diff(p.previous)){"Previous"}}
       }
     }
   }
   
+  define previousLink(p : Page)
+  {
+    if (p.previous != null) {
+      navigate(diff(p.previous)){"Previous"}
+    }
+  }
+	
   define page diff(diff : PageDiff)
   {
     main()
+    title{output(p.name) "/ version " diff.version}
+    define applicationSidebar() {
+      list {
+        listitem { newPage() } // triggers bug in renaming ??
+      	listitem { editLink(p) }
+      	listitem { previousLink(p) }
+      }
+    }
     define body() {
       section{
-        header{output(diff.page)}
-        if (diff.next != null ) {
-          navigate(diff(diff.next)){"Next"} " "
-        }
-        if (diff.next = null ) {
-          navigate(page(diff.page)){"Next"} " "
-        }
-        if (diff.previous != null ) {
-          navigate(diff(diff.previous)){"Previous"}
-        }
-        section{
-          header{"Content"}
-          output(diff.content)
-          par{ "Changes by " output(diff.author) }
-        }
+        header{output(diff.page) "/ version " diff.version}
+        output(diff.content)
+        par{ "Last changes by " output(diff.author) }
         //section{
         //  header{"Patch"}
         //  output(diff.patch)
@@ -56,6 +60,19 @@ section pages
     }
   }
   
+  define nextPreviousLink(diff : PageDiff)
+  {
+     if (diff.previous != null ) {
+          navigate(diff(diff.previous)){"<-"}
+     }
+     if (diff.next != null ) {
+       navigate(diff(diff.next)){"->"} " "
+     }
+     if (diff.next = null ) {
+       navigate(page(diff.page)){"->"} " "
+     }
+  }
+        
   define editLink(p : Page)
   {
     navigate(editPage(p)) { "Edit" }
