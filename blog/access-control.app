@@ -1,6 +1,6 @@
 module blog/access-control
 
-section blog 
+section blog stuff
 
   access control rules {
   

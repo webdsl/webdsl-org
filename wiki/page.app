@@ -39,17 +39,16 @@ section pages
   define page diff(diff : PageDiff)
   {
     main()
-    title{output(p.name) "/ version " diff.version}
+    title{output(diff.page.name) "/ version " output(diff.version)}
     define applicationSidebar() {
       list {
         listitem { newPage() } // triggers bug in renaming ??
-      	listitem { editLink(p) }
-      	listitem { previousLink(p) }
+      	listitem {  nextPreviousLink(diff) }
       }
     }
     define body() {
       section{
-        header{output(diff.page) "/ version " diff.version}
+        header{output(diff.page) "/ version " output(diff.version)}
         output(diff.content)
         par{ "Last changes by " output(diff.author) }
         //section{
