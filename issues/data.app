@@ -10,7 +10,7 @@ section projects
     lead        -> User
     members     -> Set<User>
     
-    issues      -> Set<Issue>   //(inverse=Issue.project)
+    issues      -> Set<Issue>   (inverse=Issue.project)
   //themes      -> Set<Theme>   (inverse=Theme.project)
   //releases    -> Set<Release> (inverse=Release.project)
     
@@ -27,7 +27,7 @@ section issues
     
     title       :: String 
     description :: WikiText
-    project     -> Project //(inverse=Project.issues)
+    project     -> Project (inverse=Project.issues)
     
     reporter    -> User
     assignee    -> User
