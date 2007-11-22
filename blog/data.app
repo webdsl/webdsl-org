@@ -56,10 +56,10 @@ section comments
 
 section blog tagging
 
-  extend entity BlogEntry {
-    tags -> Set<Tag> (inverse=Tag.blogentries)
-  }
+//  extend entity BlogEntry {
+//    tags -> Set<Tag> (inverse=Tag.blogentries)
+//  }
   
-  extend entity Tag {
-    blogentries -> Set<BlogEntry> (inverse=BlogEntry.tags)
-  }
+//  extend entity Tag {
+//    blogentries -> Set<BlogEntry> (inverse=BlogEntry.tags)
+//  }
