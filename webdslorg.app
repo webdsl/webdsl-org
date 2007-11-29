@@ -1,4 +1,4 @@
-application org.webdsl.wwww
+application org.webdsl.www
 
 description {
   This application is the website for webdsl.org
@@ -48,6 +48,7 @@ section initialization of application configuration
     
     var usersMenu : Page := Page{
       name := "UsersMenu"
+      author := eelco
       content := "- [[user(EelcoVisser)]]\n- [[user(ZefHemel)]]"
     };
   

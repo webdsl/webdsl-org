@@ -70,22 +70,30 @@ section creating new pages
   
 section making change to a page
 
+  // hmm, this implements a doubly linked list of diffs; you'd expect a List
+  // implementation to deal with this correctly; however, sofar Hibernate
+  // lists have not preserved ordering; but then one would always need the
+  // Page in combination with the version; maybe good anyway to use the
+  // page key as partial key of the diff anyway
+
   extend entity Page {
     function makeChange(text : WikiText, newAuthor : User) : Page {
-      var diff : PageDiff := 
-        PageDiff {
-          page     := this
-          previous := this.previous
-          patch    := text.makePatch(this.content)
-          author   := this.author
-          version  := this.version
-        };
-      this.content := text;
-      this.version := this.version + 1;
-      this.previous := diff;
-      if (diff.previous != null) {
-        diff.previous.next := diff;
+      if (this.version > 0) {
+        var diff : PageDiff := 
+          PageDiff {
+            page     := this
+            previous := this.previous
+            patch    := text.makePatch(this.content)
+            author   := this.author
+            version  := this.version
+          };
+        if (this.previous != null) {
+          this.previous.next := diff;
+        }
+        this.previous := diff;
       }
+      this.version := this.version + 1;
+      this.content := text;
       this.author := newAuthor;
       this.authors.add(newAuthor);
       if (this.author != null) {

@@ -1,4 +1,4 @@
-module templates
+module templates/main
 
 section main template.
 
@@ -66,7 +66,7 @@ section menus.
       output(config.projects) }
     }
     
-    list { listitem{ navigate(users()){"Users"}  
+    list { listitem{ navigate(users()){"Users"}
       output(config.users.content) } }
     
     list { listitem{ currentUser()} }

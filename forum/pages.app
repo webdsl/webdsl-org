@@ -96,8 +96,6 @@ section pages
     section { 
       header{"Reply"}
         
-      var newReply : Reply := Reply { discussion := d };
-        
       form {
         var replySubject : String;
         var replyText : WikiText;

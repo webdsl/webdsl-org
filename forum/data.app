@@ -8,7 +8,7 @@ section domain
 
   entity Forum { 
     title       :: String (name)
-    discussions -> List<Discussion> (inverse=Discussion.forum)
+    discussions -> List<Discussion>
   }
   
   entity Discussion {
@@ -18,7 +18,7 @@ section domain
     updated  :: Date
     forum    -> Forum (inverse=Forum.discussions)
     text     :: WikiText
-    replies  <> List<Reply> (inverse=Reply.discussion)
+    replies  <> List<Reply> 
   }
   
   // cache date of last reply in dicussion; in order to dynamically re-order discussions

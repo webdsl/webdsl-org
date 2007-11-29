@@ -19,6 +19,10 @@ section users
       true
     }
     
+    rules page pendingRegistrations() {
+      securityContext.loggedIn
+    }
+    
     rules page login() {
       true
     }

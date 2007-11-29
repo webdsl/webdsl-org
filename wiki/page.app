@@ -22,7 +22,6 @@ section pages
     define body() {
       section {
         header{output(p.name)}
-        listitem{ "foo" }
 	par { output(p.content) }
 	par{"Authors" output(p.authors) }
       }
@@ -32,14 +31,14 @@ section pages
   define previousLink(p : Page)
   {
     if (p.previous != null) {
-      navigate(diff(p.previous)){"Previous"}
+      navigate(diff(p.previous)){"&lt;-"}
     }
   }
 	
   define page diff(diff : PageDiff)
   {
     main()
-    title{output(diff.page.name) "/ version " output(diff.version)}
+    title{output(diff.page.name) " / version " output(diff.version)}
     define applicationSidebar() {
       list {
         listitem { newPage() } // triggers bug in renaming ??
@@ -48,7 +47,7 @@ section pages
     }
     define body() {
       section{
-        header{output(diff.page) "/ version " output(diff.version)}
+        header{output(diff.page) " / version " output(diff.version)}
         output(diff.content)
         par{ "Last changes by " output(diff.author) }
         //section{
@@ -62,13 +61,16 @@ section pages
   define nextPreviousLink(diff : PageDiff)
   {
      if (diff.previous != null ) {
-          navigate(diff(diff.previous)){"<-"}
+          navigate(diff(diff.previous)){"&lt;-"} " "
+     }
+     if (diff.previous = null ) {
+          "&lt;-" " "
      }
      if (diff.next != null ) {
-       navigate(diff(diff.next)){"->"} " "
+       navigate(diff(diff.next)){"->"}
      }
      if (diff.next = null ) {
-       navigate(page(diff.page)){"->"} " "
+       navigate(page(diff.page)){"->"}
      }
   }
         
@@ -123,14 +125,17 @@ section pages
   
   define newPage() 
   {
-    var newPage : Page := Page { };
+    var pageName : String;
     form { 
       actionLink("New page", createPage())
-      input(newPage.name)
+      input(pageName)
       action createPage() {
-        // check that name is not empty ; as part of validation?
+        var newPage : Page := 
+          Page { 
+            name   := pageName // check that name is not empty ; as part of validation?
+            author := securityContext.principal
+          };
         newPage.authors.add(securityContext.principal);
-        newPage.author := securityContext.principal;
         newPage.persist();
         return editPage(newPage);
       }

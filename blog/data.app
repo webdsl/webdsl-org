@@ -14,12 +14,12 @@ section domain
     key        :: String (id)
     title      :: String (name)
     authors    -> Set<User>          // group of authors?
-    entries    -> List<BlogEntry>    (inverse=BlogEntry.blog)
+    entries    -> List<BlogEntry>    
     categories -> List<Category>     // share categories between blogs?
   }
   
   entity BlogEntry {
-    blog      -> Blog (inverse=Blog.entries)
+    blog      -> Blog  (inverse=Blog.entries)
     key       :: String (id)
     title     :: String (name)
     author    -> User
@@ -38,7 +38,7 @@ section authorship
   }
  
   extend entity User {
-    blogentries -> Set<BlogEntry> (inverse=BlogEntry.author)
+    blogentries -> Set<BlogEntry>
   }
  
 section categories
