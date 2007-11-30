@@ -22,7 +22,7 @@ section authentication
   define signinMenu() {
     navigate(login()){"Sign in"}
   }
-  
+    
   define signin() 
   {
     var usr : User := User{};
@@ -31,7 +31,7 @@ section authentication
         row{ "username: " input(usr.username) }
         row{ "password: " input(usr.password) }
       }
-      actionLink("Sign in", signin())
+      action("Sign in", signin())
       action signin() {
         var users : List<User> :=
           select u from User as u 

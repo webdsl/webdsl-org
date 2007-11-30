@@ -62,7 +62,7 @@ section creating issues
       input(newIssue.title)
       input(newIssue.type)
       input(newIssue.priority)
-      actionLink("Submit", submit())
+      action("Submit", submit())
     }
     
     action submit() {

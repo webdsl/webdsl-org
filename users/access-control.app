@@ -15,11 +15,19 @@ section users
       securityContext.principal = u
     }
     
-    rules page register() {
+    rules page register() { //*) {
       true
     }
     
     rules page pendingRegistrations() {
+      securityContext.loggedIn
+    }
+    
+    rules page registrationPending(*) {
+      true
+    }
+    
+    rules template showUserRegistration(*) {
       securityContext.loggedIn
     }
     

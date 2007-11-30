@@ -102,9 +102,6 @@ section pages
   define page editPage(p : Page) 
   {
     var content : WikiText := p.content;
-    //init{
-    //  content := p.content;
-    //}
     main()
     title{"Edit page " output(p.name)}
     define body() {
@@ -112,7 +109,7 @@ section pages
         form { 
           header{input(p.name)}
 	  par { input(content) }
-	  par { actionLink("Save changes", savePage()) }
+	  par { action("Save changes", savePage()) }
           action savePage() {
             p.makeChange(content, securityContext.principal);
             p.persist();
@@ -127,7 +124,7 @@ section pages
   {
     var pageName : String;
     form { 
-      actionLink("New page", createPage())
+      action("New page", createPage())
       input(pageName)
       action createPage() {
         var newPage : Page := 

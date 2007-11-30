@@ -17,6 +17,7 @@ section definition
     homepage   :: URL
     password   :: Secret
     motivation :: WikiText
+    confirmed  :: Bool
   }
   
   extend entity UserRegistration {

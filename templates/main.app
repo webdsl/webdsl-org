@@ -47,6 +47,23 @@ section basic page elements.
 section menus.
   
   define menu() {
+  
+//    menubar {
+//      menu {
+//        menuheader{ "File" }
+//        menuitem{ 
+//          menu {
+//            menuheader{ "New" }
+//            menuitem { "Page" }
+//            menuitem { "Blog" }
+//          }
+//        }
+//        menuitem{ }
+//        for(p : Page in config.startpages) { menuitem{ output(p) } }
+//      }
+//    }
+    
+  
     list { 
       listitem{ navigate(wiki()){"Wiki"} 
         output(config.startpages)}
@@ -71,14 +88,7 @@ section menus.
     
     list { listitem{ currentUser()} }
     
-    list { 
-      listitem{ "Admin" 
-        list{ 
-          listitem{ navigate(configuration(config)){"Configuration"} }
-          listitem{ navigate(editConfiguration(config)){"Edit Configuration"} }
-        }
-      }
-    }
+    adminMenu()
   }
   
 section entity management.
@@ -92,4 +102,26 @@ section entity management.
       createMenu()
       allMenu()
     }
+  }
+
+  define adminMenu() 
+  {
+    list { 
+      listitem{ "Admin" 
+        list{ 
+          listitem{ navigate(configuration(config)){"Configuration"} }
+          listitem{ navigate(editConfiguration(config)){"Edit Configuration"} }
+          listitem{ navigate(pendingRegistrations()){"Pending Registrations"} }
+        }
+      }
+    }
+  }
+  
+  access control rules {
+  
+    rules template adminMenu() {
+      securityContext.loggedIn
+      // todo: check that principal has admin rights
+    }
+    
   }
