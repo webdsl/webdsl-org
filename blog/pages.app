@@ -11,7 +11,7 @@ section queries
          order by e._created descending;
       return entries;
     }
-    
+
   }
   
 section sidebar
@@ -29,7 +29,7 @@ section sidebar
   }
   
   define newBlogEntryLink(b : Blog) {
-    listitem{ navigate(newBlogEntry(b)){"New Blog"} }
+    listitem{ navigate(newBlogEntry(b)){"New Entry"} }
   }
   
 section blog frontpage
@@ -117,13 +117,13 @@ section blog entry page
     }
   }
   
-section new blog
+section new blog entry
 
   define page newBlogEntry(b : Blog)
   {
     main()
     
-    title{output(b.title) " / New Blog" }
+    title{output(b.title) " / New Blog Entry" }
     
     define applicationSidebar(){ 
       blogSidebar(b, sortedBlogEntries(b))

@@ -4,6 +4,7 @@ section definition
 
   entity Page {
     name     :: String    (id,name)
+    title    :: String
     content  :: WikiText
     authors  -> Set<User> 
   }
@@ -15,7 +16,7 @@ section definition
 section tagging
 
   extend entity Tag {
-    pages -> Set<Page>
+    pages -> Set<Page> (inverse=Page.tags)
   }
   
   extend entity Page {
@@ -26,6 +27,7 @@ section versioning
 
   extend entity Page {
     previous -> PageDiff  // diff with respect to content
+    modified :: Date
     version  :: Int
     author   -> User      // contributor of latest change
   }
@@ -33,8 +35,10 @@ section versioning
   entity PageDiff {
     page     -> Page
     next     -> PageDiff
+    title    :: String
     patch    :: Patch     // patch to create content of this version from next
-    previous -> PageDiff  
+    created  :: Date
+    previous -> PageDiff
     date     :: Date
     author   -> User
     version  :: Int
@@ -77,13 +81,15 @@ section making change to a page
   // page key as partial key of the diff anyway
 
   extend entity Page {
-    function makeChange(text : WikiText, newAuthor : User) : Page {
+    function makeChange(newTitle : String, newText : WikiText, newAuthor : User) : Page {
       if (this.version > 0) {
         var diff : PageDiff := 
           PageDiff {
             page     := this
-            previous := this.previous
-            patch    := text.makePatch(this.content)
+            previous := this.previous 
+            created  := this.modified
+            title    := this.title
+            patch    := newText.makePatch(this.content)
             author   := this.author
             version  := this.version
           };
@@ -92,9 +98,11 @@ section making change to a page
         }
         this.previous := diff;
       }
+      //this.modified := now();
       this.version := this.version + 1;
-      this.content := text;
-      this.author := newAuthor;
+      this.title   := newTitle;
+      this.content := newText;
+      this.author  := newAuthor;
       this.authors.add(newAuthor);
       if (this.author != null) {
         this.author.authored.add(this);

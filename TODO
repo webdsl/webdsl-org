@@ -1,3 +1,25 @@
+
+
+
+
+
+
+---------------------------------------------------------
+
+* Fix menus
+* Improve "submit issue" interface (there's no names for each field)
+* Remove "conversation test" from home
+* Posting replies does not seem to work properly (my reply was posted 3 times)
+* How can I create a new blog? I can make new posts, but how about
+blogs? Also, terminology is confusing, should be clear distinction
+between a Blog and a Blog post.
+
+
+---------------------------------------------------------
+
+
+
+
 General WebDSL Issues
 ---------------------
 
@@ -31,7 +53,7 @@ Navigation
 Wiki
 ----
 
-- edit history
+x edit history
 - categories
 - tags
 - name should be read-only

@@ -1,14 +1,14 @@
 module templates/main
 
-section main template.
+section main template
 
   define main() {
-    div("outersidebar") {
+    block("outersidebar") {
       logo()
       sidebar()
     }
-    div("outerbody") {
-      div("menubar") {
+    block("outerbody") {
+      block("menubar") {
         menu()
       }
       body()
@@ -16,7 +16,7 @@ section main template.
     }
   }
 
-section basic page elements.
+section basic page elements
 
   define logo() {
     section{header{navigate(home()){"WebDSL"}}}
@@ -44,66 +44,54 @@ section basic page elements.
   
   define contextSidebar() { }
   
-section menus.
+section menus
+
+  define wikiMenuItems() { }
   
   define menu() {
   
-//    menubar {
-//      menu {
-//        menuheader{ "File" }
-//        menuitem{ 
-//          menu {
-//            menuheader{ "New" }
-//            menuitem { "Page" }
-//            menuitem { "Blog" }
-//          }
-//        }
-//        menuitem{ }
-//        for(p : Page in config.startpages) { menuitem{ output(p) } }
-//      }
-//    }
-    
-  
     list { 
-      listitem{ navigate(wiki()){"Wiki"} 
-        output(config.startpages)}
+      listitem{ 
+        navigate(wiki()){"Wiki"}
+        list {
+          listitem { newPageLink() }
+          wikiMenuItems()
+          listitem { "Startpages" output(config.startpages) }
+        }
+      }
     }
     
     list { 
       listitem{ navigate(blogs()){"Blogs"} 
-        output(config.blogs) } 
+        output(config.blogs) }
     }
     
     list { 
-      listitem{ navigate(forums()){"Forums"} 
-        output(config.forums) } 
+      listitem{ 
+        navigate(forums()){"Forums"} 
+        output(config.forums) 
+      }
     }
     
-    list { listitem{ navigate(issues()){"Issues"} 
-      output(config.projects) }
+    list { 
+      listitem{ 
+        navigate(issues()){"Issues"}
+        output(config.projects) 
+      }
     }
     
-    list { listitem{ navigate(users()){"Users"}
-      output(config.users.content) } }
+    list { 
+      listitem{ 
+        navigate(users()){"Users"}
+        output(config.users)
+      }
+    }
     
     list { listitem{ currentUser()} }
     
     adminMenu()
   }
   
-section entity management.
-
-  define manageMenu() {}
-  
-  define page manage() {
-    main()
-    define sidebar() {}
-    define body() {
-      createMenu()
-      allMenu()
-    }
-  }
-
   define adminMenu() 
   {
     list { 
@@ -118,10 +106,8 @@ section entity management.
   }
   
   access control rules {
-  
     rules template adminMenu() {
       securityContext.loggedIn
       // todo: check that principal has admin rights
     }
-    
   }

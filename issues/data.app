@@ -5,45 +5,42 @@ section projects
   entity Project {
     projectname :: String (name)
     key         :: String (id)
+    pitch       :: WikiText
     description :: WikiText
     
     lead        -> User
     members     -> Set<User>
-    
-    issues      -> Set<Issue>   //(inverse=Issue.project)
-  //themes      -> Set<Theme>   (inverse=Theme.project)
-  //releases    -> Set<Release> (inverse=Release.project)
-    
+
+    issues      -> Set<Issue>  
+    //themes      -> Set<Issue> := [i for(i : Issue in this.issues where i.type = theme)]
+    //releases    -> Set<Issue> := [i for(i : Issue in this.issues where i.type = release)]
+
     nextkey     :: Int
   }
 
 section issues
   
   entity Issue {
-    key         :: String (id, unique, name) 
+    key         :: String (id, unique, name)
     type        -> IssueType
     priority    -> IssuePriority
     status      -> IssueStatus
     
+    codename    :: String
     title       :: String 
     description :: WikiText
-    project     -> Project //(inverse=Project.issues)
+    project     -> Project (inverse=Project.issues)
     
     reporter    -> User
     assignee    -> User
     
     submitted   :: Date
     updated     :: Date
+    due         :: Date
     
-  //requires    -> Set<Issue> (inverse=Issue.requiredby)
-  //requiredby  -> Set<Issue> (inverse=Issue.requires)
-    
-  //themes      -> Set<Theme> (inverse=Theme.issues)
-  //release     -> Release (inverse=Release.issues)
+    requires    -> Set<Issue> (inverse=Issue.requiredby)
+    requiredby  -> Set<Issue> 
   }
-  
-  // issue keys should be automatically generated as project.key + "-" + n
-  // where n is the next issue number in the project
   
 sections issue properties
 
@@ -60,40 +57,36 @@ sections issue properties
   }
   
   globals {
-  
-    var open   : IssueStatus := IssueStatus { status := "Open" };
-    var closed : IssueStatus := IssueStatus { status := "Closed" };
+    var open      : IssueStatus := IssueStatus { status := "Open" };
+    var closed    : IssueStatus := IssueStatus { status := "Closed" };
+    var released  : IssueStatus := IssueStatus { status := "Released" };
+    var wontfix   : IssueStatus := IssueStatus { status := "Won't fix" };
+    var duplicate : IssueStatus := IssueStatus { status := "Duplicate" };
+
+    var bug         : IssueType := IssueType { type := "Bug" };
+    var feature     : IssueType := IssueType { type := "Feature" };
+    var task        : IssueType := IssueType { type := "Task" };
+    var improvement : IssueType := IssueType { type := "Improvement" };
+    var release     : IssueType := IssueType { type := "Release" };
+    var theme       : IssueType := IssueType { type := "Theme" };    
     
-    var bug     : IssueType := IssueType { type := "Bug" };
-    var feature : IssueType := IssueType { type := "Feature" };
-    
+    var blocker  : IssuePriority := IssuePriority { priority := "Blocker" };
     var critical : IssuePriority := IssuePriority { priority := "Critical" };
     var major    : IssuePriority := IssuePriority { priority := "Major" };
     var minor    : IssuePriority := IssuePriority { priority := "Minor" };
+    var trivial  : IssuePriority := IssuePriority { priority := "Trivial" };
+  }
+  
+section submitting issues
+
+  extend entity Project {
+  
+    function submitIssue(newIssue : Issue) : Project {
+      newIssue.key     := this.key + "-" + this.nextkey.toString();
+      this.nextkey     := this.nextkey + 1;
+      newIssue.project := this;
+      return this;
+    }
     
   }
-  
-section themes
-
-  entity Theme {
-    codename    :: String (name)
-    title       :: String
-    description :: WikiText
-    //issues      -> Set<Issue> (inverse=Issue.themes)
-    //project     -> Project (inverse=Project.themes)
-  }
- 
-section releases
-
-  entity Release {
-    codename    :: String (name)
-    title       :: String
-    description :: WikiText
-    released    :: Date
-    //issues      -> Set<Issue> (inverse=Issue.release)
-    //project     -> Project (inverse=Project.releases)
-  }
-  
-  
-  
-  
+    

@@ -1,17 +1,12 @@
 module wiki/access-control
 
-section principal
+section wiki
 
   access control rules 
   {
     rules page home() {
       true
     }
-  }
-  
-section page
-  
-  access control rules {
   
     rules page page(*) {
       true
@@ -36,8 +31,12 @@ section page
     rules page editPage(*) {
       securityContext.loggedIn
     }
-    
-    rules template newPage() {
+        
+    rules page newPage() {
+      securityContext.loggedIn
+    }
+
+    rules template newPageLink() {
       securityContext.loggedIn
     }
 

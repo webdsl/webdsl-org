@@ -1,18 +1,46 @@
 module issues/access-control
 
-section foo
+section issues
 
   access control rules {
-  
+    
     rules page issues() { true }
-  
+    
     rules page project(*) { true }
   
     rules page issue(*) { true }
+
+    rules template editProjectLink(p : Project) {
+      securityContext.loggedIn
+    }
     
-    rules template newIssue(*) { true }
+    rules page editProject(p : Project) {
+      securityContext.loggedIn
+    }
     
-    rules page editIssue(*) { true }
+    rules page newProject() {
+      securityContext.loggedIn
+    }
+    
+    rules template newIssueLink(p : Project) {
+      securityContext.loggedIn
+    }
+  
+    rules template editIssueLink(i : Issue) {
+      securityContext.loggedIn
+    }
+    
+    rules template assignToMe(i : Issue) {
+      securityContext.loggedIn
+    }
+
+    rules page newIssue(p : Project) {
+      securityContext.loggedIn
+    }
+    
+    rules page editIssue(*) { 
+      securityContext.loggedIn
+    }
   
   }
   
