@@ -48,8 +48,7 @@ section issues
     }
     
     rules template assignToMe(i : Issue) {
-      securityContext.loggedIn
-      && i.assignee != securityContext.principal
+      i.assignee = null || i.assignee != securityContext.principal
     }
 
   }
