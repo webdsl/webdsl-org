@@ -12,8 +12,8 @@ section projects
     members     -> Set<User>
 
     issues      -> Set<Issue>  
-    //themes      -> Set<Issue> := [i for(i : Issue in this.issues where i.type = theme)]
-    //releases    -> Set<Issue> := [i for(i : Issue in this.issues where i.type = release)]
+  //themes      -> Set<Issue> := [i for(i : Issue in this.issues where i.type = theme)]
+  //releases    -> Set<Issue> := [i for(i : Issue in this.issues where i.type = release)]
 
     nextkey     :: Int
   }
@@ -21,7 +21,7 @@ section projects
 section issues
   
   entity Issue {
-    key         :: String (id, unique, name)
+    key         :: String (id, unique)
     type        -> IssueType
     priority    -> IssuePriority
     status      -> IssueStatus
@@ -31,12 +31,16 @@ section issues
     description :: WikiText
     project     -> Project (inverse=Project.issues)
     
+    fullname    :: String (name) := key + " : " + title
+    
     reporter    -> User
     assignee    -> User
     
     submitted   :: Date
     updated     :: Date
     due         :: Date
+    
+  //age :: Date Interval? := today() - submitted
     
     requires    -> Set<Issue> (inverse=Issue.requiredby)
     requiredby  -> Set<Issue> 

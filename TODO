@@ -1,31 +1,11 @@
-
-
-
-
-
-
----------------------------------------------------------
-
-* Fix menus
-* Improve "submit issue" interface (there's no names for each field)
-* Remove "conversation test" from home
-* Posting replies does not seem to work properly (my reply was posted 3 times)
-* How can I create a new blog? I can make new posts, but how about
-blogs? Also, terminology is confusing, should be clear distinction
-between a Blog and a Blog post.
-
-
----------------------------------------------------------
-
-
-
-
 General WebDSL Issues
 ---------------------
 
 - backing into edit screen causes crash on subsequent save
 - ordered lists; lists tend to lose ordering, e.g. author list
-
+- fix drop-down menus
+- unselect all issues in a many select box
+- rendering lists with separators (e.g. authors separated by commas)
 
 Interaction Patterns
 --------------------
@@ -40,14 +20,17 @@ Navigation
 ----------
 
 - entry points
-  - home page of complete app
-  - start pages for sub-apps (e.g. issues)
+  x home page of complete app
+  x start pages for sub-apps (e.g. issues)
   - need to identify recently added objects, important
     objects, etc.
-- how to organize navigation between sub-applications
+
+x how to organize navigation between sub-applications
+  -> menubar to switch between applications
+  -> wiki links in WikiText provide fine grained navigation
 
 - examples
-  - start pages of a wiki
+  x start pages of a wiki
   - road map for issue tracker
 
 Wiki
@@ -56,27 +39,59 @@ Wiki
 x edit history
 - categories
 - tags
-- name should be read-only
-- add title to override reference
-- start pages should be shown on wiki front-page
+x name should be read-only
+x add title to override reference
+x start pages should be shown on wiki front-page
 - name spaces: foo/bar already works
   - it should be possible to use this notion in access control,
     e.g. owner of foo owns all foo/* pages
 
+- in diff page, visualize the differences
+
 Issues
 ------
 
-- key should be read-only
-- themes and releases to organize views on 
-  collections of issues
+- themes and releases 
+  x to organize views on collections of issues
+  
+- editProject
+  - custom page
+  - key should be read-only
+  - nextkey should be read-only
 
+- editIssue
+  - custom page
+  - select requires / requiredby from issues in project
+  x include title in select menu (i.e. in name?)
 
-Tags
+x Improve "submit issue" interface (there's no names for each field)
+
+- filters on issues
+  - all open issues
+  - issues by assignee, by reporter
+  - older than x days
+  - by theme
+  - by release
+  - by priority
+  - by due date
+  - ...
+
+- find conflicts between issues
+  - based on dependencies and due dates
+  - derive necessary due dates
+  - propagate due dates along requires relation
+
+- roadmap
+
+- from issue tracking to workflow
+  - workflow is repeatable tree of dependent issues
+
+Blog
 ----
 
-- generic mechanism for categorizing content (objects)
-- should be possible to add tags by name, but also
-  select tags from (user's) collection
+- How can I create a new blog? I can make new posts, but how about
+blogs? Also, terminology is confusing, should be clear distinction
+between a Blog and a Blog post.
 
 News
 ----
@@ -84,14 +99,21 @@ News
 - news items
 - show most n recent items
 
-
 Forum
 -----
 
 - discussion threads
 - adding replies 
+- Posting replies does not seem to work properly (my reply was posted 3 times)
 
 FAQ
 ---
 
 - finding questions
+
+Tags
+----
+
+- generic mechanism for categorizing content (objects)
+- should be possible to add tags by name, but also
+  select tags from (user's) collection

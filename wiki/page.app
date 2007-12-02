@@ -1,5 +1,23 @@
 module wiki/page
 
+section main page for wiki
+
+  define page wiki()
+  {
+    main()
+    define applicationSidebar() {
+      list{ newPageLink() }
+    }
+    define body() {
+      section { 
+        header{"Pages"}
+        list { for(p : Page) { 
+          listitem { output(p) }
+        } }
+      }
+    }
+  }
+  
 section wiki page
   
   define page page(p : Page)
@@ -12,8 +30,8 @@ section wiki page
     }
     main()
     title{output(p.name)}
-    define wikiMenuItems() {
-      editLink(p)
+    define applicationSidebar() {
+      list{ pageOperations(p) }
     }
     define body() {
       section {
@@ -21,12 +39,44 @@ section wiki page
 	par{ output(p.content) }
 	par{"Contributions by " 
 	  for(author : User in p.authorsList) {
-	    output(author) " | "
+	    output(author)
 	  }
 	}
       	par{ previousLink(p) }
       }
     }
+  }
+  
+section page operations
+  
+  define pageOperations(p : Page)
+  {
+    listitem { newPageLink() }
+    listitem{ navigate(editPage(p)) { "Edit" } }
+    listitem{ 
+      if (p in config.startpages) {
+        form {
+          actionLink("Startpage", unmakeStartpage())
+          action unmakeStartpage() {
+            config.startpages.remove(p);
+            config.persist();
+          }
+        }
+      }
+      if (!(p in config.startpages)) {
+        form{
+          actionLink("Not a startpage", makeStartpage())
+          action makeStartpage() {
+            config.startpages.add(p);
+            config.persist();
+          }
+        }
+      }
+    }
+  }
+  
+  define newPageLink() {
+    navigate(newPage()){ "New Page" }
   }
   
 section wiki page history
@@ -71,47 +121,18 @@ section wiki page history
        navigate(page(diff.page)){"Next"}
      }
   }
-        
-  define newPageLink() {
-    navigate(newPage()){ "New Page" }
-  }
   
 section wiki page editing
-
-  define editLink(p : Page)
-  {
-    listitem{ navigate(editPage(p)) { "Edit" } }
-    listitem{ 
-      if (p in config.startpages) {
-        form {
-          actionLink("Remove from startpages", unmakeStartpage())
-          action unmakeStartpage() {
-            config.startpages.remove(p);
-            config.persist();
-          }
-        }
-      } 
-      if (!(p in config.startpages)) {
-        form{
-          actionLink("Make startpage", makeStartpage())
-          action makeStartpage() {
-            config.startpages.add(p);
-            config.persist();
-          }
-        }
-      }
-    }
-  }
 
   define page editPage(p : Page)
   {
     var newTitle   : String   := p.title;
     var newContent : WikiText := p.content;
     main() 
-    title{"Edit page " output(p.name)}
+    title{"Edit Page: " output(p.name)}
     define body() {
       section {
-        header{"Edit page " output(p.name)}
+        header{"Edit Page: " output(p.name)}
         form { 
           par{ input(newTitle) }
 	  par{ input(newContent) }

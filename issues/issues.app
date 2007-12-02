@@ -38,25 +38,6 @@ section submitting issues
     }
   }
   
-  define newSubIssue(i : Issue)
-  {
-    form{
-      actionLink("Add Issue", addSubIssue())
-      action addSubIssue() {
-        var newIssue : Issue := 
-          Issue{
-            type     := bug
-            status   := open
-            priority := major
-            requiredby := i
-          };
-        i.project.submitIssue(newIssue);
-        newIssue.reporter := securityContext.principal;
-        return editIssue(newIssue);
-      }
-    }
-  }
-
 section viewing issues
 
   define page issue(i : Issue)
@@ -74,8 +55,9 @@ section viewing issues
     
     define applicationSidebar()
     {
-      issueProperties(i)
+      newIssueLink(i.project)
       issueOperations(i)
+      issueProperties(i)
     }
     
     define body() 
@@ -101,7 +83,7 @@ section viewing issues
   define issueList(is : List<Issue>)
   {
     list { for (i : Issue in is order by i.type ) {
-      listitem{ output(i) ": " output(i.title) }
+      listitem{ output(i) }
     } }
   }
   
@@ -133,18 +115,29 @@ section viewing issues
   define issueProperties(i : Issue)
   {
     table{
-      row{"Project:"  output(i.project)}
-      row{"Issue:"    output(i)}
-      row{"Type:"     output(i.type)}
-      row{"Status:"   output(i.status)}
-      row{"Priority:" output(i.priority)}
-      row{"Assignee:" output(i.assignee)}
-      row{"Reporter:" output(i.reporter)}
+      row{"Project:"    output(i.project)}
+      row{"Issue:"      output(i.key)}
+      row{"Type:"       output(i.type.name)}
+      row{"Status:"     output(i.status.name)}
+      row{"Priority:"   output(i.priority.name)}
+      row{"Assignee:"   output(i.assignee)}
+      row{"Reporter:"   output(i.reporter)}
+      row{"Submitted: " output(i.submitted)}
+      row{"Due: "       output(i.due)}
     }
   }
   
 section issue operations
 
+  define issueOperations(i : Issue)
+  {
+    list{ 
+      listitem{ editIssueLink(i) }
+      listitem{ assignToMe(i) }
+      listitem{ newSubIssue(i) }
+    }
+  }
+  
   define editIssueLink(i : Issue)
   {
     navigate(editIssue(i)){"Edit"} " this issue"
@@ -159,10 +152,22 @@ section issue operations
     }
   }
 
-  define issueOperations(i : Issue)
+  define newSubIssue(i : Issue)
   {
-    list{ 
-      listitem{ editIssueLink(i) }
-      listitem{ assignToMe(i) }
+    form{
+      actionLink("Submit subissue", addSubIssue())
+      action addSubIssue() {
+        var newIssue : Issue := 
+          Issue{
+            type     := bug
+            status   := open
+            priority := major
+            requiredby := {i}
+          };
+        i.project.submitIssue(newIssue);
+        newIssue.reporter := securityContext.principal;
+        newIssue.persist();
+        return editIssue(newIssue);
+      }
     }
   }

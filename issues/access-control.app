@@ -9,11 +9,8 @@ section issues
     rules page project(*) { true }
   
     rules page issue(*) { true }
-
-    rules template editProjectLink(p : Project) {
-      securityContext.loggedIn
-    }
     
+  
     rules page editProject(p : Project) {
       securityContext.loggedIn
     }
@@ -22,7 +19,27 @@ section issues
       securityContext.loggedIn
     }
     
+    rules page newIssue(p : Project) {
+      securityContext.loggedIn
+    }
+    
+    rules page editIssue(*) { 
+      securityContext.loggedIn
+    }
+    
+    rules template newProjectLink() {
+      securityContext.loggedIn
+    }
+    
+    rules template editProjectLink(p : Project) {
+      securityContext.loggedIn
+    }
+
     rules template newIssueLink(p : Project) {
+      securityContext.loggedIn
+    }
+    
+    rules template newSubIssue(i : Issue) {
       securityContext.loggedIn
     }
   
@@ -32,15 +49,8 @@ section issues
     
     rules template assignToMe(i : Issue) {
       securityContext.loggedIn
+      && i.assignee != securityContext.principal
     }
 
-    rules page newIssue(p : Project) {
-      securityContext.loggedIn
-    }
-    
-    rules page editIssue(*) { 
-      securityContext.loggedIn
-    }
-  
   }
   

@@ -79,10 +79,24 @@ section projects
     }
     define body() {
       section{
-        header{output(p.name)}
+        header{"Project: " output(p.name)}
         par{ output(p.pitch) }
         par{ output(p.description) }
-        issueList(p.issuesList)        
+        section{
+          header{"Issues"}
+          issueList(p.issuesList)
+        }
+        section{
+          header{"Members"}
+          list{ for(u : User in p.membersList) {
+            listitem{ 
+              output(u)
+              //if(u = p.lead) {
+              //  "(lead)"
+              //}
+            }
+          } }
+        }
       }
     }
   }

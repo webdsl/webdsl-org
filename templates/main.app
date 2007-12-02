@@ -53,23 +53,21 @@ section menus
     list { 
       listitem{ 
         navigate(wiki()){"Wiki"}
-        list {
-          listitem { newPageLink() }
-          wikiMenuItems()
-          listitem { "Startpages" output(config.startpages) }
-        }
+        output(config.startpages)
       }
     }
     
     list { 
-      listitem{ navigate(blogs()){"Blogs"} 
-        output(config.blogs) }
+      listitem{ 
+        navigate(blogs()){"Blogs"} 
+        output(config.blogs) 
+      }
     }
     
     list { 
       listitem{ 
-        navigate(forums()){"Forums"} 
-        output(config.forums) 
+        navigate(forums()){"Forums"}
+        output(config.forums)
       }
     }
     

@@ -40,7 +40,7 @@ section wiki
       securityContext.loggedIn
     }
 
-    rules template editLink(*) {
+    rules template pageOperations(p : Page) {
       securityContext.loggedIn
     }
   }
