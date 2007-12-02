@@ -2,9 +2,10 @@ module news/data
 
 section news items
 
-  entity News {
+  entity NewsEntry {
     title   :: String (name)
     content :: WikiText
     date    :: Date
     author  -> User
   }
+  

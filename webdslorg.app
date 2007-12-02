@@ -11,6 +11,7 @@ imports issues/main
 imports blog/main
 imports forum/main
 imports contexts/main
+imports news/main
 
 section home page
 
@@ -23,6 +24,10 @@ section home page
     }
     define body() {
       output(config.homepage.content)
+      section{
+        header{navigate(news()){"News"}}
+        recentNews()
+      }
     }
   }
 

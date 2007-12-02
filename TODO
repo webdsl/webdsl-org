@@ -93,18 +93,19 @@ Blog
 blogs? Also, terminology is confusing, should be clear distinction
 between a Blog and a Blog post.
 
-News
-----
-
-- news items
-- show most n recent items
-
 Forum
 -----
 
 - discussion threads
 - adding replies 
-- Posting replies does not seem to work properly (my reply was posted 3 times)
+- Posting replies does not seem to work properly 
+  (my reply was posted 3 times)
+
+News
+----
+
+- news items
+- show most n recent items
 
 FAQ
 ---

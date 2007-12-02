@@ -52,6 +52,12 @@ section menus
   
     list { 
       listitem{ 
+        navigate(news()){"News"}
+      }
+    }
+    
+    list { 
+      listitem{ 
         navigate(wiki()){"Wiki"}
         output(config.startpages)
       }
