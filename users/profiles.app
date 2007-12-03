@@ -169,4 +169,34 @@ section emails
       output(rejection)
     }
   }
-  
+
+section change password
+
+  define page changePassword()
+  {
+    main()
+    define body() {
+      form {
+        var oldPassword  : Secret;
+        var newPassword1 : Secret;
+        var newPassword2 : Secret;
+      
+        table {
+          row{ "Old password: "    input(oldPassword) }
+          row{ "New password: "    input(newPassword1) }
+          row{ "Repeat password: " input(newPassword2) }
+        }
+        action("Reset password", resetPassword())
+        action resetPassword() {
+          if (securityContext.principal.password.check(oldPassword)
+              && newPassword1 = newPassword2)
+          {
+            securityContext.principal.password := newPassword1.digest();
+            return user(securityContext.principal);
+          } else {
+            return changePassword();
+          }
+        }
+      }
+    }
+  }

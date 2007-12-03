@@ -59,7 +59,7 @@ section authentication
   
   define signoffAction() {
     form {
-      actionLink("sign off", signoff())
+      actionLink("Sign Off", signoff())
       action signoff() {
         securityContext.loggedIn := false;
         securityContext.principal := null;
@@ -72,7 +72,10 @@ section authentication
   define signoffMenu() 
   {
     "Signed in as " output(securityContext.principal)
-    list{ listitem{ signoffAction() } }
+    list{
+      listitem{ signoffAction() }
+      listitem{ navigate(changePassword()){"Change Password"} }
+    }
   }
   
   

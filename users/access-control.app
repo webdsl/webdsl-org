@@ -27,6 +27,10 @@ section users
       true
     }
     
+    rules page changePassword() {
+      securityContext.loggedIn
+    }
+    
     rules template showUserRegistration(*) {
       securityContext.loggedIn
     }
