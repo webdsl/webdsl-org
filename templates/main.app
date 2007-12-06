@@ -18,13 +18,15 @@ section main template
 
   define main() 
   {
-    applicationMenubar()
-    block("pageSidebar") {
-      sidebar()
-    }
     block("pageBody") {
-      body()
-      footer()
+      applicationMenubar()
+      block("pageSidebar") {
+        sidebar()
+      }
+      block("pageBody") {
+        body()
+        footer()
+      }
     }
   }
 
