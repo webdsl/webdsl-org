@@ -20,7 +20,9 @@ section authentication
   }
 
   define signinMenu() {
-    navigate(login()){"Sign in"}
+    menu{ 
+      menuheader{ navigate(login()){"Sign in"} }
+    }
   }
     
   define signin() 
@@ -51,7 +53,7 @@ section authentication
     }
   }
 
-  define signoff() 
+  define signoff()
   {
     "Signed in as " output(securityContext.principal)
     signoffAction()
@@ -71,10 +73,11 @@ section authentication
     
   define signoffMenu() 
   {
-    "Signed in as " output(securityContext.principal)
-    list{
-      listitem{ signoffAction() }
-      listitem{ navigate(changePassword()){"Change Password"} }
+    menu{
+      menuheader{ "You" }
+      menuitem{ output(securityContext.principal) }
+      menuitem{ signoffAction() }
+      menuitem{ navigate(changePassword()){"Change Password"} }
     }
   }
   

@@ -192,6 +192,7 @@ section change password
               && newPassword1 = newPassword2)
           {
             securityContext.principal.password := newPassword1.digest();
+            securityContext.principal.save();
             return user(securityContext.principal);
           } else {
             return changePassword();

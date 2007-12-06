@@ -2,7 +2,7 @@ module templates/main
 
 section main template
 
-  define main() {
+  define mainOld() {
     block("outersidebar") {
       logo()
       sidebar()
@@ -16,6 +16,18 @@ section main template
     }
   }
 
+  define main() 
+  {
+    applicationMenubar()
+    block("pageSidebar") {
+      sidebar()
+    }
+    block("pageBody") {
+      body()
+      footer()
+    }
+  }
+
 section basic page elements
 
   define logo() {
@@ -24,7 +36,7 @@ section basic page elements
 
   define homeSidebar() {
     list { 
-      listitem{ navigate(home()){"Home"} } 
+      listitem{ navigate(home()){"Home"} }
       //listitem { currentUser() }
     }
   }
@@ -48,64 +60,54 @@ section menus
 
   define wikiMenuItems() { }
   
-  define menu() {
-  
-    list { 
-      listitem{ 
-        navigate(news()){"News"}
+  define applicationMenubar()
+  {
+    menubar {
+      menu { 
+        menuheader{ navigate(news()){"News"} }
       }
-    }
-    
-    list { 
-      listitem{ 
-        navigate(wiki()){"Wiki"}
-        output(config.startpages)
+      menu { 
+        menuheader{ navigate(wiki()){"Wiki"} }
+        for(p : Page in config.startpagesList) {
+          menuitem{ output(p) }
+        }
       }
-    }
-    
-    list { 
-      listitem{ 
-        navigate(blogs()){"Blogs"} 
-        output(config.blogs) 
+      menu { 
+        menuheader{ navigate(blogs()){"Blogs"} }
+        for(b : Blog in config.blogsList) {
+          menuitem{ output(b) }
+        }
       }
-    }
-    
-    list { 
-      listitem{ 
-        navigate(forums()){"Forums"}
-        output(config.forums)
+      menu { 
+        menuheader{ navigate(forums()){"Forums"} }
+        for(b : Forum in config.forumsList) {
+          menuitem{ output(b) }
+        }
       }
-    }
-    
-    list { 
-      listitem{ 
-        navigate(issues()){"Issues"}
-        output(config.projects) 
+      menu { 
+        menuheader{ navigate(issues()){"Issues"} }
+        for(b : Project in config.projectsList) {
+          menuitem{ output(b) }
+        }
       }
-    }
-    
-    list { 
-      listitem{ 
-        navigate(users()){"Users"}
-        output(config.users)
+      menu { 
+        menuheader{ navigate(users()){"Users"} }
+        for(b : User in config.usersList) {
+          menuitem{ output(b) }
+        }
       }
+      currentUser()
+      adminMenu()
     }
-    
-    list { listitem{ currentUser()} }
-    
-    adminMenu()
   }
   
   define adminMenu() 
   {
-    list { 
-      listitem{ "Admin" 
-        list{ 
-          listitem{ navigate(configuration(config)){"Configuration"} }
-          listitem{ navigate(editConfiguration(config)){"Edit Configuration"} }
-          listitem{ navigate(pendingRegistrations()){"Pending Registrations"} }
-        }
-      }
+    menu { 
+      menuheader{ "Admin" }
+      menuitem{ navigate(configuration(config)){"Configuration"} }
+      menuitem{ navigate(editConfiguration(config)){"Edit Configuration"} }
+      menuitem{ navigate(pendingRegistrations()){"Pending Registrations"} }
     }
   }
   
