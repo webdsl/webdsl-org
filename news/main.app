@@ -20,7 +20,6 @@ section present news
       for( e : NewsEntry ) {
         showNewsEntry(e)
       }
-      addNews()
     }
   }
   
@@ -38,24 +37,48 @@ section present news
     }
   }
   
+  define page newsEntry(n : NewsEntry)
+  {
+    main()
+    define newsMenu() {
+      newsMenuItems(n)
+    }
+    define body() {
+      showNewsEntry(n)
+      par{"-- " output(n.author)}
+    }
+  }
+  
 section add news
 
-  define addNews()
+  define newsMenu() {
+    menuitem{ navigate(postNews()){"Post News Item"} }
+  }
+
+  define newsMenuItems(n : NewsEntry) {
+    menuitem{ navigate(postNews()){"Post News Item"} }
+    menuitem{ navigate(editNewsEntry(n)){"Edit"} }
+  }
+  
+  define page postNews()
   {
-    var newsEntry : NewsEntry := NewsEntry { };
-    section{
-      header{"New News"}
-      form{ 
-        table{
-          row{"Title: " input(newsEntry.title)}
-          row{"Date: "  input(newsEntry.date)}
-          row{""        input(newsEntry.content)}
-        }
-        action("Post", postNews())
-        action postNews() {
-          newsEntry.author := securityContext.principal;
-          newsEntry.persist();
-          return news();
+    main()
+    define body() {
+      var newsEntry : NewsEntry := NewsEntry { };
+      section{
+        header{"New News"}
+        form{ 
+          table{
+            row{"Title: " input(newsEntry.title)}
+            row{"Date: "  input(newsEntry.date)}
+            row{""        input(newsEntry.content)}
+          }
+          action("Post", postNews())
+          action postNews() {
+            newsEntry.author := securityContext.principal;
+            newsEntry.persist();
+            return news();
+          }
         }
       }
     }
@@ -81,7 +104,15 @@ section access-control
       true
     }
     
-    rules template addNews() {
+    rules page postNews() {
+      securityContext.loggedIn
+    }
+    
+    rules template newsMenu() {
+      securityContext.loggedIn
+    }
+    
+    rules template newsMenuItems(*) {
       securityContext.loggedIn
     }
   }

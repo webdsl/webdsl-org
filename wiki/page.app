@@ -30,9 +30,12 @@ section wiki page
     }
     main()
     title{output(p.name)}
-    define applicationSidebar() {
-      list{ pageOperations(p) }
+    define pageOperationsMenuItems() {
+      pageOperationsMenuItemsP(p)
     }
+    //define applicationSidebar() {
+    //  list{ pageOperations(p) }
+    //}
     define body() {
       section {
         header{ output(p.title) }
@@ -49,6 +52,35 @@ section wiki page
   
 section page operations
   
+    define pageOperationsMenuItems() {
+      menuitem { newPageLink() }
+    }
+    
+  define pageOperationsMenuItemsP(p : Page)
+  {
+    menuitem { newPageLink() }
+    menuitem{ navigate(editPage(p)) { "Edit" } }
+    menuitem{ 
+      if (p in config.startpages) {
+        form {
+          actionLink("Remove as Startpage", unmakeStartpage())
+          action unmakeStartpage() {
+            config.startpages.remove(p);
+            config.persist();
+          }
+        }
+      }
+      if (!(p in config.startpages)) {
+        form{
+          actionLink("Add to Startpages", makeStartpage())
+          action makeStartpage() {
+            config.startpages.add(p);
+            config.persist();
+          }
+        }
+      }
+    }
+  }
   define pageOperations(p : Page)
   {
     listitem { newPageLink() }

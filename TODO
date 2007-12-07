@@ -7,6 +7,13 @@ General WebDSL Issues
 - unselect all issues in a many select box
 - rendering lists with separators (e.g. authors separated by commas)
 
+- read-only annotation: properties with this annotation should not be
+  made editable after generation
+
+- warning if page has no title
+
+- captcha to prevent spambots
+
 Interaction Patterns
 --------------------
 
@@ -33,25 +40,57 @@ x how to organize navigation between sub-applications
   x start pages of a wiki
   - road map for issue tracker
 
+Layout
+------
+
+- CSS definition
+  - layout of page
+  - menubar (scaling)
+  - fonts
+  - headers
+  - tables
+
 Authentication
 --------------
 
-- change password
+x sign in
+x change password
+
+News
+----
+
+x news items
+x show most n recent items
+x edit News
 
 Wiki
 ----
 
 x edit history
-- categories
-- tags
 x name should be read-only
 x add title to override reference
 x start pages should be shown on wiki front-page
 - name spaces: foo/bar already works
   - it should be possible to use this notion in access control,
     e.g. owner of foo owns all foo/* pages
-
+- categories
+- tags
 - in diff page, visualize the differences
+
+Blog
+----
+
+- How can I create a new blog? I can make new posts, but how about
+blogs? Also, terminology is confusing, should be clear distinction
+between a Blog and a Blog post.
+
+Forum
+-----
+
+- discussion threads
+- adding replies 
+- Posting replies does not seem to work properly 
+  (my reply was posted 3 times)
 
 Issues
 ------
@@ -91,26 +130,7 @@ x Improve "submit issue" interface (there's no names for each field)
 - from issue tracking to workflow
   - workflow is repeatable tree of dependent issues
 
-Blog
-----
 
-- How can I create a new blog? I can make new posts, but how about
-blogs? Also, terminology is confusing, should be clear distinction
-between a Blog and a Blog post.
-
-Forum
------
-
-- discussion threads
-- adding replies 
-- Posting replies does not seem to work properly 
-  (my reply was posted 3 times)
-
-News
-----
-
-- news items
-- show most n recent items
 
 FAQ
 ---

@@ -12,7 +12,7 @@ section main template
         menu()
       }
       body()
-      footer()
+      block("footer"){footer()}
     }
   }
 
@@ -20,14 +20,15 @@ section main template
   {
     block("pageBody") {
       applicationMenubar()
+      table{ row {
       block("pageSidebar") {
         sidebar()
       }
       block("pageBody") {
         body()
-        footer()
+        block("footer"){footer()}
       }
-    }
+    } } }
   }
 
 section basic page elements
@@ -52,7 +53,9 @@ section basic page elements
   define applicationSidebar() { }
   
   define footer() {
-    "generated with "
+    "generated from "
+    navigate("WebDSL", url("http://www.webdsl.org"))
+    " with "
     navigate("Stratego/XT", url("http://www.strategoxt.org"))
   }
   
@@ -67,9 +70,11 @@ section menus
     menubar {
       menu { 
         menuheader{ navigate(news()){"News"} }
+        newsMenu()
       }
       menu { 
         menuheader{ navigate(wiki()){"Wiki"} }
+        pageOperationsMenuItems()
         for(p : Page in config.startpagesList) {
           menuitem{ output(p) }
         }

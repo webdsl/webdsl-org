@@ -13,7 +13,7 @@ section queries
     }
 
   }
-  
+
 section sidebar
 
   define blogSidebar(b : Blog, entries : List<BlogEntry>)
@@ -32,8 +32,65 @@ section sidebar
     listitem{ navigate(newBlogEntry(b)){"New Entry"} }
   }
   
+  define blogOperationsMenu(b : Blog) {
+  
+  }
+  
+  define blogMenu() {
+  
+  }
+  
+  define newBlogLink() {
+    navigate(newBlog()){"Start a new blog"}
+  }
+  
+  define page newBlog()
+  {
+    main()
+    title{"Create New Blog"}
+    define body()
+    {
+      form{
+        section{"Create New Blog"}      
+        var blogKey : String;
+        var blogTitle : String;
+        table{
+          row{ "Key:"   input(blogKey) }
+          row{ ""       "Key is used in URL, cannot be changed" }
+          row{ "Title:" input(blogTitle) }
+          row{ ""       "Title is used as header on pages" }
+        }
+        action("Create Blog", createBlog())
+        action createBlog() {
+          var newBlog : Blog :=
+            Blog {
+              key     := blogKey
+              title   := blogTitle
+              authors := {securityContext.principal}
+            };
+          newBlog.persist();
+          return blog(newBlog);
+        }
+      }
+    }
+  }
+  
 section blog frontpage
 
+
+  define page blogs()
+  {
+    main()
+    define body() {
+      section { 
+        header{"Blogs"}
+        for(entry : BlogEntry) {
+          blogEntryIntro(entry, entry.blog)
+        }
+      }
+    }
+  }
+  
   define page blog(b : Blog) 
   {
     main()

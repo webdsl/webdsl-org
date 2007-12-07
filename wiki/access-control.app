@@ -42,5 +42,10 @@ section wiki
 
     rules template pageOperations(p : Page) {
       securityContext.loggedIn
+    } 
+    
+    rules template pageOperationsMenuItemsP(p : Page) {
+      securityContext.loggedIn
     }
+
   }
