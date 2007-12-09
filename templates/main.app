@@ -16,7 +16,7 @@ section main template
     }
   }
 
-  define main() 
+  define mainOld2() 
   {
     block("pageBody") {
       applicationMenubar()
@@ -29,6 +29,33 @@ section main template
         block("footer"){footer()}
       }
     } } }
+  }
+  
+  define main() 
+  {
+    block("top") {
+      top()
+    }
+
+    block("body") {
+      block("left_innerbody") {
+        sidebar()
+      }
+      block("main_innerbody") {
+        body()
+      }
+    }
+
+    block("footer") {
+      footer()
+    }
+  }
+  
+  define top() {
+    block("header") {}
+    block("menubar") { 
+      applicationMenubar()
+    }
   }
 
 section basic page elements
@@ -53,10 +80,17 @@ section basic page elements
   define applicationSidebar() { }
   
   define footer() {
-    "generated from "
-    navigate("WebDSL", url("http://www.webdsl.org"))
-    " with "
-    navigate("Stratego/XT", url("http://www.strategoxt.org"))
+    block("footer") {
+      block("left_footer") {
+        navigate(home()) { "About WebDSL" }
+      }
+      block("right_footer") {
+        "generated from "
+        navigate("WebDSL", url("http://www.webdsl.org"))
+        " with "
+        navigate("Stratego/XT", url("http://www.strategoxt.org"))
+      }
+    }
   }
   
   define contextSidebar() { }
