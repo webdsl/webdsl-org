@@ -48,7 +48,7 @@ section issues
     }
     
     rules template assignToMe(i : Issue) {
-      i.assignee = null || i.assignee != securityContext.principal
+      i.assignee != securityContext.principal
     }
 
   }
