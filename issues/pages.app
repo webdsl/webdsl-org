@@ -74,8 +74,10 @@ section projects
     main()
     title{"Project - " output(p.name)}
     define applicationSidebar() {
-       newIssueLink(p)
-       editProjectLink(p)
+       list {
+         listitem { newIssueLink(p) }
+         listitem { editProjectLink(p) }
+       }
     }
     define body() {
       section{
@@ -91,9 +93,9 @@ section projects
           list{ for(u : User in p.membersList) {
             listitem{ 
               output(u)
-              //if(u = p.lead) {
-              //  "(lead)"
-              //}
+              if(u = p.lead) {
+                "(lead)"
+              }
             }
           } }
         }

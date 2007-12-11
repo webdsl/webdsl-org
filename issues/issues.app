@@ -22,9 +22,20 @@ section submitting issues
         header{"Submit Issue for Project " output(p)}
         
         form {
-          input(newIssue.title)
-          input(newIssue.type)
-          input(newIssue.priority)
+          table {
+            row {
+              "Title:"
+              input(newIssue.title)
+            }
+            row {
+              "Type:"
+              input(newIssue.type)
+            }
+            row {
+              "Priority:"
+              input(newIssue.priority)
+            }
+           }
           action("Submit", submit())
         }
 
@@ -131,7 +142,7 @@ section issue operations
 
   define issueOperations(i : Issue)
   {
-    list{ 
+    list{
       listitem{ editIssueLink(i) }
       listitem{ assignToMe(i) }
       listitem{ newSubIssue(i) }
@@ -140,7 +151,7 @@ section issue operations
   
   define editIssueLink(i : Issue)
   {
-    navigate(editIssue(i)){"Edit"} " this issue"
+    navigate(editIssue(i)){"Edit this issue"}
   }
   
   define assignToMe(i : Issue)
