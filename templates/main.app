@@ -108,12 +108,7 @@ section menus
       }
       wikiMenu()
       blogMenu()
-      menu { 
-        menuheader{ navigate(forums()){"Forums"} }
-        for(b : Forum in config.forumsList) {
-          menuitem{ output(b) }
-        }
-      }
+      forumMenu()
       menu { 
         menuheader{ navigate(issues()){"Issues"} }
         for(b : Project in config.projectsList) {

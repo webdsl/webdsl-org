@@ -1,5 +1,17 @@
 module forum/pages
 
+section navigation
+
+  define forumMenu() 
+  {
+    menu { 
+      menuheader{ navigate(forums()){"Forums"} }
+      for(b : Forum in config.forumsList) {
+        menuitem{ output(b) }
+      } 
+    }
+  }
+
 section pages
 
   define page forum(f : Forum)
