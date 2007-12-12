@@ -39,7 +39,7 @@ section create new user
               {  
                 newUser.password := newUser.password.digest();
                 newUser.persist();
-                email(confirmEmail(newUser));
+                email(sendConfirmEmail(newUser));
 	        return registrationPending(newUser.username);
 	      }
           }
@@ -59,15 +59,17 @@ section create new user
 
 section email confirmation by new user
   
-  define email confirmEmail(reg : UserRegistration)
+  define email sendConfirmEmail(reg : UserRegistration)
   {
     to(reg.email)
     from("admin@webdsl.org")
     subject("Email confirmation")
     body {
-      "Dear " output(reg.fullname) ",\n"
-      "Please confirm the receipt of this message by visiting the following page"
-      output(reg)
+      par{ "Dear " output(reg.fullname) ", " }
+      par{
+       "Please confirm the receipt of this message by visiting the following page "
+       navigate(confirmEmail(reg)){url(confirmEmail(reg))}
+      }
     }
   }
   
@@ -91,6 +93,11 @@ section email confirmation by new user
               && reg.password.check(password))
           {
             reg.confirmed := true;
+            return home();
+            // message about moderation
+          } else {
+            // message about wrong info
+            return confirmEmail(reg);
           }
         }
       }

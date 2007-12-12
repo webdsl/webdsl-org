@@ -24,24 +24,16 @@ section sidebar
         list { for(entry : BlogEntry in entries) {
           listitem{ output(entry) output(entry.created) }
         } } }
-      newBlogEntryLink(b)
     }
   }
   
-  define newBlogEntryLink(b : Blog) {
-    listitem{ navigate(newBlogEntry(b)){"New Entry"} }
-  }
-  
   define blogOperationsMenu(b : Blog) {
-  
+    menuitem{ navigate(newBlog()){"Start a new blog"} }
+    menuitem{ navigate(newBlogEntry(b)){"New Entry"} }
   }
   
   define blogMenu() {
-  
-  }
-  
-  define newBlogLink() {
-    navigate(newBlog()){"Start a new blog"}
+    menuitem{ navigate(newBlog()){"Start a new blog"} }
   }
   
   define page newBlog()
@@ -77,7 +69,6 @@ section sidebar
   
 section blog frontpage
 
-
   define page blogs()
   {
     main()
@@ -98,7 +89,9 @@ section blog frontpage
     title{text(b.title)}
     define applicationSidebar() { 
       blogSidebar(b, entries)
-      editBlogLink(b)
+    }
+    define blogMenu() {
+      blogOperationsMenu(b)
     }
     define body() {
       section{ 

@@ -190,14 +190,19 @@ section wiki page editing
       section {
         header{"Create New Wiki Page"}
         form { 
-          par{ "Name: " input(newName) }
-          par{ "The name of a page is the key that is used to refer to it "
-               "and cannot be changed after creation." }
+          par{ "Name" input(newName) }
           par{ "Title: " input(newTitle) }
 	  par{ input(newContent) }
 	  par{ action("Save changes", savePage()) }
+	  
+          par{ 
+            "*) The name of a page is the key that is used to refer to it "
+            "and cannot be changed after creation. " 
+          }
+               
           action savePage() {
             var p : Page := Page{ name := newName };
+            if (newTitle = "") { newTitle := newName; }
             p.makeChange(newTitle, newContent, securityContext.principal);
             p.persist();
 	    return page(p);

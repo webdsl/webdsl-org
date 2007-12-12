@@ -31,11 +31,7 @@ section blog stuff
     rules page newBlog() {
       securityContext.loggedIn
     }
-    
-    rules template newBlogLink() {
-      securityContext.loggedIn
-    }
-    
+        
     rules page editBlog(b : Blog) {
       mayEditBlog(b)
     }
@@ -47,11 +43,7 @@ section blog stuff
     rules page newBlogEntry(b : Blog) {
       mayEditBlog(b)
     }
-    
-    rules template newBlogEntryLink(b : Blog) {
-      mayEditBlog(b)
-    }
-    
+        
     rules template editBlogEntryLinks(entry : BlogEntry) {
       mayEditBlog(entry.blog)
     }

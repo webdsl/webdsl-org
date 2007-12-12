@@ -115,6 +115,7 @@ section menus
       }
       menu { 
         menuheader{ navigate(blogs()){"Blogs"} }
+        blogMenu()
         for(b : Blog in config.blogsList) {
           menuitem{ output(b) }
         }

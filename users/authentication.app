@@ -30,8 +30,8 @@ section authentication
     var usr : User := User{};
     form { 
       table {
-        row{ "username: " input(usr.username) }
-        row{ "password: " input(usr.password) }
+        row{ "Username: " input(usr.username) }
+        row{ "Password: " input(usr.password) }
       }
       action("Sign in", signin())
       action signin() {

@@ -31,6 +31,14 @@ section users
       securityContext.loggedIn
     }
     
+    rules page userRegistration(*) {
+      securityContext.loggedIn
+    }
+    
+    rules page confirmEmail(*) {
+      true
+    }
+    
     rules template showUserRegistration(*) {
       securityContext.loggedIn
     }
