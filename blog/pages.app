@@ -34,9 +34,9 @@ section navigation and operations
   }
   
   define blogEntryOperationsMenu(e : BlogEntry) {
-    menuitem{ navigate(newBlogEntry(b)){"New Blog Entry"} }
+    menuitem{ navigate(newBlogEntry(e.blog)){"New Blog Entry"} }
     menuitem{ navigate(editBlogEntry(e)){"Edit This Blog Entry"} }
-    menuitem{ navigate(editBlog(b)){"Configure This Blog"} }
+    menuitem{ navigate(editBlog(e.blog)){"Configure This Blog"} }
   }
   
   define blogSidebar(b : Blog, entries : List<BlogEntry>)
