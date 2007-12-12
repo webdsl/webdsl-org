@@ -34,13 +34,14 @@ section home page
 section application configuration
 
   entity Configuration {
-    blogs      -> Set<Blog>
-    forums     -> Set<Forum>
-    homepage   -> Page
-    sidebar    -> Page
-    users      -> Set<User>
-    startpages -> Set<Page>
-    projects   -> Set<Project>
+    blogs         -> Set<Blog>
+    forums        -> Set<Forum>
+    homepage      -> Page
+    sidebar       -> Page
+    users         -> Set<User>
+    wikistartpage -> Page
+    startpages    -> Set<Page>
+    projects      -> Set<Project>
   }
   
   access control rules {
@@ -69,10 +70,11 @@ section initialization of application configuration
     };
     
     var config : Configuration := Configuration {
-      homepage := homePage
-      sidebar  := appSidebar
-      blogs    := {eelcosBlog}
-    }; 
+      homepage      := homePage
+      wikistartpage := homePage
+      sidebar       := appSidebar
+      blogs         := {eelcosBlog}
+    };
     
   }
 

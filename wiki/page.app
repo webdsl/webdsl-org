@@ -5,14 +5,24 @@ section main page for wiki
   define page wiki()
   {
     main()
-    define applicationSidebar() {
-      list{ newPageLink() }
+    title{output(config.wikistartpage.title)}
+    define body() {
+      output(config.wikistartpage.content)
     }
+  }
+
+  define page wikiIndex()
+  {
+    main()
+    title{"Wiki Page Index"}
     define body() {
       section { 
-        header{"Pages"}
+        header{"Wiki Page Index"}
         list { for(p : Page) { 
           listitem { output(p) }
+          // todo: sort by title
+          // todo: use title and key
+          // todo: make accessible via wiki markup?
         } }
       }
     }
@@ -29,13 +39,10 @@ section wiki page
       }
     }
     main()
-    title{output(p.name)}
-    define pageOperationsMenuItems() {
-      pageOperationsMenuItemsP(p)
+    title{output(p.title)}
+    define wikiOperationsMenuItems() {
+      pageOperationsMenuItems(p)
     }
-    //define applicationSidebar() {
-    //  list{ pageOperations(p) }
-    //}
     define body() {
       section {
         header{ output(p.title) }
@@ -51,15 +58,27 @@ section wiki page
   }
   
 section page operations
-  
-    define pageOperationsMenuItems() {
-      menuitem { newPageLink() }
-    }
-    
-  define pageOperationsMenuItemsP(p : Page)
+
+  define wikiMenu()
   {
-    menuitem { newPageLink() }
-    menuitem{ navigate(editPage(p)) { "Edit" } }
+    menu{
+      menuheader{ navigate(wiki()){"Wiki"} }
+      wikiOperationsMenuItems()
+      menuitem{ navigate(wikiIndex()){"Page Index"} }
+      menuitem{ navigate(newPage()){"New Page"} }
+      menuspacer{}
+      for(p : Page in config.startpagesList) {
+        menuitem{ output(p) }
+      }
+    }
+  }
+  
+  define wikiOperationsMenuItems() {
+  }
+    
+  define pageOperationsMenuItems(p : Page)
+  {
+    menuitem{ navigate(editPage(p)) { "Edit This Page" } }
     menuitem{ 
       if (p in config.startpages) {
         form {
@@ -80,35 +99,7 @@ section page operations
         }
       }
     }
-  }
-  define pageOperations(p : Page)
-  {
-    listitem { newPageLink() }
-    listitem{ navigate(editPage(p)) { "Edit" } }
-    listitem{ 
-      if (p in config.startpages) {
-        form {
-          actionLink("Startpage", unmakeStartpage())
-          action unmakeStartpage() {
-            config.startpages.remove(p);
-            config.persist();
-          }
-        }
-      }
-      if (!(p in config.startpages)) {
-        form{
-          actionLink("Not a startpage", makeStartpage())
-          action makeStartpage() {
-            config.startpages.add(p);
-            config.persist();
-          }
-        }
-      }
-    }
-  }
-  
-  define newPageLink() {
-    navigate(newPage()){ "New Page" }
+    menuspacer{}
   }
   
 section wiki page history
@@ -130,10 +121,7 @@ section wiki page history
         output(diff.content)
         par{ "Last changes by " output(diff.author) }
         par{ nextPreviousLink(diff) }
-        //section{
-        //  header{"Patch"}
-        //  output(diff.patch)
-        //}
+        // todo: show the difference
       }
     }
   }
@@ -194,7 +182,7 @@ section wiki page editing
           par{ "Title: " input(newTitle) }
 	  par{ input(newContent) }
 	  par{ action("Save changes", savePage()) }
-	  
+	  par{}
           par{ 
             "*) The name of a page is the key that is used to refer to it "
             "and cannot be changed after creation. " 

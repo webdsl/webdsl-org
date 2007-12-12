@@ -3,7 +3,6 @@ module blog/pages
 section queries
   
   globals {
-  
     function sortedBlogEntries(b : Blog) : List<BlogEntry> {
       var entries : List<BlogEntry> := 
         select distinct e from BlogEntry as e, Blog as b
@@ -11,11 +10,35 @@ section queries
          order by e._created descending;
       return entries;
     }
-
   }
 
-section sidebar
+section navigation and operations
 
+  define blogMenu() {
+    menu { 
+      menuheader{ navigate(blogs()){"Blogs"} }
+      blogOperationsMenu()
+      menuitem{ navigate(newBlog()){"New Blog"} }
+      menuspacer{}
+      for(b : Blog in config.blogsList) {
+        menuitem{ output(b) }
+      }
+    }
+  }
+  
+  define blogOperationsMenu() { }
+  
+  define blogOperationsMenuItems(b : Blog) {
+    menuitem{ navigate(newBlogEntry(b)){"New Blog Entry"} }
+    menuitem{ navigate(editBlog(b)){"Configure This Blog"} }
+  }
+  
+  define blogEntryOperationsMenu(e : BlogEntry) {
+    menuitem{ navigate(newBlogEntry(b)){"New Blog Entry"} }
+    menuitem{ navigate(editBlogEntry(e)){"Edit This Blog Entry"} }
+    menuitem{ navigate(editBlog(b)){"Configure This Blog"} }
+  }
+  
   define blogSidebar(b : Blog, entries : List<BlogEntry>)
   {
     list{
@@ -27,14 +50,7 @@ section sidebar
     }
   }
   
-  define blogOperationsMenu(b : Blog) {
-    menuitem{ navigate(newBlog()){"Start a new blog"} }
-    menuitem{ navigate(newBlogEntry(b)){"New Entry"} }
-  }
-  
-  define blogMenu() {
-    menuitem{ navigate(newBlog()){"Start a new blog"} }
-  }
+section creation
   
   define page newBlog()
   {
@@ -43,30 +59,35 @@ section sidebar
     define body()
     {
       form{
-        section{"Create New Blog"}      
-        var blogKey : String;
-        var blogTitle : String;
-        table{
-          row{ "Key:"   input(blogKey) }
-          row{ ""       "Key is used in URL, cannot be changed" }
-          row{ "Title:" input(blogTitle) }
-          row{ ""       "Title is used as header on pages" }
-        }
-        action("Create Blog", createBlog())
-        action createBlog() {
-          var newBlog : Blog :=
-            Blog {
-              key     := blogKey
-              title   := blogTitle
-              authors := {securityContext.principal}
-            };
-          newBlog.persist();
-          return blog(newBlog);
+        section{
+          header{"Create New Blog"}
+          var blogKey : String;
+          var blogTitle : String;
+          table{
+            row{ "Key:"   input(blogKey) }
+            row{ ""       "Key is used in URL, cannot be changed later" }
+            row{ "Title:" input(blogTitle) }
+            row{ ""       "Title is used as header on pages" }
+          }
+          action("Create Blog", createBlog())
+          action createBlog() {
+            if (blogTitle = "") { blogTitle := blogKey; }
+            var newBlog : Blog :=
+              Blog {
+                key     := blogKey
+                title   := blogTitle
+                // authors := {securityContext.principal} // does not work!?
+              };
+            newBlog.authors.add(securityContext.principal);
+            // does not work either !?
+            newBlog.persist();
+            return blog(newBlog);
+          }
         }
       }
     }
   }
-  
+
 section blog frontpage
 
   define page blogs()
@@ -90,8 +111,8 @@ section blog frontpage
     define applicationSidebar() { 
       blogSidebar(b, entries)
     }
-    define blogMenu() {
-      blogOperationsMenu(b)
+    define blogOperationsMenu() {
+      blogOperationsMenuItems(b)
     }
     define body() {
       section{ 
@@ -101,10 +122,6 @@ section blog frontpage
         }
       }
     }
-  }
-  
-  define editBlogLink(b : Blog) {
-    navigate("Edit", editBlog(b))
   }
   
   define blogEntryIntro(entry : BlogEntry, b : Blog)
@@ -126,9 +143,13 @@ section blog entry page
     title{output(entry.blog.title) " / " output(entry.title)}
     
     var entries : List<BlogEntry> := sortedBlogEntries(entry.blog);
-    
+  
     define applicationSidebar(){ 
       blogSidebar(entry.blog, entries)
+    }
+    
+    define blogOperationsMenu() {
+      blogEntryOperationsMenu(entry)
     }
     
     define body() {

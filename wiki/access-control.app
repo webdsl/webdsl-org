@@ -16,6 +16,10 @@ section wiki
       true
     }
 
+    rules page wikiIndex() {
+      true
+    }
+    
     rules page pageDiff(*) {
       securityContext.loggedIn
     }
@@ -36,15 +40,7 @@ section wiki
       securityContext.loggedIn
     }
 
-    rules template newPageLink() {
-      securityContext.loggedIn
-    }
-
-    rules template pageOperations(p : Page) {
-      securityContext.loggedIn
-    } 
-    
-    rules template pageOperationsMenuItemsP(p : Page) {
+    rules template pageOperationsMenuItems(p : Page) {
       securityContext.loggedIn
     }
 

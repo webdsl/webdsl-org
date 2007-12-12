@@ -2,9 +2,16 @@ General WebDSL Issues
 ---------------------
 
 - backing into edit screen causes crash on subsequent save
+  - jboss dependent?
+  - general: better management of conversations and (in)validation of
+    URLs
+
 - ordered lists; lists tend to lose ordering, e.g. author list
-- fix drop-down menus
+
+x fix drop-down menus
+
 - unselect all issues in a many select box
+
 - rendering lists with separators (e.g. authors separated by commas)
 
 - read-only annotation: properties with this annotation should not be
@@ -12,7 +19,7 @@ General WebDSL Issues
 
 - warning if page has no title
 
-- captcha to prevent spambots
+x captcha to prevent spambots
 
 Interaction Patterns
 --------------------
@@ -49,6 +56,25 @@ Layout
   - fonts
   - headers
   - tables
+
+
+  - par is not new line?
+
+	  par{ action("Save changes", savePage()) }
+	  
+          par{ 
+            "*) The name of a page is the key that is used to refer to it "
+            "and cannot be changed after creation. " 
+          }
+
+   produces
+
+      <p><input type="submit" name="j_id132:j_id147" value="Save changes" />
+      </p>
+      <p>*) The name of a page is the key 
+	that is used to refer to it and cannot be changed after creation.  </p>
+
+   but no line break in between (in firefox)
 
 Authentication
 --------------

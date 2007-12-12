@@ -161,10 +161,12 @@ section emails
     from("admin@webdsl.org")
     subject("Welcome")
     body {
-      "Dear " output(user.fullname) ",\n"
-      "Your registration has been confirmed."
-      "Your profile is " output(user)
+      par{ "Dear " output(user.fullname) "," }
+      par{ "Welcome to webdsl.org. Your registration has been confirmed. "
+           "You can find your profile at " 
+           navigate(user(user)){url(user(user))} }
     }
+    // make name of site a configuration parameter
   }
   
   define email rejectRegistration(reg : UserRegistration, rejection : Text)
@@ -184,26 +186,29 @@ section change password
   {
     main()
     define body() {
-      form {
-        var oldPassword  : Secret;
-        var newPassword1 : Secret;
-        var newPassword2 : Secret;
-      
-        table {
-          row{ "Old password: "    input(oldPassword) }
-          row{ "New password: "    input(newPassword1) }
-          row{ "Repeat password: " input(newPassword2) }
-        }
-        action("Reset password", resetPassword())
-        action resetPassword() {
-          if (securityContext.principal.password.check(oldPassword)
-              && newPassword1 = newPassword2)
-          {
-            securityContext.principal.password := newPassword1.digest();
-            securityContext.principal.save();
-            return user(securityContext.principal);
-          } else {
-            return changePassword();
+      section{
+        header{"Change Password for " output(securityContext.principal)}
+        form {
+          var oldPassword  : Secret;
+          var newPassword1 : Secret;
+          var newPassword2 : Secret;
+          table {
+            row{ "Old password: "    input(oldPassword) }
+            row{ "New password: "    input(newPassword1) }
+            row{ "Repeat password: " input(newPassword2) }
+            row{ action("Reset password", resetPassword()) ""}
+          }
+          action resetPassword() {
+            if (securityContext.principal.password.check(oldPassword)
+                && newPassword1 = newPassword2)
+            {
+              securityContext.principal.password := newPassword1.digest();
+              securityContext.principal.save();
+              return user(securityContext.principal);
+            } else {
+              return changePassword();
+              // todo: error message
+            }
           }
         }
       }

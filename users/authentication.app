@@ -32,8 +32,8 @@ section authentication
       table {
         row{ "Username: " input(usr.username) }
         row{ "Password: " input(usr.password) }
+        row{ action("Sign in", signin()) "" }
       }
-      action("Sign in", signin())
       action signin() {
         var users : List<User> :=
           select u from User as u 
@@ -49,8 +49,8 @@ section authentication
        securityContext.loggedIn := false;
         return home();
       }
-      par{ navigate(register()){"Register new user"} }
     }
+    par{ navigate(register()){"Register new user"} }
   }
 
   define signoff()

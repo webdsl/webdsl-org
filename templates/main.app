@@ -106,20 +106,8 @@ section menus
         menuheader{ navigate(news()){"News"} }
         newsMenu()
       }
-      menu { 
-        menuheader{ navigate(wiki()){"Wiki"} }
-        pageOperationsMenuItems()
-        for(p : Page in config.startpagesList) {
-          menuitem{ output(p) }
-        }
-      }
-      menu { 
-        menuheader{ navigate(blogs()){"Blogs"} }
-        blogMenu()
-        for(b : Blog in config.blogsList) {
-          menuitem{ output(b) }
-        }
-      }
+      wikiMenu()
+      blogMenu()
       menu { 
         menuheader{ navigate(forums()){"Forums"} }
         for(b : Forum in config.forumsList) {
