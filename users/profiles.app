@@ -23,6 +23,7 @@ section create new user
         var newUser : UserRegistration := UserRegistration { };
         form { 
           editRowsUserRegistration(newUser)
+          captcha()
           action("Register", createUser())
           action createUser() {
             var users : List<User> :=
