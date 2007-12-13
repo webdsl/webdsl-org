@@ -152,7 +152,7 @@ section slides
           previous     := s
         };
       s.next := newSlide;
-      //s.previous := 
+      newSlide.next.previous := newSlide;
       s.presentation.authors.add(securityContext.principal);
       newSlide.persist();
       return editSlide(newSlide);
