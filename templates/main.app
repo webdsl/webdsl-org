@@ -109,12 +109,7 @@ section menus
       wikiMenu()
       blogMenu()
       forumMenu()
-      menu { 
-        menuheader{ navigate(issues()){"Issues"} }
-        for(b : Project in config.projectsList) {
-          menuitem{ output(b) }
-        }
-      }
+      issuesMenu()
       menu { 
         menuheader{ navigate(users()){"Users"} }
         for(b : User in config.usersList) {

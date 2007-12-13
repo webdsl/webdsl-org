@@ -27,23 +27,7 @@ section issues
       securityContext.loggedIn
     }
     
-    rules template newProjectLink() {
-      securityContext.loggedIn
-    }
-    
-    rules template editProjectLink(p : Project) {
-      securityContext.loggedIn
-    }
-
-    rules template newIssueLink(p : Project) {
-      securityContext.loggedIn
-    }
-    
     rules template newSubIssue(i : Issue) {
-      securityContext.loggedIn
-    }
-  
-    rules template editIssueLink(i : Issue) {
       securityContext.loggedIn
     }
     

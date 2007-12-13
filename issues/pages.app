@@ -1,5 +1,29 @@
 module issues/pages
 
+section menu and navigation
+
+  define issuesMenu()
+  {
+    menu { 
+      menuheader{ navigate(issues()){"Issues"} }
+      projectOperationsMenu()
+      menuitem{ navigate(newProject()){"New Project"} }
+      menuspacer{}
+      for(b : Project in config.projectsList) {
+          menuitem{ output(b) }
+      }
+    }
+  }
+      
+  define projectOperationsMenu() { }
+  
+  define projectOperationsMenuItems(p : Project)
+  {
+    menuitem{ navigate(newIssue(p)){"New Issue"} }
+    menuitem{ navigate(editProject(p)){"Configure Project"} }
+    menuspacer{}
+  }
+  
 section issue tracker main page
 
   define page issues()
@@ -7,7 +31,6 @@ section issue tracker main page
     main()
     title{"Projects"}
     define applicationSidebar() {
-      newProjectLink()
     }
     define body()
     {
@@ -26,15 +49,10 @@ section issue tracker main page
 
 section projects
 
-  define newProjectLink()
-  {
-    navigate(newProject()){"New Project"}
-  }
-
   define page newProject()
   {
     main()
-    title{"Create new project"}
+    title{"Create New Project"}
     define body() {
       var newProject : Project := 
         Project{ 
@@ -64,22 +82,15 @@ section projects
     }
   }
   
-  define editProjectLink(p : Project)
-  {
-    navigate(editProject(p)){"Edit Project"}
-  }
-
   define page project(p : Project)
   {
     main()
     title{"Project - " output(p.name)}
-    define applicationSidebar() {
-       list {
-         listitem { newIssueLink(p) }
-         listitem { editProjectLink(p) }
-       }
+    define projectOperationsMenu() { 
+      projectOperationsMenuItems(p)
     }
-    define body() {
+    define body() 
+    {
       section{
         header{"Project: " output(p.name)}
         par{ output(p.pitch) }

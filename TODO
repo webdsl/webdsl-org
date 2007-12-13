@@ -24,10 +24,25 @@ x fix drop-down menus
 
 x captcha to prevent spambots
 
+- generic operations on objects
+  - clone: entities with a symbolic id, may need to be cloned in order
+    to rename the id (e.g. changing the projectname of a project, or
+    the key of a wiki page)
+  - delete: recursively delete an object and all objects dependent on it
+
+
+Page Events
+-----------
+
 - automatic creation of objects when id does not exist is not a good idea
   -> redirect to error page by default
   - should be able to perform specific action when desired (e.g. creation
     of non-existing wiki page)
+
+- define page EVENTS, which declare how to react to certain events
+  - event object-does-not-exist { ... }
+  - event 
+  -> exceptions? or more general? i.e. also non-exceptional events?
 
 Interaction Patterns
 --------------------
@@ -38,6 +53,8 @@ Interaction Patterns
   x blog entry 
     - comments to blog entries
   x forums, discussions, replies
+
+- deleting objects
 
 Navigation
 ----------
@@ -63,6 +80,7 @@ RSS
 
 Layout
 ------
+
 
 - CSS definition
   x layout of page
@@ -102,6 +120,8 @@ x change password
 Configuration
 -------------
 
+- logo image in configuration
+
 - java.lang.ArrayStoreException
   on editConfiguration for second time
 
@@ -132,7 +152,7 @@ Blog
 x create a new blog
 x terminology is confusing, distinction between a Blog and a Blog post.
   -> called Blog Entry
-- read more link to view page of blog entry
+- 'read more' link to view page of blog entry
 - blog comments
 
 Forum
@@ -145,6 +165,10 @@ x Posting replies does not seem to work properly
 
 Issues
 ------
+
+- Projectname and Key cannot be changed after creation
+
+- Nextkey property should not be edited
 
 - themes and releases 
   x to organize views on collections of issues

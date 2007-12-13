@@ -2,11 +2,6 @@ module issues/issues
 
 section submitting issues
 
-  define newIssueLink(p : Project)
-  {
-    navigate(newIssue(p)){"Submit issue"}
-  }
-  
   define page newIssue(p : Project)
   {
     main()
@@ -61,22 +56,21 @@ section viewing issues
         goto issues();
       }
     }
+    
     main()
+    
     title{output(i.key) ": " output(i.title)}
     
-    define applicationSidebar()
-    {
-      newIssueLink(i.project)
-      issueOperations(i)
-      issueProperties(i)
+    define projectOperationsMenu() {
+      issueOperationsMenuItems(i)
     }
     
     define body() 
     {
-      output(i.project)
       section{
         header{output(i.type.name) ": " output(i.title)}
-        par{ 
+        block("issueProperties"){ issueProperties(i) }
+        par{
           output(i.description)
         }
         section{
@@ -91,14 +85,20 @@ section viewing issues
     }
   }
   
-  define issueList(is : List<Issue>)
+  define issueListOld(is : List<Issue>)
   {
     list { for (i : Issue in is order by i.type ) {
       listitem{ output(i) }
     } }
   }
   
-  define issueListFuture(is : List<Issue>)
+  // only show if not empty
+  // make virtual properties?
+  // make generic? -> use ordered by to order by type, then print all issues for one type
+  // under header of that type's name
+  // define ordering on types
+  
+  define issueList(is : List<Issue>)
   {
     section{
       header{"Themes"}
@@ -131,7 +131,7 @@ section viewing issues
       row{"Type:"       output(i.type.name)}
       row{"Status:"     output(i.status.name)}
       row{"Priority:"   output(i.priority.name)}
-      row{"Assignee:"   output(i.assignee)}
+      row{"Assignee:"   par{ output(i.assignee) assignToMe(i)} }
       row{"Reporter:"   output(i.reporter)}
       row{"Submitted: " output(i.submitted)}
       row{"Due: "       output(i.due)}
@@ -139,6 +139,15 @@ section viewing issues
   }
   
 section issue operations
+
+  define issueOperationsMenuItems(i : Issue)
+  {
+    menuitem{ navigate(editIssue(i)){"Edit This Issue"} }
+    menuitem{ assignToMe(i) }
+    menuitem{ newSubIssue(i) }
+    menuspacer{}
+    projectOperationsMenuItems(i.project)
+  }
 
   define issueOperations(i : Issue)
   {
@@ -149,14 +158,9 @@ section issue operations
     }
   }
   
-  define editIssueLink(i : Issue)
-  {
-    navigate(editIssue(i)){"Edit this issue"}
-  }
-  
   define assignToMe(i : Issue)
   {
-    form{ actionLink("Assign to me", assignToMe()) }
+    form{ actionLink("Assign to Me", assignToMe()) }
     action assignToMe() {
       i.assignee := securityContext.principal;
       return issue(i);
@@ -166,16 +170,17 @@ section issue operations
   define newSubIssue(i : Issue)
   {
     form{
-      actionLink("Submit subissue", addSubIssue())
+      actionLink("Submit Subissue", addSubIssue())
       action addSubIssue() {
         var newIssue : Issue := 
           Issue{
             type     := bug
             status   := open
             priority := major
-            requiredby := {i}
+            //requiredby := {i}
           };
         i.project.submitIssue(newIssue);
+        newIssue.requiredby.add(i);
         newIssue.reporter := securityContext.principal;
         newIssue.persist();
         return editIssue(newIssue);
