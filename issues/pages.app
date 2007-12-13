@@ -40,7 +40,6 @@ section issue tracker main page
           section{ 
             header{output(p)}
             output(p.pitch)
-            newIssueLink(p)
           }
         }
       }

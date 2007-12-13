@@ -10,7 +10,6 @@ section issues
   
     rules page issue(*) { true }
     
-  
     rules page editProject(p : Project) {
       securityContext.loggedIn
     }

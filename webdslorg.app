@@ -12,6 +12,7 @@ imports blog/main
 imports forum/main
 imports contexts/main
 imports news/main
+imports presentations/main
 
 section home page
 

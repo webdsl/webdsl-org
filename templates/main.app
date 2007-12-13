@@ -110,6 +110,7 @@ section menus
       blogMenu()
       forumMenu()
       issuesMenu()
+      presentationsMenu()
       menu { 
         menuheader{ navigate(users()){"Users"} }
         for(b : User in config.usersList) {
