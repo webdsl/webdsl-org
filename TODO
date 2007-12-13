@@ -1,6 +1,9 @@
 General WebDSL Issues
 ---------------------
 
+- scope of transactions / session beans
+  - should it be extended? may be cause of caching bugs
+
 - backing into edit screen causes crash on subsequent save
   - jboss dependent?
   - general: better management of conversations and (in)validation of
@@ -21,14 +24,20 @@ x fix drop-down menus
 
 x captcha to prevent spambots
 
+- automatic creation of objects when id does not exist is not a good idea
+  -> redirect to error page by default
+  - should be able to perform specific action when desired (e.g. creation
+    of non-existing wiki page)
+
 Interaction Patterns
 --------------------
 
 - creating new objects (especially objects with a symbolic id)
   x wiki page
   x issue
-  - blog entry and comments
-  - registering new users
+  x blog entry 
+    - comments to blog entries
+  x forums, discussions, replies
 
 Navigation
 ----------
@@ -47,16 +56,20 @@ x how to organize navigation between sub-applications
   x start pages of a wiki
   - road map for issue tracker
 
+RSS
+---
+
+- support generation of XML RSS output
+
 Layout
 ------
 
 - CSS definition
-  - layout of page
-  - menubar (scaling)
-  - fonts
-  - headers
+  x layout of page
+  x menubar (scaling)
+  x fonts
+  x headers
   - tables
-
 
   - par is not new line?
 
@@ -82,6 +95,16 @@ Authentication
 x sign in
 x change password
 
+- registering new users
+  - random URL for email confirmation
+  - don't show confirmation checkbox
+
+Configuration
+-------------
+
+- java.lang.ArrayStoreException
+  on editConfiguration for second time
+
 News
 ----
 
@@ -106,16 +129,18 @@ x start pages should be shown on wiki front-page
 Blog
 ----
 
-- How can I create a new blog? I can make new posts, but how about
-blogs? Also, terminology is confusing, should be clear distinction
-between a Blog and a Blog post.
+x create a new blog
+x terminology is confusing, distinction between a Blog and a Blog post.
+  -> called Blog Entry
+- read more link to view page of blog entry
+- blog comments
 
 Forum
 -----
 
-- discussion threads
-- adding replies 
-- Posting replies does not seem to work properly 
+x discussion threads
+x adding replies 
+x Posting replies does not seem to work properly 
   (my reply was posted 3 times)
 
 Issues
@@ -155,8 +180,6 @@ x Improve "submit issue" interface (there's no names for each field)
 
 - from issue tracking to workflow
   - workflow is repeatable tree of dependent issues
-
-
 
 FAQ
 ---
