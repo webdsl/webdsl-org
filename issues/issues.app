@@ -131,9 +131,10 @@ section viewing issues
       row{"Type:"       output(i.type.name)}
       row{"Status:"     output(i.status.name)}
       row{"Priority:"   output(i.priority.name)}
-      row{"Assignee:"   par{ output(i.assignee) assignToMe(i)} }
+      row{"Assignee:"   output(i.assignee)}
       row{"Reporter:"   output(i.reporter)}
-      row{"Submitted: " output(i.submitted)}
+      row{"Submitted:"  output(i.submitted)}
+      row{"Updated:"    output(i.updated)}
       row{"Due: "       output(i.due)}
     }
   }
@@ -147,15 +148,6 @@ section issue operations
     menuitem{ newSubIssue(i) }
     menuspacer{}
     projectOperationsMenuItems(i.project)
-  }
-
-  define issueOperations(i : Issue)
-  {
-    list{
-      listitem{ editIssueLink(i) }
-      listitem{ assignToMe(i) }
-      listitem{ newSubIssue(i) }
-    }
   }
   
   define assignToMe(i : Issue)
@@ -177,10 +169,9 @@ section issue operations
             type     := bug
             status   := open
             priority := major
-            //requiredby := {i}
           };
         i.project.submitIssue(newIssue);
-        newIssue.requiredby.add(i);
+        i.requires.add(newIssue);
         newIssue.reporter := securityContext.principal;
         newIssue.persist();
         return editIssue(newIssue);

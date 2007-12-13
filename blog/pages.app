@@ -129,7 +129,7 @@ section blog frontpage
     section{ 
       header{output(entry)}
       entryByline(entry)
-      par{output(entry.intro)}
+      par{ output(entry.intro) }
       par{ editBlogEntryLinks(entry) }
     }
   }

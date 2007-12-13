@@ -30,6 +30,10 @@ x captcha to prevent spambots
     the key of a wiki page)
   - delete: recursively delete an object and all objects dependent on it
 
+- hidden / read-only
+  - hidden property is excluded from editRows
+  - read-only property is not made editable in editRows
+
 
 Page Events
 -----------
@@ -88,6 +92,8 @@ Layout
   x fonts
   x headers
   - tables
+
+  - issueProperties div should float right
 
   - par is not new line?
 

@@ -23,7 +23,6 @@ section navigation
     menuitem{ navigate(editForum(f)){"Configure This Forum"} }
   }
   
-  
   define discussionOperationsMenuInst(d : Discussion)
   {
     menuitem{ navigate(editDiscussion(d)){"Edit This Discussion"} }
@@ -49,6 +48,7 @@ section forum
           }
         }
         action createForum() {
+          if (newKey = "") { newTitle := newKey; }
           var newForum : Forum := 
             Forum{
               key := newKey
