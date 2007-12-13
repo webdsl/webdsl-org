@@ -8,11 +8,19 @@ section AC
       true
     }
     
+    rules page newForum() {
+      securityContext.loggedIn
+    }
+    
+    rules page editForum(*) {
+      securityContext.loggedIn
+    }
+    
     rules page forum(*) {
       true
     }
     
-    rules template newDiscussion(*) {
+    rules page newDiscussion(*) {
       securityContext.loggedIn
     }      
     

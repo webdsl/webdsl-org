@@ -7,6 +7,7 @@ description {
 section domain
 
   entity Forum { 
+    key         :: String (id)
     title       :: String (name)
     discussions -> List<Discussion>
   }
