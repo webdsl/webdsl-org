@@ -33,6 +33,10 @@ section issues
     rules template assignToMe(i : Issue) {
       i.assignee != securityContext.principal
     }
+    
+    rules template addIssueComment(i : Issue) {
+      securityContext.loggedIn
+    }
 
   }
   

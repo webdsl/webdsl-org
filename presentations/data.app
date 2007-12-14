@@ -173,6 +173,7 @@ section slides
       s.previous := n;
       
       n.next     := s;
+      s.save();
     }
   }
   
@@ -189,7 +190,8 @@ section slides
       s.next     := p;
       s.previous := p.previous;
       
-      p.previous := s;      
+      p.previous := s;     
+      s.save(); 
     }
   }
   

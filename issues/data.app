@@ -44,6 +44,8 @@ section issues
     
     requires    -> Set<Issue> (inverse=Issue.requiredby)
     requiredby  -> Set<Issue> 
+    
+    comments    <> List<IssueComment>
   }
   
 sections issue properties
@@ -81,15 +83,24 @@ sections issue properties
     var trivial  : IssuePriority := IssuePriority { priority := "Trivial" };
   }
   
+section issue comments
+
+  entity IssueComment {
+    issue   -> Issue (inverse=Issue.comments)
+    posted  :: Date
+    author  -> User
+    content :: WikiText
+  }
+  
 section submitting issues
 
   extend entity Project {
   
-    function submitIssue(newIssue : Issue) : Project {
+    function submitIssue(newIssue : Issue) : Issue {
       newIssue.key     := this.key + "-" + this.nextkey.toString();
       this.nextkey     := this.nextkey + 1;
       newIssue.project := this;
-      return this;
+      return newIssue;
     }
     
   }

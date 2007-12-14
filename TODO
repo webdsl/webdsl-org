@@ -172,6 +172,8 @@ x Posting replies does not seem to work properly
 Issues
 ------
 
+- show all issue types
+
 - Projectname and Key cannot be changed after creation
 
 - Nextkey property should not be edited

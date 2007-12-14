@@ -1,12 +1,41 @@
 
 div.issueProperties {  
   float: right;
-  width: 20em;
+  width: 15em;
   margin: 0px 0px 0px 0px;
   background-color: white;
   padding: 10px 10px 0px 10px;
   border: 0px;
   /* height: 100%; */
+}
+
+div.issueCommentByLine {
+  border-top    : 2px solid gray;
+  border-left   : 2px solid gray;
+  border-right  : 2px solid gray;
+  border-bottom : 1px solid gray;
+  width : 450px;
+  padding-left  : 10px;
+  padding-right : 10px;
+}
+
+div.issueComment {
+  width : 450px;
+  border         : 2px solid gray;
+  margin-bottom  : 5px;
+  padding-left   : 5px;
+  padding-right  : 10px;
+  padding-top    : 0;
+  padding-bottom : 0;
+  border-top     : 1px solid gray;
+  border-left    : 2px solid gray;
+  border-right   : 2px solid gray;
+  border-bottom  : 2px solid gray;
+}
+
+.newIssueComment textarea {
+  width : 450px;
+  height : 10em;
 }
 
 

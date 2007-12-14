@@ -67,20 +67,31 @@ section viewing issues
     
     define body() 
     {
+      block("issueProperties"){ issueProperties(i) }
       section{
         header{output(i.type.name) ": " output(i.title)}
-        block("issueProperties"){ issueProperties(i) }
         par{
           output(i.description)
         }
-        section{
-          header{"Requires"}
-          issueList(i.requiresList)
+        if (i.requires.length > 0) {
+          section{
+            header{"Requires"}
+            issueList(i.requiresList)
+          }
         }
-        section{
-          header{"Required by"}
-          issueList(i.requiredbyList)
+        if (i.requiredby.length > 0) {
+          section{
+            header{"Required by"}
+            issueList(i.requiredbyList)
+          }
         }
+        if (i.comments.length > 0) {
+          section{
+            header{"Comments"}
+            issueCommentList(i.comments)
+          }
+        }
+        addIssueComment(i)
       }
     }
   }
@@ -98,28 +109,49 @@ section viewing issues
   // under header of that type's name
   // define ordering on types
   
+  // why does this not typecheck?
+  //define issueListFuture(is : List<Issue>)
+  //{
+  //  for(t : IssueType) {
+  //    var is : List<Issue> := [i for(i : Issue in is where i.type = t)];
+  //    if(is.size() > 0) {
+  //      section {
+  //        header{output(t.name)}
+  //        output(is)
+  //      }
+  //    }
+  //  }
+  //}
+  
+  define issueListOld(is : List<Issue>)
+  {
+    table {
+      row{ "Key" "Type" "Priority" "Title" }
+      for(t : IssueType) {
+        for(i : Issue in is where i.type = t) {
+          row{
+            navigate(issue(i)){output(i.key)}
+            output(t.name)
+            output(i.priority)
+            output(i.title)
+          }
+        }
+      }
+    }
+  }
+  
   define issueList(is : List<Issue>)
   {
-    section{
-      header{"Themes"}
-      list { for (i : Issue in is) {
-        if (i.type = theme) {
-          listitem{ output(i) ": " output(i.title) }
-      } } }
-    }
-    section{
-      header{"Features"}
-      list { for (i : Issue in is) {
-        if (i.type = feature) {
-        listitem{ output(i) ": " output(i.title) }
-      } } }
-    }
-    section{
-      header{"Bugs"}
-      list { for (i : Issue in is) {
-        if(i.type = bug) {
-          listitem{ output(i) ": " output(i.title) }
-      } } }
+    table {
+      row{ "Key" "Type" "Priority" "Title" }
+      for(i : Issue in is order by i.type) {
+        row{
+          navigate(issue(i)){output(i.key)}
+          output(i.type.name)
+          output(i.priority.name)
+          output(i.title)
+        }
+      }
     }
   }
   
@@ -136,6 +168,40 @@ section viewing issues
       row{"Submitted:"  output(i.submitted)}
       row{"Updated:"    output(i.updated)}
       row{"Due: "       output(i.due)}
+    }
+  }
+  
+  define issueCommentList(cs : List<IssueComment>)
+  {
+    for(c : IssueComment in cs order by c.posted)
+    {
+      block("issueCommentByLine") {
+        output(c.author) " - " output(c.posted)
+      }
+      block("issueComment") {
+        output(c.content)
+      }
+    }
+  }
+  
+  define addIssueComment(i : Issue)
+  {
+    var newComment : WikiText;
+    block("newIssueComment") {
+      form{
+        input(newComment)
+        action("Post Comment", postComment())
+      }
+    }
+    action postComment() {
+      var c : IssueComment :=
+        IssueComment {
+          content := newComment
+          author  := securityContext.principal
+          issue   := i
+        };
+      newComment := "";
+      c.persist();      
     }
   }
   
