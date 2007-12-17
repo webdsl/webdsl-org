@@ -25,7 +25,7 @@ section domain
   // cache date of last reply in dicussion; in order to dynamically re-order discussions
   
   entity Reply {
-    subject    :: String (name)
+    subject    :: String 
     author     -> User
     posted     :: Date
     discussion -> Discussion (inverse=Discussion.replies)

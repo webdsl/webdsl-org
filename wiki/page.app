@@ -47,12 +47,14 @@ section wiki page
       section {
         header{ output(p.title) }
 	par{ output(p.content) }
-	par{"Contributions by " 
-	  for(author : User in p.authorsList) {
+	
+	block("wikiPageByLine") {
+	  par{"Contributions by " 
+	    for(author : User in p.authorsList) {
 	    output(author)
-	  }
-	}
-      	par{ previousLink(p) }
+	    }}
+      	  par{ previousLink(p) }
+      	}
       }
     }
   }

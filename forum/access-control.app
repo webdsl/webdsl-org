@@ -32,8 +32,11 @@ section AC
       securityContext.loggedIn
     }
     
-    rules template editReplyLinks(*) {
-      securityContext.loggedIn
+    rules template showReply(*) {
+      true
+      rules action delete(*) {
+        securityContext.loggedIn
+      }
     }
     
     rules page reply(*) {

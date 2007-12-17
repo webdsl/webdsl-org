@@ -4,7 +4,7 @@ section presentation
 
   entity Presentation {
     title   :: String (name)
-    authors -> List<User>
+    authors -> Set<User>
     first   -> Slide
     last    -> Slide
   }

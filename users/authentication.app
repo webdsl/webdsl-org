@@ -78,6 +78,7 @@ section authentication
       menuitem{ output(securityContext.principal) }
       menuitem{ signoffAction() }
       menuitem{ navigate(changePassword()){"Change Password"} }
+      menuitem{ navigate(editUser(securityContext.principal)){"Edit Profile"} }
     }
   }
   

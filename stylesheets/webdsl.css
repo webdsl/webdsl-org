@@ -38,6 +38,28 @@ div.issueComment {
   height : 10em;
 }
 
+div.discussion {
+  width         : 600px;
+  border-bottom : 2px solid gray;
+}
+
+div.discussionByLine {
+  border-top    : 1px solid gray;
+}
+
+div.discussionReply{
+  width         : 600px;
+  margin-top    : 10px;
+  border-bottom : 2px solid gray;
+}
+
+div.replyByLine {
+  border-top : 1px solid gray;
+}
+
+div.wikiPageByLine {
+  border-top    : 1px solid gray;
+}
 
 /********************************************************
 
@@ -104,7 +126,7 @@ body {
   margin: 0px 0px 0px 0px;
   background-color: white;
   padding: 10px 10px 0px 10px;
-  border-right : 1px dotted gray;
+  border-right : 1px solid gray;
   height: 100%;
 /*   padding: 0px; */
 /*   background-color: yellow; */
@@ -114,7 +136,7 @@ clear:left;
 .main_innerbody {
 /* position: absolute; */
   margin: 0px 0px 0px -1px;
-  border-left : 1px dotted gray;
+  border-left : 1px solid gray;
 /*   margin: 0px 10px 10px 210px; */
 /*   left: 210px; */
   padding: 0px 0px 10px 20px;
@@ -162,7 +184,7 @@ clear:left;
 }
 
 .footer {
-  border-top : 1px dotted gray;
+  border-top : 1px solid gray;
   background-color: white;
   clear: both;
 }

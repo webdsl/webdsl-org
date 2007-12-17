@@ -15,7 +15,7 @@ section users
       securityContext.principal = u
     }
     
-    rules page register() { //*) {
+    rules page register() {
       true
     }
     

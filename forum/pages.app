@@ -70,7 +70,17 @@ section forum
     define body() {
       section{
         header{"Forum " output(f.name)}
-        output(f.discussions)
+        for (d : Discussion in f.discussions) {
+          section{
+            header{output(d)}
+            output(d.text)
+            block("discussionByLine") {
+              "by " output(d.author) " at " output(d.posted)
+              navigate(discussion(d)){" | Read More"}
+              navigate(editDiscussion(d)){" | Edit"}
+            }
+          }
+        }
       }
     }
   }
@@ -129,9 +139,16 @@ section discussions
       
       section{ 
         header{text(d.name)}
-        "by " output(d.author) " posted " output(d.posted)
-
-        par{output(d.text)}
+        block("discussion") {
+          par{output(d.text)}
+          block("discussionByLine") {
+            "by " output(d.author) " at " output(d.posted)
+            navigate(editDiscussion(d)){" | Edit"}
+          }
+        }
+        // note: separators should not be part of link, but this is done
+        // to avoid them showing up when links are not there because of
+        // access control
       
         for(reply : Reply in d.replies) { showReply(reply) }
       
@@ -144,25 +161,19 @@ section replies
 
   define showReply(reply : Reply)
   {
-    section{
-      header{output(reply.name)}
-      "by " output(reply.author) " posted " output(reply.posted)
-          
+    block("discussionReply") {
       par{output(reply.text)}
-          
-      editReplyLinks(reply)
-    }
-  }
-  
-  define editReplyLinks(reply : Reply)
-  {
-    par{
-      form{
-        navigate("Edit", editReply(reply))
-        " | "
-        actionLink("Delete", delete(reply))
-        action delete(reply : Reply) {
-          reply.discussion.replies.remove(reply);
+      block("replyByLine") {
+        form{
+          "by " output(reply.author) " at " output(reply.posted)
+          navigate(editReply(reply)){" | Edit"}
+          actionLink(delete(reply)){ " | Delete" }
+          action delete(reply : Reply) {
+            reply.discussion.replies.remove(reply);
+          }
+          // note: separators should not be part of link, but this is done
+          // to avoid them showing up when links are not there because of
+          // access control
         }
       }
     }
@@ -173,22 +184,16 @@ section replies
     section { 
       header{"Reply"}
       form {
-        var replySubject : String;
         var replyText : WikiText;
-        table {
-          row{ "Subject: " input(replySubject) }
-          row{ ""          input(replyText) }
-        }
+        input(replyText)
         action("Post", post())
         action post() {
           var newReply : Reply := 
             Reply { 
               discussion := d 
               author     := securityContext.principal
-              subject    := replySubject
               text       := replyText
             };
-          replySubject := "";
           replyText    := "";
           newReply.save();
         }
