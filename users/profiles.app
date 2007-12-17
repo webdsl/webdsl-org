@@ -22,7 +22,7 @@ section create new user
 	
         var newUser : UserRegistration := UserRegistration { };
         form { 
-          editRowsUserRegistration(newUser)
+          table{ editRowsUserRegistration(newUser) }
           captcha()
           action("Register", createUser())
           action createUser() {
@@ -48,6 +48,48 @@ section create new user
       }
     }
   }
+  
+  define editRowsUserRegistration (userRegistration : UserRegistration) {
+    editRowsObject(userRegistration){
+    }
+    row(){
+      "Username:"
+      input(userRegistration.username){
+      }
+    }
+    row(){
+      "Fullname:"
+      input(userRegistration.fullname){
+      }
+    }
+    row(){
+      "Email:"
+      input(userRegistration.email){
+      }
+    }
+    row(){
+      "Homepage:"
+      input(userRegistration.homepage){
+      }
+    }
+    row(){
+      "Password:"
+      input(userRegistration.password){
+      }
+    }
+    row(){
+      "Motivation:"
+      input(userRegistration.motivation){
+      }
+    }
+    // this should be left out through the 'hidden' annotation
+    //row(){
+    //  "Confirmed:"
+    //  input(userRegistration.confirmed){
+    //  }
+    //}
+  }
+
   
   define page registrationPending(name : String)
   {

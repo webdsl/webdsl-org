@@ -167,7 +167,7 @@ section replies
         form{
           "by " output(reply.author) " at " output(reply.posted)
           navigate(editReply(reply)){" | Edit"}
-          actionLink(delete(reply)){ " | Delete" }
+          actionLink("| Delete", delete(reply))
           action delete(reply : Reply) {
             reply.discussion.replies.remove(reply);
           }
