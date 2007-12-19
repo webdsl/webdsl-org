@@ -27,20 +27,21 @@ section authentication
     
   define signin() 
   {
-    var usr : User := User{};
+    var username : String;
+    var password : Secret;
     form { 
       table {
-        row{ "Username: " input(usr.username) }
-        row{ "Password: " input(usr.password) }
+        row{ "Username: " input(username) }
+        row{ "Password: " input(password) }
         row{ action("Sign in", signin()) "" }
       }
       action signin() {
         var users : List<User> :=
           select u from User as u 
-          where (u._username = ~usr.username);
+          where (u._username = ~username);
 
         for (us : User in users ) {
-          if (us.password.check(usr.password)) {
+          if (us.password.check(password)) {
             securityContext.principal := us;
             securityContext.loggedIn := true;
             return user(securityContext.principal);
