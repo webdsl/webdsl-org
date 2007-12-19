@@ -10,6 +10,12 @@ section queries
          order by e._created descending;
       return entries;
     }
+    function sortedBlogEntriesAll() : List<BlogEntry> {
+      var entries : List<BlogEntry> := 
+        select distinct e from BlogEntry as e
+         order by e._created descending;
+      return entries;
+    }
   }
 
 section navigation and operations
@@ -45,7 +51,7 @@ section navigation and operations
       listitem{ "Recent Entries" }
       listitem{
         list { for(entry : BlogEntry in entries) {
-          listitem{ output(entry) output(entry.created) }
+          listitem{ navigate(blogEntry(entry)){output(entry.title)} " " output(entry.created) }
         } } }
     }
   }
@@ -96,7 +102,7 @@ section blog frontpage
     define body() {
       section { 
         header{"Blogs"}
-        for(entry : BlogEntry) {
+        for(entry : BlogEntry in sortedBlogEntriesAll()) {
           blogEntryIntro(entry, entry.blog)
         }
       }
@@ -170,9 +176,9 @@ section blog entry page
 
   define editBlogEntryLinks(entry : BlogEntry) {
     form {
-      navigate("Edit", editBlogEntry(entry))
-      " | "
-      actionLink("Delete", delete(entry))
+      navigate(blogEntry(entry)){"Read More"}
+      navigate(editBlogEntry(entry)){" | Edit"}
+      actionLink(" | Delete", delete(entry))
       action delete(entry : BlogEntry) {
         entry.blog.entries.remove(entry);
         entry.blog.save();
