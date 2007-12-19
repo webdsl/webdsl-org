@@ -47,7 +47,7 @@ section authentication
             return user(securityContext.principal);
           }
         }
-       securityContext.loggedIn := false;
+        securityContext.loggedIn := false;
         return home();
       }
     }
@@ -79,7 +79,8 @@ section authentication
       menuitem{ output(securityContext.principal) }
       menuitem{ signoffAction() }
       menuitem{ navigate(changePassword()){"Change Password"} }
-      menuitem{ navigate(editUser(securityContext.principal)){"Edit Profile"} }
+      // There's some problems with this, so disabling for now
+      //menuitem{ navigate(editUser(securityContext.principal)){"Edit Profile"} }
     }
   }
   

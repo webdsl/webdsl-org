@@ -51,7 +51,7 @@ section wiki page
 	block("wikiPageByLine") {
 	  par{"Contributions by " 
 	    for(author : User in p.authorsList) {
-	    output(author)
+	    output(author) " "
 	    }}
       	  par{ previousLink(p) }
       	}

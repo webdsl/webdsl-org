@@ -12,7 +12,7 @@ imports users/data
 section domain
 
   entity Blog {
-    key        :: String (id)
+    key        :: String (id,pattern("[A-Za-z0-9_]+"))
     title      :: String (name)
     authors    -> Set<User>          // group of authors?
     entries    -> List<BlogEntry>    
