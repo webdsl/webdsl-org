@@ -104,7 +104,7 @@ section projects
             listitem{ 
               output(u)
               if(u = p.lead) {
-                "(lead)"
+                " (lead)"
               }
             }
           } }

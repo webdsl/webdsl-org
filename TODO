@@ -9,16 +9,14 @@ General WebDSL Issues
   - general: better management of conversations and (in)validation of
     URLs
 
-- ordered lists; lists tend to lose ordering, e.g. author list
+- Ordering of list elements
+  ordered lists; lists tend to lose ordering, e.g. author list
 
 x fix drop-down menus
 
 - unselect all issues in a many select box
 
 - rendering lists with separators (e.g. authors separated by commas)
-
-- read-only annotation: properties with this annotation should not be
-  made editable after generation
 
 - warning if page has no title
 
@@ -33,6 +31,11 @@ x captcha to prevent spambots
 - hidden / read-only
   - hidden property is excluded from editRows
   - read-only property is not made editable in editRows
+
+- creating objects when going to page with non-existing id is not a
+good idea in general; default should be to catch this case and go to
+an error page.
+
 
 
 Page Events
