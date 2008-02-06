@@ -265,6 +265,10 @@ textarea {
   border: solid 1px #cccccc;
 }
 
+pre {
+  font-size: 1.2em;
+}
+
 /********************************************************
 
  SIDEBAR
@@ -395,12 +399,12 @@ table table tr td {
 /* for IE */
 textarea .inputText {
   height : 20em;
-  width  : 100%;
+  width  : 95%;
 }
 /* for other browsers */
 textarea,[nul] .inputText {
    height : 20em;
-   width  : 40em;
+   width  : 95%;
    /* border : solid 1px black;
    border-right : 0px;
    padding-left : 3px; */
