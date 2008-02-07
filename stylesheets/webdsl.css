@@ -232,6 +232,14 @@ h4 {
   font-size : 100%;
 }
 
+.outputWikiText h1 {
+  font-size : 130%;
+}
+
+.outputWikiText h2 {
+  font-size : 115%;
+}
+
 .footer{
   text-align    : center;
   font-size     : 0.8em;
