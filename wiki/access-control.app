@@ -4,6 +4,14 @@ section wiki
 
   access control rules 
   {
+    rules template *(*) {
+      true
+    }
+
+    rules function *(*) {
+      true
+    }  
+  
     rules page home() {
       true
     }
