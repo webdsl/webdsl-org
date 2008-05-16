@@ -1,10 +1,12 @@
 module users/authentication
 
-section authentication
 
   access control rules {
     principal is User with credentials username, password
   }
+
+section authentication
+
 
   define currentUser() {
     signinMenu()
