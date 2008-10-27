@@ -50,7 +50,7 @@ section content of a page diff
     content  :: WikiText := computeContent()
     
     function computeContent() : WikiText {
-      if (next = null) {
+      if (next == null) {
         return patch.applyPatch(page.content);
       } else {
         return patch.applyPatch(next.content);

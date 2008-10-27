@@ -11,15 +11,15 @@ section create new user
     title{"Register new user"}
     define body() {
       section {
-	header{"Register New User"}
-	
-	par { "To become a registered user for this site, "
-	"fill in the following information."
-	"The moderator will decide on registration based on this information."
-	"Due to spamming, registration cannot be automatic" }
-	
+  header{"Register New User"}
+  
+  par { "To become a registered user for this site, "
+  "fill in the following information."
+  "The moderator will decide on registration based on this information."
+  "Due to spamming, registration cannot be automatic" }
+  
         //par{ output(message) }
-	
+  
         var newUser : UserRegistration := UserRegistration { };
         form { 
           table{ editRowsUserRegistration(newUser) }
@@ -41,10 +41,10 @@ section create new user
                 newUser.password := newUser.password.digest();
                 newUser.persist();
                 email(sendConfirmEmail(newUser));
-	        return registrationPending(newUser.username);
-	      }
+          return registrationPending(newUser.username);
+        }
           }
-	}
+  }
       }
     }
   }
@@ -131,8 +131,8 @@ section email confirmation by new user
         }
         action("Check", check())
         action check() {
-          if (reg.username = username
-              && reg.email = email
+          if (reg.username == username
+              && reg.email == email
               && reg.password.check(password))
           {
             reg.confirmed := true;
@@ -242,7 +242,7 @@ section change password
           }
           action resetPassword() {
             if (securityContext.principal.password.check(oldPassword)
-                && newPassword1 = newPassword2)
+                && newPassword1 == newPassword2)
             {
               securityContext.principal.password := newPassword1.digest();
               securityContext.principal.save();

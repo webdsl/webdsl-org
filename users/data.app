@@ -9,6 +9,8 @@ section definition
     homepage :: URL
     password :: Secret
   }
+  
+  define page user(u:User){ derive viewPage from u }
 
   entity UserRegistration {
     username   :: String (notnull)

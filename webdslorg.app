@@ -45,6 +45,9 @@ section application configuration
     projects      -> Set<Project>
   }
   
+  define page configuration(c:Configuration){ derive viewPage from c }
+  define page editConfiguration(c:Configuration){ derive editPage from c }
+  
   access control rules {
     rules page configuration(*) {
       securityContext.loggedIn

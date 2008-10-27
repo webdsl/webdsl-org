@@ -12,7 +12,7 @@ section users
     }
     
     rules page editUser(u : User) {
-      securityContext.principal = u
+      securityContext.principal == u
     }
     
     rules page register() {

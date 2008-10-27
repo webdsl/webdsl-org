@@ -12,8 +12,8 @@ section projects
     members     -> Set<User>
 
     issues      -> Set<Issue>  
-  //themes      -> Set<Issue> := [i for(i : Issue in this.issues where i.type = theme)]
-  //releases    -> Set<Issue> := [i for(i : Issue in this.issues where i.type = release)]
+  //themes      -> Set<Issue> := [i for(i : Issue in this.issues where i.type == theme)]
+  //releases    -> Set<Issue> := [i for(i : Issue in this.issues where i.type == release)]
 
     nextkey     :: Int
   }
@@ -62,7 +62,7 @@ sections issue properties
     status :: String (name)
   }
   
-  globals {
+  
     var open      : IssueStatus := IssueStatus { status := "Open" };
     var closed    : IssueStatus := IssueStatus { status := "Closed" };
     var released  : IssueStatus := IssueStatus { status := "Released" };
@@ -74,14 +74,14 @@ sections issue properties
     var task        : IssueType := IssueType { type := "Task" };
     var improvement : IssueType := IssueType { type := "Improvement" };
     var release     : IssueType := IssueType { type := "Release" };
-    var theme       : IssueType := IssueType { type := "Theme" };    
+    var theme_      : IssueType := IssueType { type := "Theme" };
     
     var blocker  : IssuePriority := IssuePriority { priority := "Blocker" };
     var critical : IssuePriority := IssuePriority { priority := "Critical" };
     var major    : IssuePriority := IssuePriority { priority := "Major" };
     var minor    : IssuePriority := IssuePriority { priority := "Minor" };
     var trivial  : IssuePriority := IssuePriority { priority := "Trivial" };
-  }
+  
   
 section issue comments
 

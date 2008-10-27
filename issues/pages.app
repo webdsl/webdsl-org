@@ -103,7 +103,7 @@ section projects
           list{ for(u : User in p.membersList) {
             listitem{ 
               output(u)
-              if(u = p.lead) {
+              if(u == p.lead) {
                 " (lead)"
               }
             }

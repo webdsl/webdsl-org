@@ -77,7 +77,7 @@ section creation
           }
           action("Create Blog", createBlog())
           action createBlog() {
-            if (blogTitle = "") { blogTitle := blogKey; }
+            if (blogTitle == "") { blogTitle := blogKey; }
             var newBlog : Blog :=
               Blog {
                 key     := blogKey

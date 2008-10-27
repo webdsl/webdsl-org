@@ -51,7 +51,7 @@ section viewing issues
     // make sure this is a proper issue
     // otherwise go to error page
     init {
-      if(i.project = null) {
+      if(i.project == null) {
         // This is a new issue
         goto issues();
       }
@@ -128,7 +128,7 @@ section viewing issues
     table {
       row{ "Key" "Type" "Priority" "Title" }
       for(t : IssueType) {
-        for(i : Issue in is where i.type = t) {
+        for(i : Issue in is where i.type == t) {
           row{
             navigate(issue(i)){output(i.key)}
             output(t.name)

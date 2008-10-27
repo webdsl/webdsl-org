@@ -48,7 +48,7 @@ section forum
           }
         }
         action createForum() {
-          if (newKey = "") { newTitle := newKey; }
+          if (newKey == "") { newTitle := newKey; }
           var newForum : Forum := 
             Forum{
               key := newKey

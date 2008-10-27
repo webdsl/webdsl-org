@@ -33,7 +33,7 @@ section wiki page
   define page page(p : Page)
   {
     init {
-      if(p.authors.length = 0) {
+      if(p.authors.length == 0) {
         // This is a new page
         goto editPage(p);
       }
@@ -46,15 +46,15 @@ section wiki page
     define body() {
       section {
         header{ output(p.title) }
-	par{ output(p.content) }
-	
-	block("wikiPageByLine") {
-	  par{"Contributions by " 
-	    for(author : User in p.authorsList) {
-	    output(author) " "
-	    }}
-      	  par{ previousLink(p) }
-      	}
+  par{ output(p.content) }
+  
+  block("wikiPageByLine") {
+    par{"Contributions by " 
+      for(author : User in p.authorsList) {
+      output(author) " "
+      }}
+          par{ previousLink(p) }
+        }
       }
     }
   }
@@ -112,7 +112,7 @@ section wiki page history
       navigate(diff(p.previous)){"Previous"}
     }
   }
-	
+  
   define page diff(diff : PageDiff)
   {
     main()
@@ -133,13 +133,13 @@ section wiki page history
      if (diff.previous != null ) {
           navigate(diff(diff.previous)){"Previous"} " "
      }
-     if (diff.previous = null ) {
+     if (diff.previous == null ) {
           "Previous" " "
      }
      if (diff.next != null ) {
        navigate(diff(diff.next)){"Next"}
      }
-     if (diff.next = null ) {
+     if (diff.next == null ) {
        navigate(page(diff.page)){"Next"}
      }
   }
@@ -157,14 +157,14 @@ section wiki page editing
         header{"Edit Page: " output(p.name)}
         form { 
           par{ input(newTitle) }
-	  par{ input(newContent) }
-	  par{ action("Save changes", savePage()) }
+    par{ input(newContent) }
+    par{ action("Save changes", savePage()) }
           action savePage() {
             p.makeChange(newTitle, newContent, securityContext.principal);
             p.persist();
-	    return page(p);
+      return page(p);
           }
-	}
+  }
       }
     }
   }
@@ -182,9 +182,9 @@ section wiki page editing
         form { 
           par{ "Name" input(newName) }
           par{ "Title: " input(newTitle) }
-	  par{ input(newContent) }
-	  par{ action("Save changes", savePage()) }
-	  par{}
+    par{ input(newContent) }
+    par{ action("Save changes", savePage()) }
+    par{}
           par{ 
             "*) The name of a page is the key that is used to refer to it "
             "and cannot be changed after creation. " 
@@ -192,12 +192,12 @@ section wiki page editing
                
           action savePage() {
             var p : Page := Page{ name := newName };
-            if (newTitle = "") { newTitle := newName; }
+            if (newTitle == "") { newTitle := newName; }
             p.makeChange(newTitle, newContent, securityContext.principal);
             p.persist();
-	    return page(p);
+      return page(p);
           }
-	}
+  }
       }
     }
   }
