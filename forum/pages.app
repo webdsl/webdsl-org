@@ -1,5 +1,10 @@
 module forum/pages
 
+section default pages
+  define page editForum(f:Forum){derive editPage from f}
+  define page editDiscussion(d:Discussion){derive editPage from d}
+  define page editReply(r:Reply){derive editPage from r}
+
 section navigation
 
   define forumMenu() 

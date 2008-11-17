@@ -1,5 +1,10 @@
 module blog/pages
 
+section default pages
+  define page editBlog(b:Blog){derive editPage from b}
+  define page editBlogEntry(b:BlogEntry){derive editPage from b}
+  define page blogComment(b:BlogComment){derive viewPage from b}
+  
 section queries
   
   globals {

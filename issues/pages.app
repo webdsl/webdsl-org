@@ -1,5 +1,12 @@
 module issues/pages
 
+section default pages
+
+  define page editProject(p:Project){derive editPage from p}
+  define page editIssue(i:Issue){derive editPage from i}
+  define page issueType(i:IssueType){ derive viewPage from i }
+  define page issuePriority(i:IssuePriority){ derive viewPage from i }
+
 section menu and navigation
 
   define issuesMenu()

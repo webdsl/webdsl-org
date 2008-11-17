@@ -2,6 +2,9 @@ module news/main
 
 imports news/data
 
+section default pages
+  define page editNewsEntry(n:NewsEntry){derive editPage from n}
+
 section present news
 
   globals {
