@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo 'We are now going to deploy the current webdslorg application to the production server.'
-echo 'Are you sure you want to do this? If not, press Ctrl+c now, if yes, just press Enter.'
-read DUMMY
-echo 'I will now ask you for the webdsl account's SSH password. If you don't have it, you'
-echo 'probably are not allowed to deploy yourself anyway. Ask Zef.'
-scp -P1222 dist/* webdsl@buildfarm.st.ewi.tudelft.nl:jboss/server/default/deploy
