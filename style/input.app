@@ -2,8 +2,9 @@ module style/input
 
 style webdslorginputs
 
-  inputTextarea{
-    width := 400px;    
+  textarea{
+    width := 600px; 
+    height := 600px;   
   }
 
   main() >> navigate() {

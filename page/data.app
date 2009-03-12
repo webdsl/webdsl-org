@@ -7,5 +7,12 @@ module page/data
     previous -> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
+    previousVersion :: Int
+    warnedAboutVersion :: Int
+    temp :: Bool
+    
+    function isLatestVersion():Bool{
+      return next == null && !temp;
+    }
   }
   

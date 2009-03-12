@@ -16,10 +16,13 @@ imports message/main
         for(u:User){
           output(u)" "
           navigate(editUser(u)){"edit"}
+          "    "
         }
-        for(p:Page){
+      
+        for(p:Page where p.isLatestVersion()){
           output(p)" "
           navigate(editPage(p)){"edit"}
+          "    "
         }
       }
     }
