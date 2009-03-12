@@ -1,10 +1,11 @@
 application webdslorg
 
 imports template/main
-imports page/main
+imports wikipage/main
 imports user/main
 imports style/main
 imports message/main
+imports index/main
 
   define page home() 
   {
@@ -19,9 +20,9 @@ imports message/main
           "    "
         }
       
-        for(p:Page where p.isLatestVersion()){
+        for(p:WikiPage where p.isLatestVersion()){
           output(p)" "
-          navigate(editPage(p)){"edit"}
+          navigate(editWikiPage(p)){"edit"}
           "    "
         }
       }

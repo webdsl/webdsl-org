@@ -17,7 +17,7 @@ module template/template
   define sitemenu(){
     navigate(home()){"Home"}
     "  |  "
-    navigate(home()){"Manual"}
+    //navigate(index(manual)){"Manual"}
     "  |  "
     navigate(home()){"Publications"}
   }
