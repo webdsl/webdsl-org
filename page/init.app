@@ -1,12 +1,11 @@
-module index/init
-
+module page/init
+  /*
   init {
     
-    var manual : Index := 
-      Index {
+    var manual := IndexPage {
         url    := "MainPage"
         title    := "MainPage"
       };
 
     manual.save();
-  }
+  }*/

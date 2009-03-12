@@ -1,6 +1,6 @@
 module wikipage/data
 
-  entity WikiPage : IndexElement {
+  entity WikiPage : Page {
     content  :: WikiText
   }
   

@@ -5,7 +5,7 @@ imports wikipage/main
 imports user/main
 imports style/main
 imports message/main
-imports index/main
+imports page/main
 
   define page home() 
   {

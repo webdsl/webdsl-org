@@ -5,5 +5,5 @@ module user/data
     email    :: Email (id)
     password :: Secret
     homepage :: URL
-    pages -> Set<IndexElement> //pages being edited by this user
+    pages -> Set<Page> //pages being edited by this user
   }

@@ -1,18 +1,10 @@
-module index/data
-/*
-  entity Index {
-
-  }
+module page/data
   
-  entity Section : IndexElement {
- 
-  }
-  */
-  entity IndexElement {
+  entity Page {
     url      :: String (id)
     title    :: String (name)
-    previous -> IndexElement
-    next     -> IndexElement (inverse=IndexElement.previous)
+    previous -> Page
+    next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
     previousVersion :: Int
     warnedAboutVersion :: Int
@@ -23,6 +15,3 @@ module index/data
     }
   }
   
-  define page indexElement(i:IndexElement){
-    "indexelement"
-  }
