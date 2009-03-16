@@ -1,7 +1,7 @@
 module content/page
   
-  define output(contents: List<Content>){
-    for(c:Content in contents){
+  define output(cl: ContentList){
+    for(c:Content in cl.contents){
       output(c)
     }
   }
@@ -11,29 +11,33 @@ module content/page
       output(c as WikiContent)  
     }
   }
+  
   //passing page shouldnt be necessary but currently is 
-  define editContents(contents: List<Content>, p:Page){ 
-    for(c:Content in contents){
-      editContent(c,p)
-      form{action("remove",action{contents.remove(c);p.save();})}
+  define editContents(cl: ContentList){ 
+    //output("length: "+cl.contents.length)
+    for(c:Content in cl.contents){
+      editContent(c)
+      //form{
+        action("remove",action{cl.contents.remove(c);cl.save();})
+      //}
     }
-    addContent(contents,p)
+    addContent(cl)
   }
   
-  define editContent(c: Content, p:Page){ 
+  define editContent(c: Content){ 
     if(c isa WikiContent){
       editContent(c as WikiContent)  
     }
   }
   
-  define addContent(contents: List<Content>, p:Page){
-    form{ 
+  define addContent(cl: ContentList){
+    //form{ 
       action("add WikiContent",addWikiContent())  
-    }
+    //}
     action addWikiContent(){
       var wc := WikiContent{};
       wc.save();         
-      contents.add(wc as Content); //TODO upcast shouldn't be necessary
-      p.save(); //TODO this save shouldn't be necessary 
+      cl.contents.add(wc as Content); //TODO upcast shouldn't be necessary
+      cl.save(); //TODO this save shouldn't be necessary 
     }
   }

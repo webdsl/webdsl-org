@@ -5,8 +5,8 @@ module content/wikicontent/page
   }
   
   define editContent(c: WikiContent){ 
-    form{
+    //form{
       input(c.content)
-      action("save",action{c.save();})
-    }
+    //  action("save",action{c.save();})
+    //}
   }

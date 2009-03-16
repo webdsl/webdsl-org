@@ -9,7 +9,7 @@ module page/page
       break
       output(p.content)
       break
-      output(p.newcontents)
+      output(p.contentlist)
       break
       navigate(editPage(p)){"edit"}
       break
@@ -39,20 +39,17 @@ module page/page
      *  that way changes to the object while editing can be observed
      */     
     init{
-      var temp := Page { 
-        title := p.title 
-        content := p.content
-        previousPage := p 
-        previousVersion := p.version //used to detect changes
-        warnedAboutVersion := p.version
-        temp := true
+      var temp : Page; // TODO fix bug: this is seen as page var, init was happening twice
       
-      };
+      temp := p.clone();
+      
       temp.url := temp.id.toString(); //needed because url property is used in url, caused by id annotation
       temp.creator := test_user; //current user
+      temp.storeVersionDerivedFrom(p);
+      
       temp.save();
       
-      message("preview object created");
+      //message("preview object created");
       return previewPage(temp);
     }
   }
@@ -77,16 +74,16 @@ module page/page
       var content := old.content;
       var creator := old.creator;
       var previous := old.previous;
-      var newcontents := old.newcontents;
+      var contentlist := old.contentlist;
         
       //old becomes the new, to keep clean url on latest version
       old.content := p.content;
       old.previous := p;
       old.creator := p.creator;
-      old.newcontents := p.newcontents; 
+      old.contentlist := p.contentlist; 
       old.save();
          
-      p.newcontents := newcontents;
+      p.contentlist := contentlist;
       p.previous := previous;
       p.content := content;
       p.creator := creator;
@@ -105,16 +102,16 @@ module page/page
       header{ 
         output(p.title)
       } 
-      if(old.version != p.previousVersion){
-        group("Original page"){
+      if(p.isBasedOnDifferentVersion(old)){
+        /*group("Original page"){
           output(old.content)
-        }
+        }*/
         group("Original page source"){
-          output(old.content.toString())
+          input(old.content) //abuse of input here, since there is no form aroud it, it wont be submitted
         }
-        group("Differences"){
+        /*group("Differences"){
           output(old.content.diff(p.content))
-        }
+        }*/
       }
       group("Preview"){
         output(p.content)
@@ -123,7 +120,7 @@ module page/page
         form{
           input(p.content)
           break
-          editContents(p.newcontents,p)
+          editContents(p.contentlist)
           break
           action("refresh",refresh() ) 
           action("finalize",finalize())
