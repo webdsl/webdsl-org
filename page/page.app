@@ -7,8 +7,6 @@ module page/page
         output(p.title)
       } 
       break
-      output(p.content)
-      break
       output(p.contentlist)
       break
       navigate(editPage(p)){"edit"}
@@ -72,13 +70,11 @@ module page/page
       return false;
     }
     else{
-      var content := old.content;
       var creator := old.creator;
       var previous := old.previous;
       var contentlist := old.contentlist;
         
       //old becomes the new, to keep clean url on latest version
-      old.content := p.content;
       old.previous := p;
       old.creator := p.creator;
       old.contentlist := p.contentlist; 
@@ -86,7 +82,6 @@ module page/page
          
       p.contentlist := contentlist;
       p.previous := previous;
-      p.content := content;
       p.creator := creator;
       p.previousVersionNumber := old.version;
       p.temp := false;
@@ -121,8 +116,6 @@ module page/page
       }
       group("Edit"){
         form{
-          input(p.content)
-          break
           editContents(p.contentlist)
           break
           action("refresh",refresh() ) 

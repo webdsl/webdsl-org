@@ -11,7 +11,6 @@ module page/data
     previousPage -> Page
     warnedAboutVersion :: String
     temp :: Bool
-    content  :: WikiText
         
     contentlist <> ContentList
     //previousContentlist <> ContentList
@@ -27,7 +26,6 @@ module page/data
     function clone() : Page{
       var p := Page { 
         title := title 
-        content := content
         temp := true
         //contentlist := this.contentlist.clone();  TODO this line doesnt work, added below objectcreation for now
         //warnedAboutVersion := this.version;  //TODO "this" shouldnt be necessary

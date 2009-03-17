@@ -1,38 +1,55 @@
 module page/init
   init {
-    
+
     var main := Page {
         url    := "MainPage"
         title    := "MainPage"
-        content := "This is a simple main page. Here's An[[page(OtherPage)]]."
+        contentlist := ContentList{}
       };
-      
+    main.save(); 
+    
+    //TODO when adding to this collection before main.save, it doesn't work, investigate weird hibernate behaviour
+    main.contentlist.contents.add(
+      WikiContent{ 
+        content := "This is a simple main page. Here's An[[page(OtherPage)]]."
+      } as Content);
+    
     var other := Page{
         url    := "OtherPage"
         title    := "OtherPage"
-        content := "This is anoter page, refering to the [[page(MainPage)]]."
+        contentlist := ContentList{}
       };
+    other.save();
+    other.contentlist.contents.add(
+      WikiContent{ 
+        content := "This is another page, refering to the [[page(MainPage)]]."
+      } as Content);
   
     var other1 := Page {
         url   := "OtherPage1"
         title   := "OtherPage1"
-        content := "This is anoter page, refering to the [[page(MainPage)]]."
+        contentlist := ContentList{}
         next := other
       };
+    other1.save();
+    other1.contentlist.contents.add(
+      WikiContent{ 
+        content := "(1) This is another page, refering to the [[page(MainPage)]]."
+      } as Content);
  
     var other2 := Page {
         url   := "OtherPage2"
         title   := "OtherPage2"
-        content := "This is anoter page, refering to the [[page(MainPage)]]."
+        contentlist := ContentList{}
         next := other1
       };
-      
+    other2.save();
+    other2.contentlist.contents.add(
+      WikiContent{ 
+        content := "(2) This is another page, refering to the [[page(MainPage)]]."
+      } as Content); 
+            
     other.previous := other1;
     other1.previous := other2;
-    
-    
-    main.save();
-    other.save();
-    other1.save();
-    other2.save();
+
   }
