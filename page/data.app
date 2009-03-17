@@ -6,13 +6,16 @@ module page/data
     previous -> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
-    previousVersion :: Int
+    previousVersion :: String // hash: entity name + id + version of object based on
+    previousVersionNumber :: Int // for displaying increasing version numbers
     previousPage -> Page
-    warnedAboutVersion :: Int
+    warnedAboutVersion :: String
     temp :: Bool
     content  :: WikiText
         
     contentlist <> ContentList
+    //previousContentlist <> ContentList
+    
     function isLatestVersion():Bool{
       return next == null && !temp;
     }
@@ -30,6 +33,7 @@ module page/data
         //warnedAboutVersion := this.version;  //TODO "this" shouldnt be necessary
       };
       p.contentlist := this.contentlist.clone();
+      
       //message("p"+p.contentlist.contents.length);
       p.save();
       return p;
@@ -37,13 +41,18 @@ module page/data
     
     function storeVersionDerivedFrom(p:Page){
       previousPage := p;
-      previousVersion := p.version;
-      warnedAboutVersion := p.version; 
+      previousVersionNumber := p.version;
+      previousVersion := p.versionHash();
+      warnedAboutVersion := previousVersion; 
+    }
+    
+    function versionHash() :String{
+      return "Page" + id + version + contentlist.versionHash();
     }
     
     function isBasedOnDifferentVersion(p:Page): Bool{
-      
-      return this.previousVersion != p.version;
+      return this.previousVersion != p.versionHash(); 
+      //this.previousVersion != p.version || previousContentlist.isBasedOnDifferentVersion(p.contentlist);
     }
     /*
     function isSameVersion(p:Page):Bool{

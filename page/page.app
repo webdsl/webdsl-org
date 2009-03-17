@@ -27,7 +27,7 @@ module page/page
         output(p.version)
       }
       else{
-        output(p.previousVersion)    
+        output(p.previousVersionNumber)    
       }
     }
   }
@@ -56,8 +56,9 @@ module page/page
   
   function previewPageWarning(p: Page): Bool{
     var old : Page := p.previousPage;
-    if(p.warnedAboutVersion < old.version){
-      p.warnedAboutVersion := old.version;
+    var oldPageCurrentHash :String := old.versionHash();
+    if(p.warnedAboutVersion != oldPageCurrentHash){   // < operator on strings should not be allowed
+      p.warnedAboutVersion := oldPageCurrentHash;
       message("Warning: original page has been modified");
       return true;
     }
@@ -87,7 +88,7 @@ module page/page
       p.previous := previous;
       p.content := content;
       p.creator := creator;
-      p.previousVersion := old.version;
+      p.previousVersionNumber := old.version;
       p.temp := false;
       //p.next := old; not necessary due to inverse relation
       p.save();
@@ -106,15 +107,17 @@ module page/page
         /*group("Original page"){
           output(old.content)
         }*/
-        group("Original page source"){
-          input(old.content) //abuse of input here, since there is no form aroud it, it wont be submitted
+        group("Original page"){
+          output(old.contentlist)     
+          //editContents(old.contentlist) // no form so cant be used to edit, not sure about this, need to check implementation
+          //input(old.content) //abuse of input here, since there is no form aroud it, it wont be submitted
         }
         /*group("Differences"){
           output(old.content.diff(p.content))
         }*/
       }
       group("Preview"){
-        output(p.content)
+        output(p.contentlist)
       }
       group("Edit"){
         form{
