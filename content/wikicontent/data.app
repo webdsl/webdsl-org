@@ -3,7 +3,7 @@ module content/wikicontent/data
   entity WikiContent : Content{
     content :: WikiText
     
-    function clone() : WikiContent{
+    function clone() : Content{
       var wc := WikiContent{ 
         content := content 
         //previousVersion := this.version

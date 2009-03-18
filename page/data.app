@@ -6,10 +6,11 @@ module page/data
     previous -> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
-    previousVersion :: String // hash: entity name + id + version of object based on
+    previousVersion :: Text // hash: entity name + id + version of object based on, text because these can get pretty long
+    warnedAboutVersion :: Text 
     previousVersionNumber :: Int // for displaying increasing version numbers
     previousPage -> Page
-    warnedAboutVersion :: String
+  
     temp :: Bool
         
     contentlist <> ContentList

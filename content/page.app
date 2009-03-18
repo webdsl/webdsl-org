@@ -10,16 +10,16 @@ module content/page
     if(c isa WikiContent){
       output(c as WikiContent)  
     }
+    if(c isa IndexContent){
+      output(c as IndexContent)  
+    }
   }
   
-  //passing page shouldnt be necessary but currently is 
   define editContents(cl: ContentList){ 
-    //output("length: "+cl.contents.length)
     for(c:Content in cl.contents){
       editContent(c)
-      //form{
-        action("remove",action{cl.contents.remove(c);cl.save();})
-      //}
+      action("remove",action{cl.contents.remove(c);cl.save();})
+      break
     }
     addContent(cl)
   }
@@ -28,16 +28,24 @@ module content/page
     if(c isa WikiContent){
       editContent(c as WikiContent)  
     }
+    if(c isa IndexContent){
+      editContent(c as IndexContent)  
+    }
   }
   
   define addContent(cl: ContentList){
-    //form{ 
-      action("add WikiContent",addWikiContent())  
-    //}
+    action("add WikiContent",addWikiContent())  
     action addWikiContent(){
       var wc := WikiContent{};
       wc.save();         
       cl.contents.add(wc as Content); //TODO upcast shouldn't be necessary
+      cl.save(); //TODO this save shouldn't be necessary 
+    }
+    action("add IndexContent",addIndexContent())  
+    action addIndexContent(){
+      var ic := IndexContent{};
+      ic.save();         
+      cl.contents.add(ic as Content); //TODO upcast shouldn't be necessary
       cl.save(); //TODO this save shouldn't be necessary 
     }
   }

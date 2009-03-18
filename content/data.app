@@ -8,11 +8,12 @@ module content/data
     function versionHash() :String{
       return "Content" + id + version;
     }
+    function clone():Content{return null;}
     
   }
 
   entity ContentList {
-    contents -> List<Content>
+    contents <> List<Content>
     
     previousVersion :: Int
     //warnedAboutVersion :: Int
@@ -23,9 +24,7 @@ module content/data
         //warnedAboutVersion := this.version 
       };
       for(c : Content in contents){
-        if(c isa WikiContent){
-          cl.contents.add((c as WikiContent).clone() as Content); //ugly
-        }
+        cl.contents.add(c.clone());
       }
       cl.save();
       //message("cl copied "+cl.contents.length);
