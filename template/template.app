@@ -2,6 +2,7 @@ module template/template
 
   define main() 
   {
+    title{"WebDSL.org"}
     top()
     sitemenu()
     body()
@@ -17,9 +18,17 @@ module template/template
   define sitemenu(){
     navigate(home()){"Home"}
     "  |  "
-    //navigate(index(manual)){"Manual"}
+    navigate(page(page_manual)){"Manual"}
     "  |  "
-    navigate(home()){"Publications"}
+    navigate(page(page_publications)){"Publications"}
+    if(allowCreateUser()){
+      "  |  "
+      navigate(createUser()){"Add User"}
+    } 
+    if(loggedIn()){
+      "  |  "
+      navigate(listUsers()){"List Users"}
+    }  
   }
   /*
   define sidebar(){
@@ -38,11 +47,12 @@ module template/template
   }
   
   define topRight(){
-    navigate(home()){"Search"}
+    /*navigate(home()){"Search"}
+    "  |  "*/
+    navigate(login()){"Login"}
+    navigate(logout()){"Logout"}
     "  |  "
-    navigate(home()){"Login"}
-    "  |  "
-    navigate(home()){"About"}
+    navigate(page(page_about)){"About"}
   }
   
   define footer() {

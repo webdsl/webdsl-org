@@ -7,9 +7,11 @@ imports message/main
 imports page/main
 imports content/main
 
+imports ac
+imports global-settings
+
   define page home() 
   {
-    title{"WebDSL.org"}
     main()
     define localBody() {
       "body"
@@ -28,11 +30,13 @@ imports content/main
       }
     }
   }
+  /*
+  define page search(){
+    main()
+    define localBody() {
+      var pages : List<Page> :=
+        select p from Page as p 
+        where (p._);
 
-  
-
-  access control rules
-    
-    rule page home(){true}
-    
-    rule template *(*){true}
+    }
+  }*/

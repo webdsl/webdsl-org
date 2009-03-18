@@ -1,4 +1,26 @@
 module page/init
+
+  var page_manual := 
+  Page {
+    url    := "Manual"
+    title    := "Manual"
+    contentlist := ContentList{}
+  };
+  
+  var page_about := 
+  Page {
+    url    := "About"
+    title    := "About"
+    contentlist := ContentList{}
+  };
+  
+  var page_publications := 
+  Page {
+    url    := "Publications"
+    title    := "Publications"
+    contentlist := ContentList{}
+  };
+/*
   init {
 
     var main := Page {
@@ -12,7 +34,7 @@ module page/init
     main.contentlist.contents.add(
       WikiContent{ 
         content := "This is a simple main page. Here's An[[page(OtherPage)]]."
-      } as Content);
+      });
     
     var other := Page{
         url    := "OtherPage"
@@ -53,3 +75,4 @@ module page/init
     other1.previous := other2;
 
   }
+*/  

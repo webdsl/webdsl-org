@@ -18,3 +18,7 @@ style webdslorginputs
   img {
     border-width   := 0px;
   }
+  
+  /*input {
+    width := 175px; 
+  }*/

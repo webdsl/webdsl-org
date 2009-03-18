@@ -1,14 +1,18 @@
 module page/page
   
- define page page(p:Page){
+  define showPage(p:Page){
+    header{ 
+      output(p.title)
+    } 
+    break
+    output(p.contentlist)
+    break
+  }
+ 
+  define page page(p:Page){
     main()
     define localBody(){
-      header{ 
-        output(p.title)
-      } 
-      break
-      output(p.contentlist)
-      break
+      showPage(p)
       navigate(editPage(p)){"edit"}
       break
       if(p.next != null){
@@ -20,13 +24,18 @@ module page/page
         output(p.previous as Page)
       }
       break
-      "version: "
+      "Version: "
       if(p.isLatestVersion()){
         output(p.version)
       }
       else{
         output(p.previousVersionNumber)    
       }
+      break
+      "Last Edit: "
+      output(p.creator.name)
+      " "
+      output(p.time)
     }
   }
   
@@ -42,7 +51,7 @@ module page/page
       temp := p.clone();
       
       temp.url := temp.id.toString(); //needed because url property is used in url, caused by id annotation
-      temp.creator := test_user; //current user
+      temp.creator := securityContext.principal; //current user
       temp.storeVersionDerivedFrom(p);
       
       temp.save();
