@@ -8,41 +8,67 @@ module user/page
         //label("Email"){output(u.email)}
         label("Homepage"){output(u.homepage)}
       }
+      break
+      navigate(editUser(u)){"edit"}
+    }
+  }
+  
+  define editUserDetails(u:User){
+    form{
+      formgroup("Edit User"){
+        label("Name"){input(u.displayname)}
+        label("Email"){input(u.email)}
+        label("Homepage"){input(u.homepage)}
+        break
+        action("save",save())
+        action save(){
+          u.save();
+          message("user info updated");
+          return user(u);
+        }
+      }
+    }
+  }
+  
+  define editUserPassword(u:User){
+    form{
+      formgroup("Change Password"){
+        var temp : Secret := "";
+        label("Password"){input(u.password)}
+        label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
+        break
+        action("change",changePassword())
+        action changePassword(){
+          var pass : String := u.password.toString();
+          u.password := u.password.digest();
+          u.save();
+          email(emailNewPassword(u,pass));
+          message("password changed");
+          return user(u);
+        }
+      }
+    }
+  }
+  
+  define editUserResetPassword(u:User){
+    form{
+      formgroup("Reset Password"){
+        action("Request Password Reset",resetPassword())
+        action resetPassword(){
+          requestPasswordReset(u);
+          message("Password reset requested.");
+          return user(u);
+        }
+      }
     }
   }
   
   define page editUser(u:User){ 
     main()
     define localBody(){
-      form{
-        formgroup("Edit User"){
-          label("Name"){input(u.displayname)}
-          label("Email"){input(u.email)}
-          label("Homepage"){input(u.homepage)}
-          break
-          action("save",save())
-          action save(){
-            u.save();
-            message("user info updated");
-            return user(u);
-          }
-        }
-      }
-      form{
-        formgroup("Change Password"){
-          var temp : Secret := "";
-          label("Password"){input(u.password)}
-          label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
-          break
-          action("change",changePassword())
-          action changePassword(){
-            u.password := u.password.digest();
-            u.save();
-            message("password changed");
-            return user(u);
-          }
-        }
-      }
+      editUserDetails(u)
+      editUserPassword(u)
+      editUserResetPassword(u)
     }
   }
   

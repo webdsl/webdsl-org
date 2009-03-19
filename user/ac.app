@@ -5,7 +5,7 @@ module user/ac
   access control rules
   
     rule page editUser(u:User){ 
-      principal == u
+      loggedIn()
     }
 
     predicate allowCreateUser(){
@@ -23,4 +23,13 @@ module user/ac
       loggedIn()
     }
     
+    rule page passwordReset(pr:PasswordReset){
+      true
+    }
     
+    rule template editUserDetails(u:User){
+      principal == u
+    }
+    rule template editUserPassword(u:User){
+      principal == u
+    }
