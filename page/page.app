@@ -20,6 +20,7 @@ module page/page
         output(p.next as Page)
       }
       if(p.previous != null){
+        break
         "View previous version: "
         output(p.previous as Page)
       }
@@ -82,13 +83,16 @@ module page/page
       var creator := old.creator;
       var previous := old.previous;
       var contentlist := old.contentlist;
+      var title := old.title;  
         
       //old becomes the new, to keep clean url on latest version
       old.previous := p;
       old.creator := p.creator;
-      old.contentlist := p.contentlist; 
+      old.contentlist := p.contentlist;
+      old.title := p.title; 
       old.save();
-         
+      
+      p.title := title;   
       p.contentlist := contentlist;
       p.previous := previous;
       p.creator := creator;
@@ -125,6 +129,8 @@ module page/page
       }
       group("Edit"){
         form{
+          label("Title"){input(p.title)}
+          break
           editContents(p.contentlist)
           break
           action("refresh",refresh() ) 
@@ -139,6 +145,38 @@ module page/page
       action finalize(){
         if(finalizePageEdit(p)){           
           return page(old);
+        }
+      }
+    }
+  }
+
+  define page createPage(){ 
+    main()
+    define localBody(){
+      var p := Page{}; 
+      form{
+        formgroup("Create Page"){
+          label("URL"){input(p.url)}
+          label("Title"){input(p.title)}
+          break
+          action("save",save())
+          action save(){
+            p.creator := securityContext.principal;
+            p.save();
+            message("New page created.");
+            return page(p);
+          }
+        }
+      }
+    }
+  }
+
+  define page listPages(){ 
+    main()
+    define localBody(){
+      formgroup("Pages"){
+        for(p:Page){
+          output(p)
         }
       }
     }

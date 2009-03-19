@@ -28,6 +28,10 @@ module template/template
     if(loggedIn()){
       "  |  "
       navigate(listUsers()){"List Users"}
+      "  |  "
+      navigate(createPage()){"Add Page"}
+      "  |  "
+      navigate(listPages()){"List Pages"}
     }  
   }
   /*

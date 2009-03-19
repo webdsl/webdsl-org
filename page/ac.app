@@ -15,4 +15,12 @@ module page/ac
     rule page previewPage(p: Page){
       loggedIn()
     }
+    
+    rule page listPages(){
+      loggedIn()
+    }
+      
+    rule page createPage(){
+      loggedIn()
+    }
       
