@@ -1,7 +1,7 @@
 module page/data
   
   entity Page {
-    url      :: String (id)
+    url      :: String  (id, validate(isUniquePage(this),"URL is taken"))
     title    :: String (name)
     previous -> Page
     next     -> Page (inverse=Page.previous)
