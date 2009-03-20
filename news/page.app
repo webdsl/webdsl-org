@@ -1,13 +1,13 @@
 module news/page
   
   define showNews(){
-    for(n:News){
+    for(n:News in select u from News as u order by _time descending){
       output(n)
     }
   }
   
   define output(n:News){ 
-    formgroup("by " + n.creator.name + " at "  +n.time ) [style := "display : block;"] {
+    formgroup("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm") ) [style := "display : block;"] {
       output(n.content)
       if(loggedIn()){
         break
