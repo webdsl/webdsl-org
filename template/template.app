@@ -33,6 +33,8 @@ module template/template
       "  |  "
       navigate(listPages()){"List Pages"}
       "  |  "
+      navigate(createNews()){"Add News"}
+      "  |  "
       navigate(manage()){"Cleaning"}
     }  
   }
