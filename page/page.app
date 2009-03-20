@@ -8,21 +8,46 @@ module page/page
     output(p.contentlist)
     break
   }
- 
+  
+  define showFullPage(p:Page){
+    header{ 
+      output(p.title)
+    } 
+    break
+    output(p.contentlist.contents.get(0) as WikiContent)
+    if(loggedIn()){
+      break
+      navigate(singlepage(p)){"view single page"}
+    }
+    break
+    for(p:Page in (p.contentlist.contents.get(1) as IndexContent).index){
+      showFullPage(p)
+    }
+  }
+  
   define page page(p:Page){
     main()
     define localBody(){
+      showFullPage(p)
+    }
+  }
+ 
+  define page singlepage(p:Page){
+    main()
+    define localBody(){
       showPage(p)
+      navigate(page(p)){"full page"}
+      break
       navigate(editPage(p)){"edit"}
       break
       if(p.next != null){
         "View next version: "
-        output(p.next as Page)
+        navigate(singlepage(p.next)){output(p.next.title)}
       }
       if(p.previous != null){
         break
         "View previous version: "
-        output(p.previous as Page)
+        navigate(singlepage(p.previous)){output(p.previous.title)}
       }
       break
       "Version: "
@@ -40,14 +65,13 @@ module page/page
     }
   }
   
-  //TODO ac rule to prevent editing of older versions
   define page editPage(p:Page){
     /**
      *  need to create a temp object right away in order to keep track of the latest version number
      *  that way changes to the object while editing can be observed
      */     
     init{
-      var temp : Page; // TODO fix bug: this is seen as page var, init was happening twice
+      var temp : Page; // TODO fix bug: this is seen as page var, vardeclinit init was happening twice
       
       temp := p.clone();
       
@@ -57,7 +81,6 @@ module page/page
       
       temp.save();
       
-      //message("preview object created");
       return previewPage(temp);
     }
   }
@@ -129,13 +152,17 @@ module page/page
       }
       group("Edit"){
         form{
-          label("Title"){input(p.title)}
-          break
-          editContents(p.contentlist)
-          break
-          action("refresh",refresh() ) 
-          action("finalize",finalize())
-          navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
+          table{
+            label("Title"){input(p.title)}
+            break
+            label("Content"){editContents(p.contentlist)}
+            break
+            row{column{column{ 
+              action("refresh",refresh() ) 
+              action("finalize",finalize())
+              navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
+            }}}
+          }
         }
       }
       action refresh(){
@@ -144,7 +171,7 @@ module page/page
       }
       action finalize(){
         if(finalizePageEdit(p)){           
-          return page(old);
+          return singlepage(old);
         }
       }
     }
@@ -161,10 +188,11 @@ module page/page
           break
           action("save",save())
           action save(){
+            p.initContentList();
             p.creator := securityContext.principal;
             p.save();
             message("New page created.");
-            return page(p);
+            return singlepage(p);
           }
         }
       }

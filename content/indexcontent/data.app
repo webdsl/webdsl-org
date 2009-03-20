@@ -4,7 +4,7 @@ module content/indexcontent/data
     index -> List<Page> //TODO cannot have content prop name here, mapping collision
     title :: String
     subsections <> List<IndexContent>
-    
+  
     function clone() : IndexContent{
       var ic := IndexContent{ 
         index := index 

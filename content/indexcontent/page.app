@@ -1,73 +1,103 @@
 module content/indexcontent/page
   
   define output(c: IndexContent){ 
-    block[style := "margin-left: "+20+"px"]{
-      navigate(section(c)){output(c.title)}
-      output(c.index)
-      for(ci : IndexContent in c.subsections){
-        output(ci)
-      }
-    }
+    //block[style := "margin-left: "+20+"px"]{
+    output(c.index)
+    //for(p:Page in c.index){
+    //  navigate(page(p)){output(p.title)}
+    //}
+    //  for(ci : IndexContent in c.subsections){
+    //    output(ci)
+    //  }
+    //}
   }
-  
+ /* 
   define page section(c: IndexContent){
     main()
     define localBody(){
       showSection(c)
     }  
   }
-  
+  */
+  /*
   define showSection(c : IndexContent){ 
-    section{header{ output(c.title) }}
-    section{
+    //section{header{ output(c.title) }}
+    //section{
       for(p:Page in c.index){
         showPage(p)
       }
-      for(ci : IndexContent in c.subsections){
-        showSection(ci)
-      }
-    }
+    //  for(ci : IndexContent in c.subsections){
+    //    showSection(ci)
+    //  }
+    //}
   }
-  
+  */
   define editContent(c: IndexContent){ 
-    block[style := "margin-left: "+20+"px"]{
-      input(c.title)
-      break
+    //TODO this should be definable in a query more easily
+     var addCol := select u from Page as u;
+     init{
+       for(p:Page in addCol){
+         if(!p.isLatestVersion() 
+            || p in c.index
+            || (p == c.contentList.page)   //c.contentlist.page is a ref to the latest version of the page
+            ){
+           addCol.remove(p);
+         }
+       }
+     }
+     var toAdd : Page
+//output(c.name)
+//output(c.contentList)
+//output(c.contentList.page)
+
+    //block[style := "margin-left: "+20+"px"]{
+      //input(c.title)
+      //break
       //TODO default list input: input(c.index)
       //TODO for with index Int in templates
       //for(i:Int in 0 to c.index.length-1){
-      
-      for(p:Page in c.index where p.isLatestVersion()){
-        
-        //output(c.index.get(i))
-        output(p)
-        action("up",up(p))
-        action("down",down(p))
-        action("remove",remove(p))
-        action up(p:Page){
-          var temp := c.index.indexOf(p);
-          if(temp != null){
-            c.index.set(temp,c.index.get(temp-1));
-            c.index.set(temp-1,p);
+      table{
+        for(p:Page in c.index where p.isLatestVersion()){
+          //output(p == c.contentList.page)  
+          //output(c.index.get(i))
+          row{
+            output(p)
+            action("up",up(p))
+            action("down",down(p))
+            action("remove",remove(p))
+          }
+          action up(p:Page){
+            var temp := c.index.indexOf(p);
+            if(temp != null){
+              c.index.set(temp,c.index.get(temp-1));
+              c.index.set(temp-1,p);
+              c.save();
+            }
+          }
+          action down(p:Page){
+            var temp := c.index.indexOf(p);
+            if(temp != null){
+              c.index.set(temp,c.index.get(temp+1));
+              c.index.set(temp+1,p);
+              c.save();
+            }
+          }
+          action remove(p:Page){
+            //TODO actual removeAtIndex
+            c.index.remove(p);
             c.save();
           }
         }
-        action down(p:Page){
-          var temp := c.index.indexOf(p);
-          if(temp != null){
-            c.index.set(temp,c.index.get(temp+1));
-            c.index.set(temp+1,p);
-            c.save();
-          }
-        }
-        action remove(p:Page){
-          //TODO actual removeAtIndex
-          c.index.remove(p);
+      }
+      select(toAdd from addCol)
+      action("add",add())
+      action add(){
+        if(toAdd != null){
+          c.index.add(toAdd);
           c.save();
         }
-        
-        break
-      }
+      } 
+      /*
       for(p: Page where p.isLatestVersion()){
         output(p)
         action("add",add(p))
@@ -78,10 +108,10 @@ module content/indexcontent/page
         
         break  
       }
-      
-      if(c.subsections.length > 0) { editSubsections(c) }
-      addSubsections(c)
-    }
+      */
+      //if(c.subsections.length > 0) { editSubsections(c) }
+      //addSubsections(c)
+    //}
   }
   
   define editSubsections(c: IndexContent){ 

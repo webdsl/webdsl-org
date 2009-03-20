@@ -18,10 +18,10 @@ module content/page
   define editContents(cl: ContentList){ 
     for(c:Content in cl.contents){
       editContent(c)
-      action("remove",action{cl.contents.remove(c);cl.save();})
+      //action("remove",action{cl.contents.remove(c);cl.save();})
       break
     }
-    addContent(cl)
+    //addContent(cl)
   }
   
   define editContent(c: Content){ 

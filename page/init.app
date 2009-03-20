@@ -4,29 +4,40 @@ module page/init
   Page {
     url    := "Manual"
     title    := "Manual"
-    contentlist := ContentList{}
   };
   
   var page_about := 
   Page {
     url    := "About"
     title    := "About"
-    contentlist := ContentList{}
   };
   
   var page_publications := 
   Page {
     url    := "Publications"
     title    := "Publications"
-    contentlist := ContentList{}
   };
+  
+  //TODO figure out what is wrong with object creations with collections and hibernate, references seem to break
+  
+  init{
+    page_manual.initContentList();
+    page_manual.save();
+    page_about.initContentList();
+    page_about.save();
+    page_publications.initContentList();
+    page_publications.save();
+  }
+  
+
+  
+  
 /*
   init {
 
     var main := Page {
         url    := "MainPage"
         title    := "MainPage"
-        contentlist := ContentList{}
       };
     main.save(); 
     
@@ -39,7 +50,6 @@ module page/init
     var other := Page{
         url    := "OtherPage"
         title    := "OtherPage"
-        contentlist := ContentList{}
       };
     other.save();
     other.contentlist.contents.add(
@@ -50,7 +60,6 @@ module page/init
     var other1 := Page {
         url   := "OtherPage1"
         title   := "OtherPage1"
-        contentlist := ContentList{}
         next := other
       };
     other1.save();
@@ -62,7 +71,6 @@ module page/init
     var other2 := Page {
         url   := "OtherPage2"
         title   := "OtherPage2"
-        contentlist := ContentList{}
         next := other1
       };
     other2.save();

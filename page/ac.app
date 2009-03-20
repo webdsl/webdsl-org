@@ -24,3 +24,6 @@ module page/ac
       loggedIn()
     }
       
+    rule page singlepage(p:Page){
+      true
+    }

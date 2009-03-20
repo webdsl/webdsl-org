@@ -11,19 +11,36 @@ module page/data
     warnedAboutVersion :: Text 
     previousVersionNumber :: Int // for displaying increasing version numbers
     previousPage -> Page
-  
+    
     temp :: Bool
         
     contentlist <> ContentList
-    //previousContentlist <> ContentList
     
     function isLatestVersion():Bool{
       return next == null && !temp;
     }
     
-    extend function Page(){
+    function initContentList(){
+      var wc := WikiContent{};
+      wc.save();
+      var ic := IndexContent{};
+      ic.save();
       contentlist := ContentList{};
+      contentlist.page := this;
+      contentlist.save();
+      contentlist.contents := [wc as Content, ic];
     }
+    
+    /*
+    extend function Page(){
+      var wc := WikiContent{};
+      wc.save();
+      var ic := IndexContent{};
+      ic.save();
+      contentlist := ContentList{};
+      contentlist.save();
+      contentlist.contents := [wc as Content, ic];
+    }*/
       
     function clone() : Page{
       var p := Page { 

@@ -5,6 +5,7 @@ module content/data
     //warnedAboutVersion :: Int
     //isClone :: Bool
     //function isBasedOnDifferentVersion(c:Content): Bool{ return false; }
+    contentList -> ContentList (inverse=ContentList.contents)
     function versionHash() :String{
       return "Content" + id + version;
     }
@@ -13,6 +14,7 @@ module content/data
   }
 
   entity ContentList {
+    page -> Page    // cannot be inverse because inverse needs to point to latest version //(inverse = Page.contentlist)
     contents <> List<Content>
     
     previousVersion :: Int
@@ -20,8 +22,7 @@ module content/data
     
     function clone() : ContentList{
       var cl := ContentList{  
-        //previousVersion := this.version 
-        //warnedAboutVersion := this.version 
+        page := page
       };
       for(c : Content in contents){
         cl.contents.add(c.clone());

@@ -7,6 +7,7 @@ imports message/main
 imports page/main
 imports content/main
 
+imports manage
 imports ac
 imports global-settings
 

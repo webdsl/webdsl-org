@@ -32,6 +32,8 @@ module template/template
       navigate(createPage()){"Add Page"}
       "  |  "
       navigate(listPages()){"List Pages"}
+      "  |  "
+      navigate(manage()){"Cleaning"}
     }  
   }
   /*
