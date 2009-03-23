@@ -18,7 +18,7 @@ module login
       }
       action login(){
         securityContext.principal := getUsersWithEmailAddress(e).get(0); 
-        message("logged in");
+        message("Successfully logged in.");
         return home();
       }
     }

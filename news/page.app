@@ -20,16 +20,18 @@ module news/page
     main()
     define localBody(){
       var n := News{creator := securityContext.principal};
-      header{"Create News Item"}
-      table{
-        form{
-          label("Content"){input(n.content)}
-          label("Creator"){input(n.creator)}
-          label("Time"){input(n.time)}
-          action("save",save())
-          action save(){
-            n.save();
-            return home();
+      header{"News"}
+      group("Create News Item"){
+        table{
+          form{
+            label("Content"){input(n.content)}
+            label("Creator"){input(n.creator)}
+            label("Time"){input(n.time)}
+            action("save",save())
+            action save(){
+              n.save();
+              return home();
+            }
           }
         }
       } 
@@ -39,20 +41,21 @@ module news/page
   define page editNews(n: News){
     main()
     define localBody(){
-      header{"Edit News Item"}
-      table{
-        form{
-          label("Content"){input(n.content)}
-          label("Creator"){input(n.creator)}
-          label("Time"){input(n.time)}
-          action("save",save())
-          action save(){
-            n.save();
-            return home();
+      header{"News"}
+      group("Edit News Item"){
+        table{
+          form{
+            label("Content"){input(n.content)}
+            label("Creator"){input(n.creator)}
+            label("Time"){input(n.time)}
+            action("save",save())
+            action save(){
+              n.save();
+              return home();
+            }
           }
-        }
-      } 
+        } 
+      }
     }
   } 
- 
  

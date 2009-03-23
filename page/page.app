@@ -8,29 +8,6 @@ module page/page
     output(p.contentlist)
     break
   }
-  
-  define showFullPage(p:Page){
-    header{ 
-      output(p.title)
-    } 
-    break
-    output(p.contentlist.contents.get(0) as WikiContent)
-    if(loggedIn()){
-      break
-      navigate(singlepage(p)){"view single page"}
-    }
-    break
-    for(p:Page in (p.contentlist.contents.get(1) as IndexContent).index){
-      showFullPage(p)
-    }
-  }
-  
-  define page page(p:Page){
-    main()
-    define localBody(){
-      showFullPage(p)
-    }
-  }
  
   define page singlepage(p:Page){
     main()
@@ -158,8 +135,8 @@ module page/page
             label("Content"){editContents(p.contentlist)}
             break
             row{column{column{ 
-              action("refresh",refresh() ) 
-              action("finalize",finalize())
+              action("Preview",refresh() ) 
+              action("Finalize",finalize())
               navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
             }}}
           }
@@ -203,7 +180,7 @@ module page/page
     main()
     define localBody(){
       formgroup("Pages"){
-        for(p:Page){
+        for(p:Page where p.isLatestVersion()){
           output(p)
         }
       }

@@ -2,7 +2,7 @@ module page/data
   
   entity Page {
     url      :: String  (id, validate(isUniquePage(this),"URL is taken"))
-    title    :: String (name)
+    title    :: String (name, validate(title.length() >= 1, "Title is required"))
     previous -> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)

@@ -27,3 +27,6 @@ module page/ac
     rule page singlepage(p:Page){
       true
     }
+    rule page indexpage(p:Page){
+      true
+    }
