@@ -5,7 +5,7 @@ module page/data
                            , validate(url.length() >= 1, "URL is required")
                            , validate(url.isCleanUrl(), "URL is invalid. may contain only letters, digits, and dashes"))
     title    :: String (name, validate(title.length() >= 1, "Title is required"))
-    previous -> Page
+    previous <> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
     time     :: DateTime

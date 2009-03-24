@@ -17,8 +17,8 @@ module page/page
       break
       navigate(editPage(p)){"Edit this page"}
       break
-      /*navigate(editPageURL(p)){"Change URL"}
-      break*/
+      navigate(deletePage(p)){"Delete this page"}
+      break
       if(p.next != null){
         "View next version: "
         navigate(singlepage(p.next)){output(p.next.title)}
@@ -201,3 +201,38 @@ module page/page
       }
     }
   }
+  
+  define page deletePage(p:Page){
+    main()
+    define localBody(){
+      showPage(p)
+      break
+      "This page and all its older revisions will be deleted: "
+      form{
+        validate(checkDeleteEdit(p),"This page is being edited and cannot be deleted.")
+        validate(checkDeleteRef(p),"This page is referenced by another page and cannot be deleted.")
+        break
+        action("confirm",delete())
+      }
+      navigate("cancel",singlepage(p))
+      action delete(){
+        p.delete();
+        return listPages();
+      }
+    }
+  }
+  
+  function checkDeleteEdit(p:Page):Bool{
+    return (select u from Page as u where ((u._previousPage = ~p)
+                                             and (u._temp = 1))).length == 0;
+  }
+  function checkDeleteRef(p:Page):Bool{
+    var tmp : List<IndexContent> := select u from IndexContent as u; 
+    for(ic:IndexContent in tmp){
+      if(!(p in ic.index)){
+        tmp.remove(ic);
+      }
+    }
+    return tmp.length == 0;     
+  }
+  

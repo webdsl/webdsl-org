@@ -36,3 +36,7 @@ module page/ac
       p.isLatestVersion()
     }
    */ 
+   
+   rule page deletePage(p:Page){
+     loggedIn()
+   }

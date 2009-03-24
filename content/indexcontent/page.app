@@ -113,7 +113,7 @@ module content/indexcontent/page
       //addSubsections(c)
     //}
   }
-  
+  /*
   define editSubsections(c: IndexContent){ 
     for(ic : IndexContent in c.subsections){
       editContent(ic)
@@ -143,7 +143,8 @@ module content/indexcontent/page
       break
     }
   }
-
+*/
+/*
   define addSubsections(c: IndexContent){ 
     action("add section",add())
     action add(){
@@ -152,4 +153,4 @@ module content/indexcontent/page
     }  
     break  
   }
-  
+  */

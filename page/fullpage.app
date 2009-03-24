@@ -24,7 +24,9 @@ module page/fullpage
   define page page(p:Page){
     main()
     define localBody(){
-      showIndexPage(p,List<Page>(),0)
+      if((p.contentlist.contents.get(1) as IndexContent).index.length > 0){
+        showIndexPage(p,List<Page>(),0)
+      }
       showFullPage(p, List<Page>())
     }
   }
