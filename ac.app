@@ -1,5 +1,13 @@
 module ac
 
+  define page accessDenied(){
+    main()
+    define localBody(){
+      header{"Access Denied"}
+      navigate(home()){"return to home page"}
+    }
+  }
+
   access control rules
     
     rule page home(){true}

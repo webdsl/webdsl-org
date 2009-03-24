@@ -5,7 +5,7 @@ module page/fullpage
       var newlist : List<Page>;
       init{ newlist.addAll(list).add(p); }
       navigate(singlepage(p)) {
-        header[name := p.url]{ //add name property for anchor, bit dangerous since name is used internally 
+        header{
           output(p.title)
         } 
       }
