@@ -1,7 +1,9 @@
 module page/data
   
   entity Page {
-    url      :: String  (id, validate(isUniquePage(this),"URL is taken"), validate(url.length() >= 1, "URL is required"))
+    url      :: String  (id, validate(isUniquePage(this),"URL is taken")
+                           , validate(url.length() >= 1, "URL is required")
+                           , validate(url.isCleanUrl(), "URL is invalid. may contain only letters, digits, and dashes"))
     title    :: String (name, validate(title.length() >= 1, "Title is required"))
     previous -> Page
     next     -> Page (inverse=Page.previous)
@@ -13,8 +15,8 @@ module page/data
     previousPage -> Page
     
     temp :: Bool
-    tempurl      :: String (validate(tempurl.length() >= 1, "URL is required"))  //need a property to specify a new url in the temp object, but cannot change actual url property
-        
+    tempurl      :: String (  validate(tempurl.length() >= 1, "URL is required")  //need a property to specify a new url in the temp object, but cannot change actual url property
+                            , validate(tempurl.isCleanUrl(), "URL is invalid. may contain only letters, digits, and dashes"))
     contentlist <> ContentList
     
     function isLatestVersion():Bool{

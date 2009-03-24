@@ -5,7 +5,7 @@ module page/fullpage
       var newlist : List<Page>;
       init{ newlist.addAll(list).add(p); }
       navigate(singlepage(p)) {
-        header{ 
+        header[name := p.url]{ //add name property for anchor, bit dangerous since name is used internally 
           output(p.title)
         } 
       }
@@ -24,6 +24,7 @@ module page/fullpage
   define page page(p:Page){
     main()
     define localBody(){
+      showIndexPage(p,List<Page>(),0)
       showFullPage(p, List<Page>())
     }
   }

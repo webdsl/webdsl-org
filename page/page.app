@@ -130,7 +130,7 @@ module page/page
       header{ 
         output(p.title)
       } 
-      if(p.isBasedOnDifferentVersion(old)){
+      //if(p.isBasedOnDifferentVersion(old)){
         /*group("Original page"){
           output(old.content)
         }*/
@@ -142,7 +142,7 @@ module page/page
         /*group("Differences"){
           output(old.content.diff(p.content))
         }*/
-      }
+      //}
       group("Preview"){
         output(p.contentlist)
       }

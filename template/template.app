@@ -75,6 +75,6 @@ module template/template
   define rightFooter(){
     "powered by "
     navigate(url("http://www.webdsl.org")){"WebDSL"}
-    " and "
-    navigate(url("http://www.strategoxt.org")){"Stratego/XT"}
+    //" and "
+    //navigate(url("http://www.strategoxt.org")){"Stratego/XT"}
   }
