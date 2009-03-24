@@ -4,18 +4,21 @@ module page/init
   Page {
     url    := "Manual"
     title    := "Manual"
+    tempurl := "none"
   };
   
   var page_about := 
   Page {
     url    := "About"
     title    := "About"
+    tempurl := "none"
   };
   
   var page_publications := 
   Page {
     url    := "Publications"
     title    := "Publications"
+    tempurl := "none"
   };
   
   //TODO figure out what is wrong with object creations with collections and hibernate, references seem to break

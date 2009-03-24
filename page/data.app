@@ -1,7 +1,7 @@
 module page/data
   
   entity Page {
-    url      :: String  (id, validate(isUniquePage(this),"URL is taken"))
+    url      :: String  (id, validate(isUniquePage(this),"URL is taken"), validate(url.length() >= 1, "URL is required"))
     title    :: String (name, validate(title.length() >= 1, "Title is required"))
     previous -> Page
     next     -> Page (inverse=Page.previous)
@@ -13,7 +13,7 @@ module page/data
     previousPage -> Page
     
     temp :: Bool
-    tempurl      :: String  //need a property to specify a new url in the temp object, but cannot change actual url property
+    tempurl      :: String (validate(tempurl.length() >= 1, "URL is required"))  //need a property to specify a new url in the temp object, but cannot change actual url property
         
     contentlist <> ContentList
     
@@ -50,7 +50,12 @@ module page/data
         //contentlist := this.contentlist.clone();  TODO this line doesnt work, added below objectcreation for now
         //warnedAboutVersion := this.version;  //TODO "this" shouldnt be necessary
       };
+      log(tempurl);
       p.contentlist := this.contentlist.clone();
+      
+      p.url := p.id.toString(); //needed because url property is used in url, caused by id annotation
+      p.creator := securityContext.principal; //current user
+      p.storeVersionDerivedFrom(this);
       
       //message("p"+p.contentlist.contents.length);
       p.save();

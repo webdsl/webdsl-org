@@ -71,10 +71,6 @@ module page/page
       
       temp := p.clone();
       
-      temp.url := temp.id.toString(); //needed because url property is used in url, caused by id annotation
-      temp.creator := securityContext.principal; //current user
-      temp.storeVersionDerivedFrom(p);
-      
       temp.save();
       
       return previewPage(temp);
