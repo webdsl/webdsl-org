@@ -13,6 +13,7 @@ module page/data
     previousPage -> Page
     
     temp :: Bool
+    tempurl      :: String  //need a property to specify a new url in the temp object, but cannot change actual url property
         
     contentlist <> ContentList
     
@@ -60,7 +61,8 @@ module page/data
       previousPage := p;
       previousVersionNumber := p.version;
       previousVersion := p.versionHash();
-      warnedAboutVersion := previousVersion; 
+      warnedAboutVersion := previousVersion;
+      tempurl := p.url;
     }
     
     function versionHash() :String{

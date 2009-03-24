@@ -13,10 +13,12 @@ module page/page
     main()
     define localBody(){
       showPage(p)
-      navigate(page(p)){"full page"}
+      navigate(page(p)){"Full page"}
       break
-      navigate(editPage(p)){"edit"}
+      navigate(editPage(p)){"Edit this page"}
       break
+      /*navigate(editPageURL(p)){"Change URL"}
+      break*/
       if(p.next != null){
         "View next version: "
         navigate(singlepage(p.next)){output(p.next.title)}
@@ -41,6 +43,23 @@ module page/page
       output(p.time)
     }
   }
+  /*
+  define page editPageURL(p:Page){
+    main()
+    define localBody(){
+      form{
+        formgroup("Edit URL"){
+          label("URL"){input(p.url)}
+        }
+        action("save",save())
+        navigate("cancel",singlepage(p))
+        action save(){
+          p.save();
+          return singlepage(p);
+        }
+      }
+    }
+  }*/
   
   define page editPage(p:Page){
     /**
@@ -84,14 +103,18 @@ module page/page
       var previous := old.previous;
       var contentlist := old.contentlist;
       var title := old.title;  
+      var time := old.time;
         
       //old becomes the new, to keep clean url on latest version
       old.previous := p;
       old.creator := p.creator;
       old.contentlist := p.contentlist;
-      old.title := p.title; 
+      old.title := p.title;
+      old.time := p.time; 
+      old.url := p.tempurl;
       old.save();
       
+      p.time := time;
       p.title := title;   
       p.contentlist := contentlist;
       p.previous := previous;
@@ -127,20 +150,15 @@ module page/page
       group("Preview"){
         output(p.contentlist)
       }
-      group("Edit"){
-        form{
-          table{
-            label("Title"){input(p.title)}
-            break
-            label("Content"){editContents(p.contentlist)}
-            break
-            row{column{column{ 
-              action("Preview",refresh() ) 
-              action("Finalize",finalize())
-              navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
-            }}}
-          }
+      form{
+        formgroup("Edit")[labelWidth := "75"]{
+          label("URL"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"URL is taken")}}
+          label("Title"){input(p.title)}
+          label("Content"){editContents(p.contentlist)}
         }
+        action("Preview",refresh() ) 
+        action("Finalize",finalize())
+        navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
       }
       action refresh(){
         previewPageWarning(p);

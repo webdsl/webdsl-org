@@ -30,3 +30,9 @@ module page/ac
     rule page indexpage(p:Page){
       true
     }
+ /*
+    rule page editPageURL(p:Page){
+      loggedIn() &&
+      p.isLatestVersion()
+    }
+   */ 

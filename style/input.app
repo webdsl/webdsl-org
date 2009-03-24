@@ -22,3 +22,7 @@ style webdslorginputs
   /*input {
     width := 175px; 
   }*/
+  
+  fieldset {
+    display := Display.block;
+  }
