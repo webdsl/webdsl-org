@@ -181,6 +181,7 @@ module page/page
           action save(){
             p.initContentList();
             p.creator := securityContext.principal;
+            p.tempurl := p.url;
             p.save();
             message("New page created.");
             return singlepage(p);
