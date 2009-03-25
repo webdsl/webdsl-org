@@ -5,4 +5,5 @@ imports page/init
 imports page/page
 imports page/fullpage
 imports page/indexpage
+imports page/singlepage
 imports page/ac

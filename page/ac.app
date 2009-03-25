@@ -2,10 +2,6 @@ module page/ac
  
   access control rules  
   
-    rule page page(p:Page){
-      true
-    }
-    
     //ac rule to prevent editing of older versions
     rule page editPage(p:Page){
       loggedIn() &&
@@ -24,10 +20,13 @@ module page/ac
       loggedIn()
     }
       
-    rule page singlepage(p:Page){
-      true
+    pointcut pageView(p:Page){
+      page page(p),
+      page indexpage(p),
+      page singlepage(p)
     }
-    rule page indexpage(p:Page){
+    
+    rule pointcut pageView(p:Page){
       true
     }
  /*
@@ -36,7 +35,7 @@ module page/ac
       p.isLatestVersion()
     }
    */ 
-   
+  /* 
    rule page deletePage(p:Page){
      loggedIn()
-   }
+   }*/

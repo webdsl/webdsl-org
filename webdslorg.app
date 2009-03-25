@@ -18,31 +18,5 @@ imports global-settings
     main()
     define localBody() {
       showNews()
-      /*
-      "body"
-      section{
-        for(u:User){
-          output(u)" "
-          navigate(editUser(u)){"edit"}
-          "    "
-        }
-      
-        for(p:Page where p.isLatestVersion()){
-          output(p)" "
-          navigate(editPage(p)){"edit"}
-          "    "
-        }
-      }
-      */
     }
   }
-  /*
-  define page search(){
-    main()
-    define localBody() {
-      var pages : List<Page> :=
-        select p from Page as p 
-        where (p._);
-
-    }
-  }*/

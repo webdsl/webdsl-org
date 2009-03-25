@@ -4,4 +4,5 @@ module news/data
     content :: Text
     creator -> User
     time :: DateTime
+    title :: String (name)
   }

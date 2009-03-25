@@ -1,9 +1,9 @@
 module page/data
   
   entity Page {
-    url      :: String  (id, validate(isUniquePage(this),"URL is taken")
-                           , validate(url.length() >= 1, "URL is required")
-                           , validate(url.isCleanUrl(), "URL is invalid. may contain only letters, digits, and dashes"))
+    url      :: String  (id, validate(isUniquePage(this),"Identifier is taken")
+                           , validate(url.length() >= 1, "Identifier is required")
+                           , validate(url.isCleanUrl(), "Identifier is invalid. may contain only letters, digits, and dashes"))
     title    :: String (name, validate(title.length() >= 1, "Title is required"))
     previous <> Page
     next     -> Page (inverse=Page.previous)
@@ -13,6 +13,8 @@ module page/data
     warnedAboutVersion :: Text 
     previousVersionNumber :: Int // for displaying increasing version numbers
     previousPage -> Page
+    
+    hidden :: Bool //emulate a deletion
     
     temp :: Bool
     tempurl      :: String (  validate(tempurl.length() >= 1, "URL is required")  //need a property to specify a new url in the temp object, but cannot change actual url property
@@ -49,6 +51,7 @@ module page/data
       var p := Page { 
         title := title 
         temp := true
+        hidden := hidden
         //contentlist := this.contentlist.clone();  TODO this line doesnt work, added below objectcreation for now
         //warnedAboutVersion := this.version;  //TODO "this" shouldnt be necessary
       };

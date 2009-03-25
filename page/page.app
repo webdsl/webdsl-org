@@ -3,63 +3,10 @@ module page/page
   define showPage(p:Page){
     header{ 
       output(p.title)
-    } 
-    break
+    }
     output(p.contentlist)
     break
   }
- 
-  define page singlepage(p:Page){
-    main()
-    define localBody(){
-      showPage(p)
-      navigate(page(p)){"Full page"}
-      break
-      navigate(editPage(p)){"Edit this page"}
-      break
-      navigate(deletePage(p)){"Delete this page"}
-      break
-      if(p.next != null){
-        "View next version: "
-        navigate(singlepage(p.next)){output(p.next.title)}
-      }
-      if(p.previous != null){
-        break
-        "View previous version: "
-        navigate(singlepage(p.previous)){output(p.previous.title)}
-      }
-      break
-      "Version: "
-      if(p.isLatestVersion()){
-        output(p.version)
-      }
-      else{
-        output(p.previousVersionNumber)    
-      }
-      break
-      "Last Edit: "
-      output(p.creator.name)
-      " "
-      output(p.time)
-    }
-  }
-  /*
-  define page editPageURL(p:Page){
-    main()
-    define localBody(){
-      form{
-        formgroup("Edit URL"){
-          label("URL"){input(p.url)}
-        }
-        action("save",save())
-        navigate("cancel",singlepage(p))
-        action save(){
-          p.save();
-          return singlepage(p);
-        }
-      }
-    }
-  }*/
   
   define page editPage(p:Page){
     /**
@@ -100,6 +47,7 @@ module page/page
       var contentlist := old.contentlist;
       var title := old.title;  
       var time := old.time;
+      var hidden := old.hidden;
         
       //old becomes the new, to keep clean url on latest version
       old.previous := p;
@@ -108,8 +56,10 @@ module page/page
       old.title := p.title;
       old.time := p.time; 
       old.url := p.tempurl;
+      old.hidden := p.hidden;
       old.save();
       
+      p.hidden := hidden;
       p.time := time;
       p.title := title;   
       p.contentlist := contentlist;
@@ -148,9 +98,11 @@ module page/page
       }
       form{
         formgroup("Edit")[labelWidth := "75"]{
-          label("URL"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"URL is taken")}}
+          label("Identifier"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"Identifier is taken")}}
           label("Title"){input(p.title)}
           label("Content"){editContents(p.contentlist)}
+          label("Hidden"){input(p.hidden)}
+          formgroupDoubleColumn{"Hidden pages will still be accessible, but not shown in the index selections."}
         }
         action("Preview",refresh() ) 
         action("Finalize",finalize())
@@ -174,7 +126,8 @@ module page/page
       var p := Page{}; 
       form{
         formgroup("Create Page"){
-          label("URL"){input(p.url)}
+          label("Identifier"){input(p.url)}
+          formgroupDoubleColumn{"The identifier will be used in the URL for this page."}
           label("Title"){input(p.title)}
           break
           action("save",save())
@@ -195,13 +148,18 @@ module page/page
     main()
     define localBody(){
       formgroup("Pages"){
-        for(p:Page where p.isLatestVersion()){
+        for(p:Page where p.isLatestVersion() && !p.hidden){
+          output(p)
+        }
+      }
+      formgroup("Hidden Pages"){
+        for(p:Page where p.isLatestVersion() && p.hidden){
           output(p)
         }
       }
     }
   }
-  
+  /*
   define page deletePage(p:Page){
     main()
     define localBody(){
@@ -235,4 +193,4 @@ module page/page
     }
     return tmp.length == 0;     
   }
-  
+  */

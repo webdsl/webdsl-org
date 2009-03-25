@@ -7,11 +7,15 @@ module news/page
   }
   
   define output(n:News){ 
-    formgroup("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm") ) [style := "display : block;"] {
+    group(n.title) [style := "display : block;"] {
       output(n.content)
+      break
+      output("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm"))
       if(loggedIn()){
         break
-        navigate(editNews(n)){"edit"}
+        navigate(editNews(n)){"edit"} 
+        " "
+        navigate(deleteNews(n)){"delete"}
       }
     }
   }
@@ -23,12 +27,13 @@ module news/page
       header{"News"}
       form{
         formgroup("Create News Item")[labelWidth := "75"]{
+          label("Title"){input(n.title)}
           label("Content"){input(n.content)}
           label("Creator"){input(n.creator)}
           label("Time"){input(n.time)}
         }
         action("save",save())
-        navigate("cancel",home())
+        navigate(home()){"cancel"}
         action save(){
           n.save();
           return home();
@@ -43,6 +48,7 @@ module news/page
       header{"News"}
       form{
         formgroup("Edit News Item")[labelWidth := "75"]{
+          label("Title"){input(n.title)}
           label("Content"){input(n.content)}
           label("Creator"){input(n.creator)}
           label("Time"){input(n.time)}
@@ -53,6 +59,23 @@ module news/page
           n.save();
           return home();
         }
+      }
+    }
+  } 
+  
+  define page deleteNews(n: News){
+    main()
+    define localBody(){
+      output(n)
+      break
+      "This news item will be deleted "
+      form{
+        action("confirm",delete())
+      }
+      navigate(home()){"cancel"}
+      action delete(){
+        n.delete();
+        return home();
       }
     }
   } 

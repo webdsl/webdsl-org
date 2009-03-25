@@ -9,3 +9,7 @@ module news/ac
     rule page editNews(*){ 
       loggedIn()
     }
+    
+    rule page deleteNews(*){ 
+      loggedIn()
+    }

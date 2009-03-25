@@ -37,7 +37,8 @@ module content/indexcontent/page
      var addCol := select u from Page as u;
      init{
        for(p:Page in addCol){
-         if(!p.isLatestVersion() 
+         if(!p.isLatestVersion()
+            || p.hidden 
             || p in c.index
             || (p == c.contentList.page)   //c.contentlist.page is a ref to the latest version of the page
             ){
@@ -57,7 +58,7 @@ module content/indexcontent/page
       //TODO for with index Int in templates
       //for(i:Int in 0 to c.index.length-1){
       table{
-        for(p:Page in c.index where p.isLatestVersion()){
+        for(p:Page in c.index){
           //output(p == c.contentList.page)  
           //output(c.index.get(i))
           row{
@@ -97,18 +98,6 @@ module content/indexcontent/page
           c.save();
         }
       } 
-      /*
-      for(p: Page where p.isLatestVersion()){
-        output(p)
-        action("add",add(p))
-        action add(p:Page){
-          c.index.add(p);
-          c.save();
-        }    
-        
-        break  
-      }
-      */
       //if(c.subsections.length > 0) { editSubsections(c) }
       //addSubsections(c)
     //}
