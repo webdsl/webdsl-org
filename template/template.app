@@ -17,10 +17,7 @@ module template/template
   
   define sitemenu(){
     navigate(home()){"Home"}
-    "  |  "
-    navigate(indexpage(page_manual)){"Manual"}
-    "  |  "
-    navigate(page(page_publications)){"Publications"}
+    output(topmenu)
     if(allowCreateUser()){
       "  |  "
       navigate(createUser()){"Add User"}
@@ -34,6 +31,8 @@ module template/template
       navigate(listPages()){"List Pages"}
       "  |  "
       navigate(createNews()){"Add News"}
+      "  |  "
+      navigate(editMenu()){"Edit Menu"}
       "  |  "
       navigate(manage()){"Cleaning"}
     }  
