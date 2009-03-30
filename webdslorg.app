@@ -7,6 +7,7 @@ imports message/main
 imports page/main
 imports content/main
 imports news/main
+imports menu/main
 
 imports manage
 imports ac
