@@ -103,9 +103,11 @@ module user/page
   define page listUsers(){ 
     main()
     define localBody(){
-      formgroup("Users"){
-        for(u:User){
-          output(u)
+      group("Users"){
+        table{
+          for(u:User){
+            output(u)
+          }
         }
       }
     }

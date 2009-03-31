@@ -147,14 +147,18 @@ module page/page
   define page listPages(){ 
     main()
     define localBody(){
-      formgroup("Pages"){
-        for(p:Page where p.isLatestVersion() && !p.hidden){
-          output(p)
+      group("Pages"){
+        table{
+          for(p:Page where p.isLatestVersion() && !p.hidden){
+            output(p)
+          }
         }
       }
-      formgroup("Hidden Pages"){
-        for(p:Page where p.isLatestVersion() && p.hidden){
-          output(p)
+      group("Hidden Pages"){
+        table{
+          for(p:Page where p.isLatestVersion() && p.hidden){
+            output(p)
+          }
         }
       }
     }
