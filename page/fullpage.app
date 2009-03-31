@@ -9,7 +9,6 @@ module page/fullpage
           output(p.title)
         } 
       }
-      break
       output(p.contentlist.contents.get(0) as WikiContent)
       break
       for(p:Page in (p.contentlist.contents.get(1) as IndexContent).index){
