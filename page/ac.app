@@ -7,19 +7,24 @@ module page/ac
       loggedIn() &&
       p.isLatestVersion()
     }
-   
-    rule page previewPage(p: Page){
+      
+    pointcut loggedInPages(){
+      page previewPage(*),
+      page createPage()
+    }
+    rule pointcut loggedInPages(){
       loggedIn()
     }
     
-    rule page listPages(){
-      loggedIn()
+    pointcut openPages(){
+      page listPages(), 
+      page listAllPages(), 
+      page listSpecificPages(*) 
     }
-      
-    rule page createPage(){
-      loggedIn()
+    rules pointcut openPages(){
+      true
     }
-      
+    
     pointcut pageView(p:Page){
       page page(p),
       page indexpage(p),
@@ -27,7 +32,7 @@ module page/ac
     }
     
     rule pointcut pageView(p:Page){
-      true
+      !p.hidden || loggedIn()
     }
  /*
     rule page editPageURL(p:Page){

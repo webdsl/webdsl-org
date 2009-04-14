@@ -60,6 +60,8 @@ module template/template
     navigate(logout()){"Logout"}
     "  |  "
     navigate(page(page_about)){"About"}
+    "  |  "
+    navigate(listPages()){"Page Index"}
   }
   
   define footer() {

@@ -144,25 +144,62 @@ module page/page
     }
   }
 
-  define page listPages(){ 
+
+  function produceListOfPages(lim:Int,off:Int):List<Page>{
+    var tmp := List<Page>();
+    for(p:Page where p.isLatestVersion() && !p.hidden order by p.title){
+      tmp.add(p);
+    }
+    return tmp;
+  }
+  define listPagesTemplate(lim:Int,off:Int){
+    var pages := produceListOfPages(lim,off)
     main()
     define localBody(){
       group("Pages"){
         table{
-          for(p:Page where p.isLatestVersion() && !p.hidden){
+          for(p:Page in pages limit lim offset off){
             output(p)
           }
+          break
+          if(off > 0){navigate(listSpecificPages(lim,off-25)){"show previous 25 pages"}}
+          if(pages.length > off + lim){navigate(listSpecificPages(lim,off+25)){"show next 25 pages"}}
+          navigate(listAllPages()){"show all pages"}
         }
       }
-      group("Hidden Pages"){
+    }
+  }
+  define page listPages(){ 
+    listPagesTemplate(25,0)
+  }
+  define page listSpecificPages(lim:Int,off:Int){ 
+    listPagesTemplate(lim,off)
+  }
+  
+  define page listAllPages(){ 
+    main()
+    define localBody(){
+      group("Pages"){
         table{
-          for(p:Page where p.isLatestVersion() && p.hidden){
+          for(p:Page where p.isLatestVersion() && !p.hidden order by p.title ){
             output(p)
+          }
+          break
+          navigate(listPages()){"show per 25"}
+        }
+      }
+      if(loggedIn()){
+        group("Hidden Pages"){
+          table{
+            for(p:Page where p.isLatestVersion() && p.hidden order by p.title ){
+              output(p)
+            }
           }
         }
       }
     }
   }
+  
   /*
   define page deletePage(p:Page){
     main()

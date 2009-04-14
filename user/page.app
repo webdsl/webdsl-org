@@ -105,7 +105,7 @@ module user/page
     define localBody(){
       group("Users"){
         table{
-          for(u:User){
+          for(u:User order by u.displayname){
             output(u)
           }
         }
