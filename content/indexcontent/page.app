@@ -34,7 +34,7 @@ module content/indexcontent/page
   */
   define editContent(c: IndexContent){ 
     //TODO this should be definable in a query more easily
-     var addCol := select u from Page as u;
+     var addCol := from Page as u;
      init{
        for(p:Page in addCol){
          if(!p.isLatestVersion()
