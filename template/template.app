@@ -1,7 +1,16 @@
 module template/template
 
+  /* 
+  to align the sidebar left of the body, it is part of a bigger block main(), maincenter() is a smaller block inside main()
+  both are centered using margin-left:auto;margin-right:auto;
+  */
   define main() 
   {
+    sidebarPlaceholder() 
+    maincenter()  
+  }
+  
+  define maincenter(){
     title{"WebDSL.org"}
     top()
     sitemenu()
@@ -9,48 +18,56 @@ module template/template
     footer()
   }
   
+  
   define body(){
     messages() // built-in
-    //sidebar()
     localBody()
   }
   
   define sitemenu(){
-    navigate(home()){"Home"}
-    output(topmenu)
-    if(allowCreateUser()){
-      "  |  "
-      navigate(createUser()){"Add User"}
-    } 
-    if(loggedIn()){
-      "  |  "
-      navigate(listUsers()){"List Users"}
-      "  |  "
-      navigate(createPage()){"Add Page"}
-      "  |  "
-      navigate(listPages()){"List Pages"}
-      "  |  "
-      navigate(createNews()){"Add News"}
-      "  |  "
-      navigate(editMenu()){"Edit Menu"}
-      "  |  "
-      navigate(manage()){"Cleaning"}
-    }  
+    <span class="menucontent">
+      navigate(home()){"Home"}
+      output(topmenu)
+      if(allowCreateUser()){
+        "  |  "
+        navigate(createUser()){"Add User"}
+      } 
+      if(loggedIn()){
+        "  |  "
+        navigate(listUsers()){"List Users"}
+        "  |  "
+        navigate(createPage()){"Add Page"}
+        "  |  "
+        navigate(listPages()){"List Pages"}
+        "  |  "
+        navigate(createNews()){"Add News"}
+        "  |  "
+        navigate(editMenu()){"Edit Menu"}
+        "  |  "
+        navigate(manage()){"Cleaning"}
+      } 
+    </span>
   }
-  /*
+  
+  
+  define sidebarPlaceholder(){
+  } 
+  
   define sidebar(){
-    navigate(home()){"Home"}
+    <span class="sidebarcontent">
+      elements
+    </span>
   }
-  */
+  
   define localBody(){
     "default localBody"
   }
   
   define top() {
+    topRight()
     navigate(home()){
       image("/images/logosmall.png")
     }
-    topRight()
   }
   
   define topRight(){

@@ -6,10 +6,12 @@
 
   a {
     color   : black;
+    text-decoration: none;
   }
   
   a : hover {
     color   : black;
+    text-decoration: none;
   }
   
   img {
@@ -22,42 +24,74 @@
   
   .main {
     display  : block;
-    width    : 700px;
+    width    : 1100px;
+    margin-right:auto;
+    margin-left:auto;
+
+    font-family:arial,sans-serif;
     color:Black;
+    font-size :  12pt;
+    text-decoration: none;
+  }
+  
+  .maincenter {
+    display  : block;
+    width    : 700px;
     
     margin-right:auto;
     margin-left:auto;
     
     border-width   : 0px;
     background-color : white;
+    
   }
+  
+  h1 {
+    font-weight: normal;
+    font-size: 16pt;
+    text-align: center; 
+    background: url(/webdslorg/images/h1.png) right no-repeat }
+  }
+  
+  /*h2 {
+    font-weight: normal;
+    font-size: 14pt; 
+    text-align: center; 
+    background: url(/webdslorg/images/h1.png) right no-repeat } 
+  }*/
+  /* wikitext strings are surrounded by a <p></p> */
+  /*p {
+    padding-left:100px;
+  }*/
 
   .top {
     display        : block;
     width          : 700px;
-    float          : left;
-    margin-bottom : 20px;
+    /*margin-bottom : 20px;
     border-bottom-style : dotted;
     border-bottom-width : 1px;
-    border-bottom-color : black;
+    border-bottom-color : black;*/
   }
   
   .topRight {
-    display   :  block;
-    float     : right;
+    /*display   :  block;*/
+    float:right;
+    margin-right : auto;
+    margin-top:0;
     font-size :  10pt;
   }
   
   .body {    
     width   := 700px;
     display := block;
-    float   := left;
+    margin-right          : auto;
     border-bottom-style : dotted;
     border-bottom-width : 1px;
     border-bottom-color : black;
   }
   
   .localBody {
+    
     margin-bottom : 20px;    
     width   : 700px;
     display : block;
@@ -67,12 +101,20 @@
   
   .sitemenu { 
     width : 700px;
-    margin-bottom : 20px;   
-    padding-bottom : 20px;
+    /*margin-top : 100px;*/
+    /*margin-bottom : 20px;*/   
+    padding-bottom : 40px;
+    padding-top : 40px;
+    /*padding-left:100px;*/
     display        : block;
     margin-left:auto;
     margin-right:auto;
-    border-bottom : 1px dotted black;
+    /*border-bottom : 1px dotted black;*/
+    background: url(/webdslorg/images/menu.png) right no-repeat;
+  }
+  
+  .menucontent {
+    padding-left:25px;
   }
 
   .footer {
@@ -87,13 +129,36 @@
     margin-top : 20px;
     display        : block;
     font-size      : 10pt;
-    float          : left;
+    float: left;
   }
 
   .rightFooter {
     margin-top : 20px;
     display        : block;
     font-size      : 10pt;
-    float          : right;
+    float:right;
   }
-    
+  
+  .sidebar {
+    top:170px;
+    position: fixed;
+    width: 200px;
+    background: url(/webdslorg/images/sb-mid.png) right repeat-y 
+  }
+  .sidebar::before {
+    display: block;
+    line-height: 0;
+    background: url(/webdslorg/images/sb-tr.png) top right no-repeat;
+    content: url(/webdslorg/images/sb-tl.png) 
+  }
+  .sidebar::after {
+    display: block;
+    line-height: 0;
+    background: url(/webdslorg/images/sb-br.png) bottom right no-repeat;
+    content: url(/webdslorg/images/sb-bl.png) 
+  }
+
+  .sidebarcontent{
+    padding-left:25px;
+    display:block;
+  }

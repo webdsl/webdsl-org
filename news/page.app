@@ -7,16 +7,15 @@ module news/page
   }
   
   define output(n:News){ 
-    group(n.title) [style := "display : block;"] {
-      output(n.content)
+    <h1>output(n.title)</h1>
+    output(n.content)
+    break
+    output("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm"))
+    if(loggedIn()){
       break
-      output("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm"))
-      if(loggedIn()){
-        break
-        navigate(editNews(n)){"edit"} 
-        " "
-        navigate(deleteNews(n)){"delete"}
-      }
+      navigate(editNews(n)){"edit"} 
+      " "
+      navigate(deleteNews(n)){"delete"}
     }
   }
   

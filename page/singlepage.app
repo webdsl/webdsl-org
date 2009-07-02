@@ -46,5 +46,8 @@ module page/singlepage
         //navigate(deletePage(p)){"Delete this page"}
       }
     }
+    define sidebarPlaceholder(){
+      pageSidebar(p)
+    }
   }
  

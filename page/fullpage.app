@@ -23,9 +23,20 @@ module page/fullpage
   define page page(p:Page){
     main()
     define localBody(){
-      if((p.contentlist.contents.get(1) as IndexContent).index.length > 0){
-        showIndexPage(p,List<Page>(),0)
-      }
       showFullPage(p, List<Page>())
+    }
+    define sidebarPlaceholder(){
+      pageSidebar(p)
+    }
+  }
+
+  define pageSidebar(p:Page){
+    sidebar{
+      if((p.contentlist.contents.get(1) as IndexContent).index.length > 0){
+        showIndexPage(p,List<Page>(),0,false)
+      }
+      else{
+        output(p.title)
+      }
     }
   }
