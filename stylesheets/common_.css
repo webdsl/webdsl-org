@@ -1,17 +1,28 @@
 
+* {
+margin:0;
+padding:0;
+}
+p{
+padding-top:5pt;
+}
+h2{
+    font-weight: normal;
+    font-size: 14pt;
+    font-weight:bold;
+    margin-top:10pt;
+    margin-bottom:10pt;
+}
+  html{
+    font-family:arial,sans-serif;
+    color:Black;
+    font-size :  12pt;
+    text-decoration: none;
+  }
+
   textarea{
     width : 600px; 
     height : 400px;   
-  }
-
-  a {
-    color   : black;
-    text-decoration: none;
-  }
-  
-  a : hover {
-    color   : black;
-    text-decoration: none;
   }
   
   img {
@@ -27,11 +38,6 @@
     width    : 1100px;
     margin-right:auto;
     margin-left:auto;
-
-    font-family:arial,sans-serif;
-    color:Black;
-    font-size :  12pt;
-    text-decoration: none;
   }
   
   .maincenter {
@@ -45,24 +51,6 @@
     background-color : white;
     
   }
-  
-  h1 {
-    font-weight: normal;
-    font-size: 16pt;
-    text-align: center; 
-    background: url(/webdslorg/images/h1.png) right no-repeat }
-  }
-  
-  /*h2 {
-    font-weight: normal;
-    font-size: 14pt; 
-    text-align: center; 
-    background: url(/webdslorg/images/h1.png) right no-repeat } 
-  }*/
-  /* wikitext strings are surrounded by a <p></p> */
-  /*p {
-    padding-left:100px;
-  }*/
 
   .top {
     display        : block;
@@ -80,67 +68,154 @@
     margin-top:0;
     font-size :  10pt;
   }
+      .topRight a:link {
+        color   : Black;
+        text-decoration: none;
+      }
+      .topRight a:active {
+        color   : Black;
+        text-decoration: none;
+      }
+      .topRight a:visited {
+        color   : Black;
+        text-decoration: none;
+      }
+      .topRight a:hover {
+        color   : Black;
+        text-decoration: underline;
+      }
   
   .body {    
     width   := 700px;
     display := block;
-    margin-right          : auto;
-    border-bottom-style : dotted;
-    border-bottom-width : 1px;
-    border-bottom-color : black;
+   // margin-right          : auto;
+   // border-bottom-style : dotted;
+   // border-bottom-width : 1px;
+   // border-bottom-color : black;
   }
+      .body a:link {
+        color   : Black;
+        text-decoration: underline;
+      }
+      .body a:active {
+        color   : Black;
+        text-decoration: underline;
+      }
+      .body a:visited {
+        color   : Black;
+        text-decoration: underline;
+      }
+      .body a:hover {
+        color   : Black;
+        text-decoration: underline;
+      }
   
   .localBody {
     
-    margin-bottom : 20px;    
-    width   : 700px;
+    //margin-bottom : 20px;    
+    width   : 680px;
     display : block;
     margin-left:auto;
-    margin-right:auto;
+    margin-right:none;
   }
   
   .sitemenu { 
+    color : White;
     width : 700px;
     /*margin-top : 100px;*/
     /*margin-bottom : 20px;*/   
-    padding-bottom : 40px;
-    padding-top : 40px;
+    padding-bottom : 25px;
+    padding-top : 25px;
     /*padding-left:100px;*/
     display        : block;
     margin-left:auto;
     margin-right:auto;
     /*border-bottom : 1px dotted black;*/
-    background: url(/webdslorg/images/menu.png) right no-repeat;
+    background: url(/webdslorg/images/menu.png) left no-repeat;
   }
+      .sitemenu a:link {
+        color   : White;
+        text-decoration: none;
+      }
+      .sitemenu a:active {
+        color   : White;
+        text-decoration: none;
+      }
+      .sitemenu a:visited {
+        color   : White;
+        text-decoration: none;
+      }
+      .sitemenu a:hover {
+        color   : White;
+        text-decoration: underline;
+      }
   
   .menucontent {
     padding-left:25px;
   }
 
-  .footer {
-    width            : 700px;
-    display          : block;
-    font-size        : 10pt;
-    margin-left:auto;
-    margin-right:auto;
-  }
+
+/* push footer down to bottom of page */           
+html, body, .main {
+  height: 100% ;
+}
+.page-wrap { /* does not have display:block, but also no direct content */
+/*     min-height: 100%;
+     height: auto !important;
+     height: 100%;
+     margin: 0 auto -2em;*/
+    margin:0 auto -2em;
+    min-height:100%;
+}
+.push{
+  height : 2em;
+}
+.clear {
+  clear : both;
+}
+.footer{
+  height : 2em;
+  width            : 700px;
+  display          : block;
+  font-size        : 10pt;
+  margin-left:auto;
+  margin-right:auto;
+}
+      .footer a:link {
+        color   : Black;
+        text-decoration: none;
+      }
+      .footer a:active {
+        color   : Black;
+        text-decoration: none;
+      }
+      .footer a:visited {
+        color   : Black;
+        text-decoration: none;
+      }
+      .footer a:hover {
+        color   : Black;
+        text-decoration: underline;
+      }
+
 
   .leftFooter {
-    margin-top : 20px;
-    display        : block;
+  //  margin-top : 20px;
+  //  display        : block;
     font-size      : 10pt;
     float: left;
   }
 
   .rightFooter {
-    margin-top : 20px;
-    display        : block;
+    margin-right : 20px;
+  //  display        : block;
     font-size      : 10pt;
     float:right;
   }
   
   .sidebar {
-    top:170px;
+    color:White;
+    top:140px;
     position: fixed;
     width: 200px;
     background: url(/webdslorg/images/sb-mid.png) right repeat-y 
@@ -162,3 +237,57 @@
     padding-left:25px;
     display:block;
   }
+      .sidebarcontent a:link {
+        color   : White;
+        text-decoration: none;
+      }
+      .sidebarcontent a:active {
+        color   : White;
+        text-decoration: none;
+      }
+      .sidebarcontent a:visited {
+        color   : White;
+        text-decoration: none;
+      }
+      .sidebarcontent a:hover {
+        color   : White;
+        text-decoration: underline;
+      }
+      
+    
+html {
+  height: 100%;
+  overflow-y: scroll; /* force scrollbar */
+}
+
+
+  .selectedpagelink {
+    color: #880000;
+  }
+      .selectedpagelink a:link {
+        color: #880000;
+        text-decoration: none;
+      }
+      .selectedpagelink a:active {
+        color: #880000;
+        text-decoration: none;
+      }
+      .selectedpagelink a:visited {
+        color: #880000;
+        text-decoration: none;
+      }
+      .selectedpagelink a:hover {
+        color: #880000;
+        text-decoration: underline;
+      }
+      
+   
+h1 {
+  font-weight: normal;
+  font-size: 16pt;
+  font-weight:bold;
+  margin-top:10pt;
+  margin-bottom:10pt;
+  text-decoration: none;
+  color: #880000;
+}

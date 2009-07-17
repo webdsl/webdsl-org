@@ -4,10 +4,17 @@ module template/template
   to align the sidebar left of the body, it is part of a bigger block main(), maincenter() is a smaller block inside main()
   both are centered using margin-left:auto;margin-right:auto;
   */
-  define main() 
+  define no-span main() 
   {
-    sidebarPlaceholder() 
-    maincenter()  
+    <div class="page-wrap">
+      <span class="main">
+      sidebarPlaceholder() 
+        maincenter()
+      </span>
+      <div class="clear"></div> 
+      <div class="push"></div> 
+    </div>  
+    footer()
   }
   
   define maincenter(){
@@ -15,7 +22,6 @@ module template/template
     top()
     sitemenu()
     body()
-    footer()
   }
   
   

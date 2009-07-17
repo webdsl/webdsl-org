@@ -20,4 +20,9 @@ imports global-settings
     define localBody() {
       showNews()
     }
+    define sidebarPlaceholder(){
+      sidebar{
+        "News"
+      }
+    }
   }

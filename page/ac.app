@@ -30,7 +30,9 @@ module page/ac
       page indexpage(p),
       page singlepage(p)
     }
-    
+    rule page selectpage(top:Page, p:Page){
+      (!p.hidden && !top.hidden) || loggedIn()
+    }  
     rule pointcut pageView(p:Page){
       !p.hidden || loggedIn()
     }
