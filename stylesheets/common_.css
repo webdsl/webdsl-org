@@ -302,3 +302,19 @@ li {
   list-style: disc inside;
   padding-left: 20px;
 }
+
+.original-page { 
+  position: absolute;
+  right: 10px;
+  width: 680px;
+}
+
+.preview-page{
+  position: absolute;
+  left: 10px;
+  width: 680px;
+}
+
+#hidden-diff-page div textarea {
+  height : 2000px;
+}

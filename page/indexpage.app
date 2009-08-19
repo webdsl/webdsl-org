@@ -41,6 +41,7 @@ module page/indexpage
     main()
     define localBody(){
       <h1>output(p.title)</h1>
+      pageDetails(p, false)
       showIndexPage(p,List<Page>(),0, true)
     }
     define sidebarPlaceholder(){

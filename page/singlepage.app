@@ -5,15 +5,13 @@ module page/singlepage
     define localBody(){
       showPage(p)
       navigate(page(p)){"Full page"}
-      if(p.next != null){
-        break
-        navigate(singlepage(p.next)){"Next version"}
-      }
-      if(p.previous != null){
-        break
-        navigate(singlepage(p.previous)){"Previous version"}
-      }
-      break
+    }
+    define sidebarPlaceholder(){
+      pageSidebar(p)
+    }
+  }
+ 
+  define pageDetails(p:Page, showAlways:Bool){
       "Version: "
       if(p.isLatestVersion()){
         output(p.version)
@@ -21,17 +19,26 @@ module page/singlepage
       else{
         output(p.previousVersionNumber)    
       }
-      break
+      " "
       "Last Edit: "
       output(p.creator.name)
       " "
       output(p.time)
-      break
+      " "
       "Hidden: "
       output(p.hidden)
-      if(loggedIn() && p.isLatestVersion()){
+      break
+      if(p.previous != null){
+        navigate(singlepage(p.previous)){"Previous version"}
         break
+      }
+      if(p.next != null){
+        navigate(singlepage(p.next)){"Next version"}
+        break
+      }
+      if(loggedIn() && p.isLatestVersion()){
         navigate(editPage(p)){"Edit this page"}
+        break
         /*
         if(!p.hidden){
           break
@@ -45,9 +52,10 @@ module page/singlepage
         //break
         //navigate(deletePage(p)){"Delete this page"}
       }
-    }
-    define sidebarPlaceholder(){
-      pageSidebar(p)
-    }
+      break
   }
- 
+  
+  access control rules
+    rule template pageDetails(p:Page, showAlways :Bool){
+      loggedIn() || showAlways
+    }

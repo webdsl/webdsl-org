@@ -4,6 +4,7 @@ module page/page
     header{ 
       output(p.title)
     }
+    pageDetails(p, true)
     output(p.contentlist)
     break
   }
@@ -77,25 +78,13 @@ module page/page
     var old : Page := p.previousPage
     main()
     define localBody(){
-      header{ 
-        output(p.title)
-      } 
-      //if(p.isBasedOnDifferentVersion(old)){
-        /*group("Original page"){
-          output(old.content)
-        }*/
-        group("Original page"){
-          output(old.contentlist)     
-          //editContents(old.contentlist) // no form so cant be used to edit, not sure about this, need to check implementation
-          //input(old.content) //abuse of input here, since there is no form aroud it, it wont be submitted
-        }
-        /*group("Differences"){
-          output(old.content.diff(p.content))
-        }*/
-      //}
-      group("Preview"){
-        output(p.contentlist)
-      }
+    
+      <h2>"Preview"</h2>
+        header{ 
+          output(p.title)
+        } 
+      output(p.contentlist)
+   
       form{
         formgroup("Edit")[labelWidth := "75"]{
           label("Identifier"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"Identifier is taken")}}
@@ -108,6 +97,49 @@ module page/page
         action("Finalize",finalize())
         navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
       }
+      break
+      navigate(url("http://daringfireball.net/projects/markdown/syntax")){"Markdown syntax"} " is supported."
+      
+      //TODO replace with toggle visibility abstraction
+      <script>
+        function toggle_visibility(id) {
+           var e = document.getElementById(id);
+           if(e.style.display == 'block')
+              e.style.display = 'none';
+           else
+              e.style.display = 'block';
+        }
+      </script>
+      break
+      <a onclick="toggle_visibility('hidden-diff-page')">"show differences"</a>
+     
+      <div id="hidden-diff-page" style="display:none;">
+        <div class="differences">
+          <h2>"Differences"</h2>
+          output((old.contentlist.contents.get(0) as WikiContent).content.diff((p.contentlist.contents.get(0) as WikiContent).content))  
+        </div>
+   
+        //need to tweak custom layout here, provide clear css class hooks
+        <div class="original-page">
+          <h2>"Original page"</h2>
+          header{ 
+            output(old.title)
+          } 
+          output(old.contentlist)  
+          var oldcontent := (old.contentlist.contents.get(0) as WikiContent).content;
+          input(oldcontent) //abuse of input here, since there is no form around it, it wont be submitted
+        </div>
+        <div class="preview-page">
+          <h2>"Preview"</h2>
+          header{ 
+            output(p.title)
+          } 
+          output(p.contentlist)
+          var previewcontent := (p.contentlist.contents.get(0) as WikiContent).content;
+          input(previewcontent)
+        </div>
+      </div>
+     
       action refresh(){
         previewPageWarning(p);
         p.save();
@@ -117,6 +149,8 @@ module page/page
           return singlepage(old);
         }
       }
+      //hide footer using a local template override
+      define rightFooter(){}
     }
   }
 
