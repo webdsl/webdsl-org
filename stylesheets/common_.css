@@ -291,3 +291,14 @@ h1 {
   text-decoration: none;
   color: #880000;
 }
+
+pre {
+  margin: 5px 15px 5px 5px;
+  padding: 5px 5px 5px 5px;
+  background: #EEEEEE;
+}
+
+li {
+  list-style: disc inside;
+  padding-left: 20px;
+}

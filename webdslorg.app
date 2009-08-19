@@ -26,3 +26,14 @@ imports global-settings
       }
     }
   }
+  
+  
+  
+  define page root(){
+    init{
+      return home();
+    }
+  }
+
+  access control rules 
+    rule page root(){true}
