@@ -7,6 +7,7 @@ module user/page
         label("Name"){output(u.displayname)}
         //label("Email"){output(u.email)}
         label("Homepage"){output(u.homepage)}
+        showAdminStatus(u)
       }
       break
       navigate(editUser(u)){"edit"}
@@ -28,6 +29,25 @@ module user/page
         }
       }
     }
+  }
+  
+  define showAdminStatus(u:User){
+    label("Is Admin"){output(u.isAdmin)}
+  }  
+  
+  define editAdminStatus(u:User){
+    form{
+      formgroup("Edit Admin Status"){
+        label("Is Admin"){input(u.isAdmin)}
+        break
+        action("save",save())
+        action save(){
+          u.save();
+          message("user info updated");
+          return user(u);
+        }
+      }
+    }  
   }
   
   define editUserPassword(u:User){
@@ -68,6 +88,7 @@ module user/page
     define localBody(){
       editUserDetails(u)
       editUserPassword(u)
+      editAdminStatus(u)
       editUserResetPassword(u)
     }
   }

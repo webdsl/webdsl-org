@@ -1,0 +1,2 @@
+ALTER TABLE `webdslorg`.`_User` ADD COLUMN `_isAdmin` BIT(1) NOT NULL DEFAULT 0 AFTER `version_opt_lock`;
+update `webdslorg`.`_User` set _isAdmin = 1;

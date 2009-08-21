@@ -5,22 +5,22 @@ module user/ac
   access control rules
   
     rule page editUser(u:User){ 
-      loggedIn()
+      loggedIn() || principal == u
     }
 
     predicate allowCreateUser(){
-      loggedIn() || !globalSettings.firstUserCreated
+      (loggedIn() && principal.isAdmin) || !globalSettings.firstUserCreated
     }
     rule page createUser(){ 
       allowCreateUser()
     }
     
     rule page listUsers(){ 
-      loggedIn()
+      loggedIn() && principal.isAdmin
     }
     
     rule page user(u:User){ 
-      loggedIn()
+      loggedIn() || principal == u
     }
     
     rule page passwordReset(pr:PasswordReset){
@@ -32,4 +32,10 @@ module user/ac
     }
     rule template editUserPassword(u:User){
       principal == u
+    }
+    rule template editAdminStatus(u:User){
+      loggedIn() && principal.isAdmin
+    }
+    rule template showAdminStatus(u:User){
+      loggedIn() && principal.isAdmin
     }

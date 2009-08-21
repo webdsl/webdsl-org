@@ -79,12 +79,6 @@ module page/page
     main()
     define localBody(){
     
-      <h2>"Preview"</h2>
-        header{ 
-          output(p.title)
-        } 
-      output(p.contentlist)
-   
       form{
         formgroup("Edit")[labelWidth := "75"]{
           label("Identifier"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"Identifier is taken")}}
@@ -99,6 +93,15 @@ module page/page
       }
       break
       navigate(url("http://daringfireball.net/projects/markdown/syntax")){"Markdown syntax"} " is supported."
+      break
+      "Links to other pages in the wiki can be created using [[page(identifier)|caption]], e.g. [[page(Types)|Types page]]."
+
+      <h2>"Preview"</h2>
+        header{ 
+          output(p.title)
+        } 
+      output(p.contentlist)
+   
       
       //TODO replace with toggle visibility abstraction
       <script>

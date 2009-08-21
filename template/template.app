@@ -34,23 +34,27 @@ module template/template
     <span class="menucontent">
       navigate(home()){"Home"}
       output(topmenu)
-      if(allowCreateUser()){
-        "  |  "
-        navigate(createUser()){"Add User"}
-      } 
       if(loggedIn()){
-        "  |  "
-        navigate(listUsers()){"List Users"}
         "  |  "
         navigate(createPage()){"Add Page"}
         "  |  "
         navigate(listPages()){"List Pages"}
+        if(loggedIn() && securityContext.principal.isAdmin){
+          if(allowCreateUser()){
+            "  |  "
+            navigate(createUser()){"Add User"}
+          } 
+          "  |  "
+          navigate(listUsers()){"List Users"}
+          "  |  "
+          navigate(createNews()){"Add News"}
+          "  |  "
+          navigate(editMenu()){"Edit Menu"}
+          "  |  "
+          navigate(manage()){"Cleaning"}
+        }
         "  |  "
-        navigate(createNews()){"Add News"}
-        "  |  "
-        navigate(editMenu()){"Edit Menu"}
-        "  |  "
-        navigate(manage()){"Cleaning"}
+        navigate(user(securityContext.principal)){"Account"}
       } 
     </span>
   }

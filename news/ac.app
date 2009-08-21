@@ -3,13 +3,13 @@ module news/ac
   access control rules
   
     rule page createNews(){ 
-      loggedIn()
+      loggedIn() && principal.isAdmin
     }
     
     rule page editNews(*){ 
-      loggedIn()
+      loggedIn() && principal.isAdmin
     }
     
     rule page deleteNews(*){ 
-      loggedIn()
+      loggedIn() && principal.isAdmin
     }
