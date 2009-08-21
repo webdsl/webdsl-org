@@ -40,10 +40,6 @@ module template/template
         "  |  "
         navigate(listPages()){"List Pages"}
         if(loggedIn() && securityContext.principal.isAdmin){
-          if(allowCreateUser()){
-            "  |  "
-            navigate(createUser()){"Add User"}
-          } 
           "  |  "
           navigate(listUsers()){"List Users"}
           "  |  "
@@ -55,6 +51,10 @@ module template/template
         }
         "  |  "
         navigate(user(securityContext.principal)){"Account"}
+      } 
+      if(allowCreateUser()){
+        "  |  "
+        navigate(createUser()){"Add User"}
       } 
     </span>
   }

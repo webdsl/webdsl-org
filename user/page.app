@@ -110,6 +110,7 @@ module user/page
             u.password := u.password.digest();
             u.save();
             if(!globalSettings.firstUserCreated) {
+              u.isAdmin := true;
               globalSettings.firstUserCreated := true;
               globalSettings.save();
             }
