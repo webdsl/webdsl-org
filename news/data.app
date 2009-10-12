@@ -1,7 +1,7 @@
 module news/data
 
   entity News{
-    content :: Text
+    content :: WikiText
     creator -> User
     time :: DateTime
     title :: String (name)
