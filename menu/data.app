@@ -6,7 +6,7 @@ module menu/data
 
   entity MenuItem {
     page -> Page
-    viewtype -> MenuView
+    viewtype -> MenuView (not null)
   }
   
   enum MenuView { indexview("index"),fullview("full"),singleview("single") }

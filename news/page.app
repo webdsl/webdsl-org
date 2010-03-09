@@ -22,7 +22,11 @@ module news/page
   define page createNews(){
     main()
     define localBody(){
-      var n := News{creator := securityContext.principal};
+      var n := News{creator := securityContext.principal time:=now()};
+      action save(){
+        n.save();
+        return home();
+      }
       header{"News"}
       form{
         formgroup("Create News Item")[labelWidth := "75"]{
@@ -33,10 +37,6 @@ module news/page
         }
         action("save",save())
         navigate(home()){"cancel"}
-        action save(){
-          n.save();
-          return home();
-        }
       } 
     } 
   }
@@ -44,6 +44,10 @@ module news/page
   define page editNews(n: News){
     main()
     define localBody(){
+      action save(){
+        n.save();
+        return home();
+      }
       header{"News"}
       form{
         formgroup("Edit News Item")[labelWidth := "75"]{
@@ -54,10 +58,6 @@ module news/page
         }
         action("save",save())
         navigate("cancel",home())
-        action save(){
-          n.save();
-          return home();
-        }
       }
     }
   } 

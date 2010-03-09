@@ -47,6 +47,35 @@ module content/indexcontent/page
        }
      }
      var toAdd : Page
+     
+     action up(p:Page){
+       var temp := c.index.indexOf(p);
+       if(temp != null){
+         c.index.set(temp,c.index.get(temp-1));
+         c.index.set(temp-1,p);
+         c.save();
+       }
+     }
+     action down(p:Page){
+       var temp := c.index.indexOf(p);
+       if(temp != null){
+         c.index.set(temp,c.index.get(temp+1));
+         c.index.set(temp+1,p);
+         c.save();
+       }
+     }
+     action remove(p:Page){
+       //TODO actual removeAtIndex
+       c.index.remove(p);
+       c.save();
+     }
+     action add(){
+       if(toAdd != null){
+         c.index.add(toAdd);
+         c.save();
+       }
+     } 
+          
 //output(c.name)
 //output(c.contentList)
 //output(c.contentList.page)
@@ -67,37 +96,11 @@ module content/indexcontent/page
             action("down",down(p))
             action("remove",remove(p))
           }
-          action up(p:Page){
-            var temp := c.index.indexOf(p);
-            if(temp != null){
-              c.index.set(temp,c.index.get(temp-1));
-              c.index.set(temp-1,p);
-              c.save();
-            }
-          }
-          action down(p:Page){
-            var temp := c.index.indexOf(p);
-            if(temp != null){
-              c.index.set(temp,c.index.get(temp+1));
-              c.index.set(temp+1,p);
-              c.save();
-            }
-          }
-          action remove(p:Page){
-            //TODO actual removeAtIndex
-            c.index.remove(p);
-            c.save();
-          }
         }
       }
       select(toAdd from addCol)
       action("add",add())
-      action add(){
-        if(toAdd != null){
-          c.index.add(toAdd);
-          c.save();
-        }
-      } 
+
       //if(c.subsections.length > 0) { editSubsections(c) }
       //addSubsections(c)
     //}

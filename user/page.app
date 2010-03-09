@@ -15,6 +15,11 @@ module user/page
   }
   
   define editUserDetails(u:User){
+    action save(){
+      u.save();
+      message("user info updated");
+      return user(u);
+    }
     form{
       formgroup("Edit User"){
         label("Name"){input(u.displayname)}
@@ -22,11 +27,6 @@ module user/page
         label("Homepage"){input(u.homepage)}
         break
         action("save",save())
-        action save(){
-          u.save();
-          message("user info updated");
-          return user(u);
-        }
       }
     }
   }
@@ -36,49 +36,49 @@ module user/page
   }  
   
   define editAdminStatus(u:User){
+    action save(){
+      u.save();
+      message("user info updated");
+      return user(u);
+    }
     form{
       formgroup("Edit Admin Status"){
         label("Is Admin"){input(u.isAdmin)}
         break
         action("save",save())
-        action save(){
-          u.save();
-          message("user info updated");
-          return user(u);
-        }
       }
     }  
   }
   
   define editUserPassword(u:User){
+    var temp : Secret := "";
+    action changePassword(){
+      var pass : String := u.password.toString();
+      u.password := u.password.digest();
+      u.save();
+      email(emailNewPassword(u,pass));
+      message("password changed");
+      return user(u);
+    }
     form{
       formgroup("Change Password"){
-        var temp : Secret := "";
         label("Password"){input(u.password)}
         label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
         break
         action("change",changePassword())
-        action changePassword(){
-          var pass : String := u.password.toString();
-          u.password := u.password.digest();
-          u.save();
-          email(emailNewPassword(u,pass));
-          message("password changed");
-          return user(u);
-        }
       }
     }
   }
   
   define editUserResetPassword(u:User){
+    action resetPassword(){
+      requestPasswordReset(u);
+      message("Password reset requested.");
+      return user(u);
+    }
     form{
       formgroup("Reset Password"){
         action("Request Password Reset",resetPassword())
-        action resetPassword(){
-          requestPasswordReset(u);
-          message("Password reset requested.");
-          return user(u);
-        }
       }
     }
   }
@@ -98,6 +98,17 @@ module user/page
     define localBody(){
       var u := User{};  //TODO vars cannot be in enclosing def, fix 
       var temp : Secret := "";
+      action save(){
+        u.password := u.password.digest();
+        u.save();
+        if(!globalSettings.firstUserCreated) {
+          u.isAdmin := true;
+          globalSettings.firstUserCreated := true;
+          globalSettings.save();
+        }
+        message("user info updated");
+        return user(u);
+      }
       form{
         formgroup("Create User"){
           label("Name"){input(u.displayname)}
@@ -106,17 +117,6 @@ module user/page
           label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
           break
           action("save",save())
-          action save(){
-            u.password := u.password.digest();
-            u.save();
-            if(!globalSettings.firstUserCreated) {
-              u.isAdmin := true;
-              globalSettings.firstUserCreated := true;
-              globalSettings.save();
-            }
-            message("user info updated");
-            return user(u);
-          }
         }
       }
     }

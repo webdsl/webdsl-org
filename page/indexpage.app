@@ -5,11 +5,12 @@ module page/indexpage
   }
 
   define showIndexPage(p:Page,list:List<Page>,indent:Int, hideCurrentTitle:Bool, selected:Page, top:Page, depth:Int){
+    var newlist : List<Page>;
+    init{ newlist.addAll(list).add(p); }
+    var subpages := (p.contentlist.contents.get(1) as IndexContent).index
+
     block[style := "margin-left: "+indent*5 +"pt"]{
       if(!(p in list)){
-        var newlist : List<Page>;
-        init{ newlist.addAll(list).add(p); }
-        var subpages := (p.contentlist.contents.get(1) as IndexContent).index
         if(!hideCurrentTitle){
           if(p == selected){
             <span class="selectedpagelink">

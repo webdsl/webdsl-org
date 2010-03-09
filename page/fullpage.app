@@ -1,9 +1,9 @@
 module page/fullpage
   
   define showFullPage(p:Page,list:List<Page>){
+    var newlist : List<Page>;
+    init{ newlist.addAll(list).add(p); }
     if(!(p in list)){
-      var newlist : List<Page>;
-      init{ newlist.addAll(list).add(p); }
       navigate(singlepage(p)) {
         header{
           output(p.title)

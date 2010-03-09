@@ -78,7 +78,9 @@ module page/page
     var old : Page := p.previousPage
     main()
     define localBody(){
-    
+      var oldcontent := (old.contentlist.contents.get(0) as WikiContent).content;
+      var previewcontent := (p.contentlist.contents.get(0) as WikiContent).content;
+                
       form{
         formgroup("Edit")[labelWidth := "75"]{
           label("Identifier"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"Identifier is taken")}}
@@ -129,7 +131,6 @@ module page/page
             output(old.title)
           } 
           output(old.contentlist)  
-          var oldcontent := (old.contentlist.contents.get(0) as WikiContent).content;
           input(oldcontent) //abuse of input here, since there is no form around it, it wont be submitted
         </div>
         <div class="preview-page">
@@ -138,7 +139,6 @@ module page/page
             output(p.title)
           } 
           output(p.contentlist)
-          var previewcontent := (p.contentlist.contents.get(0) as WikiContent).content;
           input(previewcontent)
         </div>
       </div>
@@ -161,6 +161,14 @@ module page/page
     main()
     define localBody(){
       var p := Page{}; 
+      action save(){
+        p.initContentList();
+        p.creator := securityContext.principal;
+        p.tempurl := p.url;
+        p.save();
+        message("New page created.");
+        return singlepage(p);
+      }
       form{
         formgroup("Create Page"){
           label("Identifier"){input(p.url)}
@@ -168,14 +176,6 @@ module page/page
           label("Title"){input(p.title)}
           break
           action("save",save())
-          action save(){
-            p.initContentList();
-            p.creator := securityContext.principal;
-            p.tempurl := p.url;
-            p.save();
-            message("New page created.");
-            return singlepage(p);
-          }
         }
       }
     }

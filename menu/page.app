@@ -31,6 +31,29 @@ module menu/page
       var toAdd : Page
     main()
     define localBody(){
+      action up(m:MenuItem){
+        var temp : Int := topmenu.items.indexOf(m);
+        if(temp != null){
+          topmenu.items.set(temp,topmenu.items.get(temp-1));
+          topmenu.items.set(temp-1,m);
+          topmenu.save();
+        }
+      }
+      action down(m:MenuItem){
+        var temp : Int := topmenu.items.indexOf(m);
+        if(temp != null){
+          topmenu.items.set(temp,topmenu.items.get(temp+1));
+          topmenu.items.set(temp+1,m);
+          topmenu.save();
+        }
+      }
+      action remove(m:MenuItem){
+        topmenu.items.remove(m);
+        topmenu.save();
+      }
+      action save(m:MenuItem){
+        m.save();
+      }
   
       table{
         for(m:MenuItem in topmenu.items){
@@ -43,29 +66,6 @@ module menu/page
               input(m.viewtype)
               action("save",save(m))
             }
-          }
-          action up(m:MenuItem){
-            var temp : Int := topmenu.items.indexOf(m);
-            if(temp != null){
-              topmenu.items.set(temp,topmenu.items.get(temp-1));
-              topmenu.items.set(temp-1,m);
-              topmenu.save();
-            }
-          }
-          action down(m:MenuItem){
-            var temp : Int := topmenu.items.indexOf(m);
-            if(temp != null){
-              topmenu.items.set(temp,topmenu.items.get(temp+1));
-              topmenu.items.set(temp+1,m);
-              topmenu.save();
-            }
-          }
-          action remove(m:MenuItem){
-            topmenu.items.remove(m);
-            topmenu.save();
-          }
-          action save(m:MenuItem){
-            m.save();
           }
         }
       }
