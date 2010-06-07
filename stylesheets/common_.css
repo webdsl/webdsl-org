@@ -131,7 +131,7 @@ h2{
     margin-left:auto;
     margin-right:auto;
     /*border-bottom : 1px dotted black;*/
-    background: url(/webdslorg/images/menu.png) left no-repeat;
+    background: url(/images/menu.png) left no-repeat;
   }
       .sitemenu a:link {
         color   : White;
@@ -218,19 +218,19 @@ html, body, .main {
     top:140px;
     position: fixed;
     width: 200px;
-    background: url(/webdslorg/images/sb-mid.png) right repeat-y 
+    background: url(/images/sb-mid.png) right repeat-y 
   }
   .sidebar::before {
     display: block;
     line-height: 0;
-    background: url(/webdslorg/images/sb-tr.png) top right no-repeat;
-    content: url(/webdslorg/images/sb-tl.png) 
+    background: url(/images/sb-tr.png) top right no-repeat;
+    content: url(/images/sb-tl.png) 
   }
   .sidebar::after {
     display: block;
     line-height: 0;
-    background: url(/webdslorg/images/sb-br.png) bottom right no-repeat;
-    content: url(/webdslorg/images/sb-bl.png) 
+    background: url(/images/sb-br.png) bottom right no-repeat;
+    content: url(/images/sb-bl.png) 
   }
 
   .sidebarcontent{
