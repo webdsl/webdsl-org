@@ -12,7 +12,7 @@ module ac
     
     rule page home(){true}
     rule page login(){ !loggedIn() }
-    rule page logout(){ loggedIn() }
+    rule page logout1(){ loggedIn() }
     rule page manage(){ loggedIn() && principal.isAdmin }
     //rule page search(){ true }
     rule template *(*){true}

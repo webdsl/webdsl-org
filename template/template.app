@@ -96,7 +96,7 @@ module template/template
     /*navigate(home()){"Search"}
     "  |  "*/
     navigate(login()){"Login"}
-    navigate(logout()){"Logout"}
+    navigate(logout1()){"Logout"}
     "  |  "
     navigate(page(page_about)){"About"}
     "  |  "

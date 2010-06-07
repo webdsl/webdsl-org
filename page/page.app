@@ -5,7 +5,10 @@ module page/page
       output(p.title)
     }
     pageDetails(p, true)
-    output(p.contentlist)
+    
+    output(p.contentlist.contents[0])
+    outputIndexContentLinksInContext(p,true)
+    
     break
   }
   

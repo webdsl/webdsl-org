@@ -4,14 +4,21 @@ module page/singlepage
     main()
     define localBody(){
       showPage(p)
-      navigate(page(p)){"Full page"}
+      if(isAdmin()){
+        navigate(page(p)){"Full page"}
+      }
     }
     define sidebarPlaceholder(){
       pageSidebar(p)
     }
   }
+  
+  function isAdmin():Bool{
+    return securityContext.principal != null && securityContext.principal.isAdmin;
+  }
  
   define pageDetails(p:Page, showAlways:Bool){
+    if(isAdmin()){
       "Version: "
       if(p.isLatestVersion()){
         output(p.version)
@@ -53,6 +60,7 @@ module page/singlepage
         //navigate(deletePage(p)){"Delete this page"}
       }
       break
+      }
   }
   
   access control rules

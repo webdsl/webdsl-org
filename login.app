@@ -33,7 +33,7 @@ module login
      return select u from User as u where (u._email = ~e);
   }
 
-  define page logout() 
+  define page logout1() 
   {
     init{
       securityContext.principal := null;
