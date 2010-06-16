@@ -2,7 +2,7 @@ application webdslorg
 
 imports template/main
 imports user/main
-//imports style/main
+imports search/main
 imports message/main
 imports page/main
 imports content/main

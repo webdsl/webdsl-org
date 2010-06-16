@@ -1,7 +1,7 @@
 module content/wikicontent/data
 
   entity WikiContent : Content{
-    content :: WikiText
+    content :: WikiText (searchable)
     
     function clone() : Content{
       var wc := WikiContent{ 

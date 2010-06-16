@@ -68,6 +68,8 @@ module template/template
         "  |  "
         navigate(createUser()){"Add User"}
       } 
+
+      searchform()
     </span>
   }
   

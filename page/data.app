@@ -1,10 +1,14 @@
 module page/data
   
+  function getManualSectionList():List<Page>{
+    return (page_manual.contentlist.contents[1] as IndexContent).index;
+  }
+  
   entity Page {
     url      :: String  (id, validate(isUniquePage(this),"Identifier is taken")
                            , validate(url.length() >= 1, "Identifier is required")
                            , validate(url.isCleanUrl(), "Identifier is invalid. may contain only letters, digits, and dashes"))
-    title    :: String (name, validate(title.length() >= 1, "Title is required"))
+    title    :: String (name, validate(title.length() >= 1, "Title is required"), searchable)
     previous <> Page
     next     -> Page (inverse=Page.previous)
     creator  -> User (inverse=User.pages)
@@ -20,6 +24,21 @@ module page/data
     tempurl      :: String (  validate(tempurl.length() >= 1, "URL is required")  //need a property to specify a new url in the temp object, but cannot change actual url property
                             , validate(tempurl.isCleanUrl(), "URL is invalid. may contain only letters, digits, and dashes"))
     contentlist <> ContentList
+
+    function isManualSection():Bool{
+      return this in getManualSectionList();
+    }
+    function getManualSection():Page{
+      for(p:Page in getManualSectionList()){
+        if(p.includes(this)){
+          return p;
+        }
+      }
+      return null;
+    }
+    function includes(p:Page):Bool{
+      return p in (this.contentlist.contents[1] as IndexContent).index;	
+    }
     
     function isLatestVersion():Bool{
       return next == null && !temp;

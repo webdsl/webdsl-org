@@ -1,9 +1,20 @@
 module page/fullpage
   
+  //something for standard library, together with an easy way to add an anchor to navigate
+  define anchor(s:String){
+    <a name=s />  
+  } 
+  define navWithAnchor(n:String,a:String){
+    <a href=n+"#"+a>
+      elements
+    </a>
+  }
+  
   define showFullPage(p:Page,list:List<Page>){
     var newlist : List<Page>;
     init{ newlist.addAll(list).add(p); }
     if(!(p in list)){
+      anchor(p.url)
       navigate(singlepage(p)) {
         header{
           output(p.title)
