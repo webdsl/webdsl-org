@@ -60,15 +60,17 @@ module search/page
     var searchTermsInJS :String;
     
     init{
-      var searchlist := /\*/.replaceAll("", query).split(" ");
+      //since we're using script insertion which doesn't prevent injection attacks like normal outputs, use a whitelist here
+      //webdsl regex ignores regular whitespace, the \s matches whitespace
+      var searchlist := /[^a-zA-Z0-9\s]/.replaceAll("", query).split(" ");
       if(searchlist.length>0){
-        searchTermsInJS := "\"";
+        searchTermsInJS := "\'";
         var first := true;
         for(s:String in searchlist){
           if(first){ first := false; }else{ searchTermsInJS := searchTermsInJS + "|"; }
           searchTermsInJS := searchTermsInJS + s;
         }
-        searchTermsInJS := searchTermsInJS +"\"";
+        searchTermsInJS := searchTermsInJS +"\'";
       }
     }
     
