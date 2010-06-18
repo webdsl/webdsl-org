@@ -62,11 +62,13 @@ module search/page
     init{
       var searchlist := /\*/.replaceAll("", query).split(" ");
       if(searchlist.length>0){
-        searchTermsInJS := "[";
+        searchTermsInJS := "\"";
+        var first := true;
         for(s:String in searchlist){
-          searchTermsInJS := searchTermsInJS + "\""+ s +"\",";
-        } 
-        searchTermsInJS := searchTermsInJS + "]";
+          if(first){ first := false; }else{ searchTermsInJS := searchTermsInJS + "|"; }
+          searchTermsInJS := searchTermsInJS + s;
+        }
+        searchTermsInJS := searchTermsInJS +"\"";
       }
     }
     
