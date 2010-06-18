@@ -5,7 +5,7 @@ module page/fullpage
     <a name=s />  
   } 
   define navWithAnchor(n:String,a:String){
-    <a href=n+"#"+a>
+    <a all attributes href=n+"#"+a>
       elements
     </a>
   }

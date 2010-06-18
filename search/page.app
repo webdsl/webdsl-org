@@ -26,6 +26,10 @@ module search/page
     main()
     define localBody(){
       title { "Search" }
+      
+      includeJS("http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js")
+      includeJS("searchpage.js")
+      JSScriptVar(query)
 
       if(result.length == 0){
         header{ "No Pages Found" }
@@ -52,9 +56,28 @@ module search/page
     }
   }
   
+  define JSScriptVar(query:String){
+    var searchTermsInJS :String;
+    
+    init{
+      var searchlist := /\*/.replaceAll("", query).split(" ");
+      if(searchlist.length>0){
+        searchTermsInJS := "[";
+        for(s:String in searchlist){
+          searchTermsInJS := searchTermsInJS + "\""+ s +"\",";
+        } 
+        searchTermsInJS := searchTermsInJS + "]";
+      }
+    }
+    
+    <script>
+      var searchterms = ~searchTermsInJS;
+    </script>
+  }
+  
   define showNavigateFromSearch(p:Page){
     if(p.isManualSection()){
-      navigate selectpage(page_manual,p){output(p.title)}
+      navigate selectpage(page_manual,p)[class="search-result-nav"]{output(p.title)}
     }
     else{
       showNavigateToSubPage(p)  
@@ -64,10 +87,10 @@ module search/page
   define showNavigateToSubPage(p:Page){  
     var sec := p.getManualSection()
     if(sec!=null) {//it is a subsection in the manual
-      navWithAnchor(navigate(selectpage(page_manual,sec)),p.url){ output(p.title) }
+      navWithAnchor(navigate(selectpage(page_manual,sec)),p.url)[class="search-result-nav"]{ output(p.title) }
     }
     else{ //just show the page without manual context
-      navigate singlepage(p){output(p.title)}
+      navigate singlepage(p)[class="search-result-nav"]{output(p.title)}
     }        
   }
   
