@@ -1,158 +1,160 @@
-
 * {
-margin:0;
-padding:0;
+  margin:0;
+  padding:0;
 }
+
 p{
-padding-top:5pt;
+  padding-top:5pt;
 }
+
 h2{
-    font-weight: normal;
-    font-size: 14pt;
-    font-weight:bold;
-    margin-top:10pt;
-    margin-bottom:10pt;
+  font-weight: normal;
+  font-size:13pt;
+  font-weight:bold;
+  margin-bottom:6pt;
+  margin-top:10pt;
 }
-  html{
-    font-family:arial,sans-serif;
-    color:Black;
-    font-size :  12pt;
+
+html{
+  font-family: arial,sans-serif;
+  color: Black;
+  font-size: 12pt;
+  text-decoration: none;
+  line-height: 22px;
+}
+
+textarea{
+  width : 600px; 
+  height : 400px;   
+}
+
+img {
+  border-width   : 0px;
+}
+
+fieldset {
+  display : block;
+}
+  
+.main {
+  display  : block;
+  width    : 1100px;
+  margin-right:auto;
+  margin-left:auto;
+}
+
+.maincenter {
+  display  : block;
+  width    : 700px;
+  
+  margin-right:auto;
+  margin-left:auto;
+  
+  border-width   : 0px;
+  background-color : white;
+}
+
+.top {
+  display        : block;
+  width          : 700px;
+  /*margin-bottom : 20px;
+  border-bottom-style : dotted;
+  border-bottom-width : 1px;
+  border-bottom-color : black;*/
+}
+
+.topRight {
+  /*display   :  block;*/
+  float:right;
+  margin-right : auto;
+  margin-top:0;
+  font-size :  10pt;
+}
+  .topRight a:link {
+    color   : Black;
     text-decoration: none;
   }
-
-  textarea{
-    width : 600px; 
-    height : 400px;   
+  .topRight a:active {
+    color   : Black;
+    text-decoration: none;
   }
-  
-  img {
-    border-width   : 0px;
+  .topRight a:visited {
+    color   : Black;
+    text-decoration: none;
   }
-  
-  fieldset {
-    display : block;
-  }
-  
-  .main {
-    display  : block;
-    width    : 1100px;
-    margin-right:auto;
-    margin-left:auto;
-  }
-  
-  .maincenter {
-    display  : block;
-    width    : 700px;
-    
-    margin-right:auto;
-    margin-left:auto;
-    
-    border-width   : 0px;
-    background-color : white;
-    
+  .topRight a:hover {
+    color   : Black;
+    text-decoration: underline;
   }
 
-  .top {
-    display        : block;
-    width          : 700px;
-    /*margin-bottom : 20px;
-    border-bottom-style : dotted;
-    border-bottom-width : 1px;
-    border-bottom-color : black;*/
+.body {    
+  width   := 700px;
+  display := block;
+ // margin-right          : auto;
+ // border-bottom-style : dotted;
+ // border-bottom-width : 1px;
+ // border-bottom-color : black;
+}
+  .body a:link {
+    color   : Black;
+    text-decoration: underline;
   }
+  .body a:active {
+    color   : Black;
+    text-decoration: underline;
+  }
+  .body a:visited {
+    color   : Black;
+    text-decoration: underline;
+  }
+  .body a:hover {
+    color   : Black;
+    text-decoration: underline;
+  }
+
+.localBody {
   
-  .topRight {
-    /*display   :  block;*/
-    float:right;
-    margin-right : auto;
-    margin-top:0;
-    font-size :  10pt;
-  }
-      .topRight a:link {
-        color   : Black;
-        text-decoration: none;
-      }
-      .topRight a:active {
-        color   : Black;
-        text-decoration: none;
-      }
-      .topRight a:visited {
-        color   : Black;
-        text-decoration: none;
-      }
-      .topRight a:hover {
-        color   : Black;
-        text-decoration: underline;
-      }
+  //margin-bottom : 20px;    
+  width   : 680px;
+  display : block;
+  margin-left:auto;
+  margin-right:none;
+}
   
-  .body {    
-    width   := 700px;
-    display := block;
-   // margin-right          : auto;
-   // border-bottom-style : dotted;
-   // border-bottom-width : 1px;
-   // border-bottom-color : black;
-  }
-      .body a:link {
-        color   : Black;
-        text-decoration: underline;
-      }
-      .body a:active {
-        color   : Black;
-        text-decoration: underline;
-      }
-      .body a:visited {
-        color   : Black;
-        text-decoration: underline;
-      }
-      .body a:hover {
-        color   : Black;
-        text-decoration: underline;
-      }
-  
-  .localBody {
-    
-    //margin-bottom : 20px;    
-    width   : 680px;
-    display : block;
-    margin-left:auto;
-    margin-right:none;
-  }
-  
-  .sitemenu { 
-    color : White;
-    width : 700px;
-    /*margin-top : 100px;*/
-    /*margin-bottom : 20px;*/   
-    padding-bottom : 25px;
-    padding-top : 25px;
-    /*padding-left:100px;*/
-    display        : block;
-    margin-left:auto;
-    margin-right:auto;
-    /*border-bottom : 1px dotted black;*/
-    background: url(/images/menu.png) left no-repeat;
-  }
-      .sitemenu a:link {
-        color   : White;
-        text-decoration: none;
-      }
-      .sitemenu a:active {
-        color   : White;
-        text-decoration: none;
-      }
-      .sitemenu a:visited {
-        color   : White;
-        text-decoration: none;
-      }
-      .sitemenu a:hover {
-        color   : White;
-        text-decoration: underline;
-      }
-  
-  .menucontent {
-    padding-left:25px;
-  }
+.sitemenu { 
+  color : White;
+  width : 700px;
+  /*margin-top : 100px;*/
+  /*margin-bottom : 20px;*/   
+  padding-bottom : 25px;
+  padding-top : 25px;
+  /*padding-left:100px;*/
+  display        : block;
+  margin-left:auto;
+  margin-right:auto;
+  /*border-bottom : 1px dotted black;*/
+  background: url(/images/menu.png) left no-repeat;
+}
+    .sitemenu a:link {
+      color   : White;
+      text-decoration: none;
+    }
+    .sitemenu a:active {
+      color   : White;
+      text-decoration: none;
+    }
+    .sitemenu a:visited {
+      color   : White;
+      text-decoration: none;
+    }
+    .sitemenu a:hover {
+      color   : White;
+      text-decoration: underline;
+    }
+
+.menucontent {
+  padding-left:25px;
+}
 
 
 /* push footer down to bottom of page */           
@@ -173,6 +175,7 @@ html, body, .main {
 .clear {
   clear : both;
 }
+
 .footer{
   height : 2em;
   width            : 700px;
@@ -181,107 +184,103 @@ html, body, .main {
   margin-left:auto;
   margin-right:auto;
 }
-      .footer a:link {
-        color   : Black;
-        text-decoration: none;
-      }
-      .footer a:active {
-        color   : Black;
-        text-decoration: none;
-      }
-      .footer a:visited {
-        color   : Black;
-        text-decoration: none;
-      }
-      .footer a:hover {
-        color   : Black;
-        text-decoration: underline;
-      }
-
-
-  .leftFooter {
-  //  margin-top : 20px;
-  //  display        : block;
-    font-size      : 10pt;
-    float: left;
+  .footer a:link {
+    color   : Black;
+    text-decoration: none;
+  }
+  .footer a:active {
+    color   : Black;
+    text-decoration: none;
+  }
+  .footer a:visited {
+    color   : Black;
+    text-decoration: none;
+  }
+  .footer a:hover {
+    color   : Black;
+    text-decoration: underline;
   }
 
-  .rightFooter {
-    margin-right : 20px;
-  //  display        : block;
-    font-size      : 10pt;
-    float:right;
-  }
-  
-  .sidebar {
-    color:White;
-    top:140px;
-    position: fixed;
-    width: 200px;
-    background: url(/images/sb-mid.png) right repeat-y 
-  }
-  .sidebar::before {
-    display: block;
-    line-height: 0;
-    background: url(/images/sb-tr.png) top right no-repeat;
-    content: url(/images/sb-tl.png) 
-  }
-  .sidebar::after {
-    display: block;
-    line-height: 0;
-    background: url(/images/sb-br.png) bottom right no-repeat;
-    content: url(/images/sb-bl.png) 
-  }
+.leftFooter {
+//  margin-top : 20px;
+//  display        : block;
+  font-size      : 10pt;
+  float: left;
+}
 
-  .sidebarcontent{
-    padding-left:25px;
-    display:block;
-  }
-      .sidebarcontent a:link {
-        color   : White;
-        text-decoration: none;
-      }
-      .sidebarcontent a:active {
-        color   : White;
-        text-decoration: none;
-      }
-      .sidebarcontent a:visited {
-        color   : White;
-        text-decoration: none;
-      }
-      .sidebarcontent a:hover {
-        color   : White;
-        text-decoration: underline;
-      }
-      
+.rightFooter {
+  margin-right : 20px;
+//  display        : block;
+  font-size      : 10pt;
+  float:right;
+}
+
+.sidebar {
+  color:White;
+  top:140px;
+  position: fixed;
+  width: 200px;
+  background: url(/images/sb-mid.png) right repeat-y 
+}
+.sidebar::before {
+  display: block;
+  line-height: 0;
+  background: url(/images/sb-tr.png) top right no-repeat;
+  content: url(/images/sb-tl.png) 
+}
+.sidebar::after {
+  display: block;
+  line-height: 0;
+  background: url(/images/sb-br.png) bottom right no-repeat;
+  content: url(/images/sb-bl.png) 
+}
+
+.sidebarcontent{
+  padding-left:25px;
+  display:block;
+}
+    .sidebarcontent a:link {
+      color   : White;
+      text-decoration: none;
+    }
+    .sidebarcontent a:active {
+      color   : White;
+      text-decoration: none;
+    }
+    .sidebarcontent a:visited {
+      color   : White;
+      text-decoration: none;
+    }
+    .sidebarcontent a:hover {
+      color   : White;
+      text-decoration: underline;
+    }
     
 html {
   height: 100%;
   overflow-y: scroll; /* force scrollbar */
 }
 
-
-  .selectedpagelink {
+.selectedpagelink {
+  color: #880000;
+}
+  .selectedpagelink a:link {
     color: #880000;
+    text-decoration: none;
   }
-      .selectedpagelink a:link {
-        color: #880000;
-        text-decoration: none;
-      }
-      .selectedpagelink a:active {
-        color: #880000;
-        text-decoration: none;
-      }
-      .selectedpagelink a:visited {
-        color: #880000;
-        text-decoration: none;
-      }
-      .selectedpagelink a:hover {
-        color: #880000;
-        text-decoration: underline;
-      }
+  .selectedpagelink a:active {
+    color: #880000;
+    text-decoration: none;
+  }
+  .selectedpagelink a:visited {
+    color: #880000;
+    text-decoration: none;
+  }
+  .selectedpagelink a:hover {
+    color: #880000;
+    text-decoration: underline;
+  }
       
-   
 h1 {
   font-weight: normal;
   font-size: 16pt;
@@ -301,6 +300,8 @@ pre {
 li {
   list-style: disc inside;
   padding-left: 20px;
+  padding-top: 5px;
+  padding-bottom: 0px;
 }
 
 .original-page { 
@@ -338,8 +339,15 @@ margin-top:6px;
 }
 .search-form-top{
   float:right;
-margin:-1px 13px 0 0;
+  margin:-1px 13px 0 0;
 }
 .highlight-search-text{
   background-color: yellow;
+}
+
+.created-by {
+  color:#999999;
+  font-size:7pt;
+  line-height:0;
+  margin-bottom:8px;
 }

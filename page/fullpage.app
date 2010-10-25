@@ -10,6 +10,12 @@ module page/fullpage
     </a>
   }
   
+  define lastEditedBy(p:Page){
+    /*<div class="created-by">
+      output("last edited by " + p.creator.name + " at "  + p.time.format("d MMM yyyy HH:mm"))
+    </div>*/
+  }
+  
   define showFullPage(p:Page,list:List<Page>){
     var newlist : List<Page>;
     init{ newlist.addAll(list).add(p); }
@@ -20,6 +26,7 @@ module page/fullpage
           output(p.title)
         } 
       }
+      lastEditedBy(p)
       pageDetails(p, false)
       output(p.contentlist.contents.get(0) as WikiContent)
       break

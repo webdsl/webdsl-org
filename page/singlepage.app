@@ -60,7 +60,10 @@ module page/singlepage
         //navigate(deletePage(p)){"Delete this page"}
       }
       break
-      }
+    }
+    else{
+      lastEditedBy(p)
+    }
   }
   
   access control rules
