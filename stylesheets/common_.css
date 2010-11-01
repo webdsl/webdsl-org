@@ -32,23 +32,38 @@ img {
   border-width   : 0px;
 }
 
-fieldset {
-  display : block;
+fieldset { 
+  border:1px solid black;
+  margin-right:20px; 
+  -moz-border-radius:10px 10px 10px 10px;
+  padding-left:20px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+legend {
+  padding: 0.2em 0.5em;
+  border:1px solid black;
+  font-size:90%;
+  text-align:right;
+}
+label{
+  font-size:90%;
+  display:block;
 }
   
 .main {
   display  : block;
-  width    : 1100px;
-  margin-right:auto;
-  margin-left:auto;
+  width    : 900px;
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 .maincenter {
   display  : block;
   width    : 700px;
   
-  margin-right:auto;
-  margin-left:auto;
+  margin-right: auto;
+  margin-left: 200px;
   
   border-width   : 0px;
   background-color : white;
@@ -57,14 +72,9 @@ fieldset {
 .top {
   display        : block;
   width          : 700px;
-  /*margin-bottom : 20px;
-  border-bottom-style : dotted;
-  border-bottom-width : 1px;
-  border-bottom-color : black;*/
 }
 
 .topRight {
-  /*display   :  block;*/
   float:right;
   margin-right : auto;
   margin-top:0;
@@ -90,10 +100,6 @@ fieldset {
 .body {    
   width   := 700px;
   display := block;
- // margin-right          : auto;
- // border-bottom-style : dotted;
- // border-bottom-width : 1px;
- // border-bottom-color : black;
 }
   .body a:link {
     color   : Black;
@@ -113,8 +119,6 @@ fieldset {
   }
 
 .localBody {
-  
-  //margin-bottom : 20px;    
   width   : 680px;
   display : block;
   margin-left:auto;
@@ -123,16 +127,12 @@ fieldset {
   
 .sitemenu { 
   color : White;
-  width : 700px;
-  /*margin-top : 100px;*/
-  /*margin-bottom : 20px;*/   
+  width : 700px; 
   padding-bottom : 25px;
   padding-top : 25px;
-  /*padding-left:100px;*/
   display        : block;
   margin-left:auto;
   margin-right:auto;
-  /*border-bottom : 1px dotted black;*/
   background: url(/images/menu.png) left no-repeat;
 }
     .sitemenu a:link {
@@ -156,18 +156,22 @@ fieldset {
   padding-left:25px;
 }
 
+body {
+  height:100% !important;
+  min-height:100%;
+}
 
 /* push footer down to bottom of page */           
-html, body, .main {
-  height: 100% ;
+html {
+  height: 100%;
+  overflow-y: scroll; /* force scrollbar */
 }
-.page-wrap { /* does not have display:block, but also no direct content */
-/*     min-height: 100%;
-     height: auto !important;
-     height: 100%;
-     margin: 0 auto -2em;*/
-    margin:0 auto -2em;
+
+/* does not have display:block, but also no direct content */
+.page-wrap { 
+    margin:0 auto -2.5em;
     min-height:100%;
+    width: 57em;
 }
 .push{
   height : 2em;
@@ -177,13 +181,25 @@ html, body, .main {
 }
 
 .footer{
-  height : 2em;
-  width            : 700px;
-  display          : block;
-  font-size        : 10pt;
-  margin-left:auto;
-  margin-right:auto;
+  height:2.5em;
 }
+  .footer div.footerinner {
+    height:2.5em;
+    line-height:2.3em;
+    margin-left:auto;
+    margin-right:auto;
+    width: 57em;
+  }
+    .footer div.footerinner .leftFooter {
+      font-size: 10pt;
+      float: left;		
+    }
+    .footer div.footerinner .rightFooter {
+      font-size: 10pt;
+      float: right;
+      margin-right: 17px;
+      margin-top: 3px;
+    }
   .footer a:link {
     color   : Black;
     text-decoration: none;
@@ -201,24 +217,12 @@ html, body, .main {
     text-decoration: underline;
   }
 
-.leftFooter {
-//  margin-top : 20px;
-//  display        : block;
-  font-size      : 10pt;
-  float: left;
-}
 
-.rightFooter {
-  margin-right : 20px;
-//  display        : block;
-  font-size      : 10pt;
-  float:right;
-}
 
 .sidebar {
   color:White;
   top:140px;
-  position: fixed;
+  position: absolute /*fixed*/;
   width: 200px;
   background: url(/images/sb-mid.png) right repeat-y 
 }
@@ -256,11 +260,6 @@ html, body, .main {
       text-decoration: underline;
     }
     
-html {
-  height: 100%;
-  overflow-y: scroll; /* force scrollbar */
-}
-
 .selectedpagelink {
   color: #880000;
 }
@@ -347,7 +346,90 @@ margin-top:6px;
 
 .created-by {
   color:#999999;
-  font-size:7pt;
+  font-size:8pt;
   line-height:0;
   margin-bottom:8px;
+}
+
+
+
+
+select {
+  border : 2px solid #cccccc;
+  padding : 1px;
+}
+textarea { 
+  border : 2px solid #cccccc;
+  padding : 3px;
+  margin-bottom : .5em;
+  font-family : courier;
+}
+input { 
+  border : 2px solid #cccccc;
+  padding : 3px;
+  margin-right : .5em;
+  margin-bottom : .5em;
+  font-family : courier;
+}
+textarea:focus { 
+  border : 2px solid #444444;
+  background : #eeeeee;
+}
+input:focus { 
+  border : 2px solid #444444;
+  background : #eeeeee;
+}
+input:hover{  
+  background : #eeeeee;
+}
+textarea:hover{ 
+  background : #eeeeee;
+}
+
+input.button { 
+  border : 1px solid #777777;
+  height : auto;
+  /*line-height: 1em;*/
+  vertical-align: center;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  font-family : georgia, sans-serif;
+  clear:both;
+  float: left;
+}
+input.button:focus {
+  
+}
+input.button:hover { 
+  background : #aaaaaa;
+
+}
+
+/* generic sizes for form elements */
+
+textarea.inputTextarea { 
+  min-height : 20em;
+  min-width  : 95%;
+  max-width : 50em;
+}
+input.inputString{ 
+  width : 40em;
+  display:block;
+}
+input.inputSecret{ 
+  width : 40em;
+  display:block;
+}
+input.inputURL{ 
+  width : 40em;
+}
+
+
+input.searchinput{
+  width:150px;	
+  display:inline;
+}
+input.searchbutton{
+  float:right;	
 }

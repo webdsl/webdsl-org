@@ -7,19 +7,22 @@ module login
       var e:Email;
       var p:Secret;
       form{
-        formgroup("Login"){
           validate(checkLogin(e,p),"Login failed")
           
           label("Email"){input(e)}
           label("Password"){input(p)}
           
-          action("login",login())
-        }
+          submit login()[class="loginbutton"]{"login"}
       }
       action login(){
         securityContext.principal := getUsersWithEmailAddress(e).get(0); 
         message("Successfully logged in.");
         return home();
+      }
+    }
+    define sidebarPlaceholder(){
+      sidebar{
+        "Login"
       }
     }
   }

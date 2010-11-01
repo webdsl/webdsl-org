@@ -196,16 +196,18 @@ module page/page
     var pages := produceListOfPages(lim,off)
     main()
     define localBody(){
-      group("Pages"){
-        table{
           for(p:Page in pages limit lim offset off){
             output(p)
+            break
           }
           break
-          if(off > 0){navigate(listSpecificPages(lim,off-25)){"show previous 25 pages"}}
-          if(pages.length > off + lim){navigate(listSpecificPages(lim,off+25)){"show next 25 pages"}}
+          if(off > 0){navigate(listSpecificPages(lim,off-25)){"show previous 25 pages" break}}
+          if(pages.length > off + lim){navigate(listSpecificPages(lim,off+25)){"show next 25 pages" break}}
           navigate(listAllPages()){"show all pages"}
-        }
+    }
+    define sidebarPlaceholder(){
+      sidebar{
+        "Page Index"
       }
     }
   }

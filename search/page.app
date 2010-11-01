@@ -8,8 +8,8 @@ module search/page
     var q := query;
     <div class="search-form-top">
       form{
-        input(q)
-        submit action{ return search(q); } {"Search"}
+        input(q)[class="searchinput"]
+        submit action{ return search(q); } [class="searchbutton"] {"Search"}
       }
     </div>
   }

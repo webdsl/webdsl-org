@@ -106,8 +106,10 @@ module template/template
   }
   
   define footer() {
-    leftFooter()
-    rightFooter()
+    <div class="footerinner">
+      leftFooter()
+      rightFooter()
+    </div>
   }
 
   define leftFooter(){
