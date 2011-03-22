@@ -27,7 +27,14 @@ imports global-settings
     }
   }
   
-  
+  define formgroup(s:String){
+    <fieldset>
+      <legend>
+        output(s)
+      </legend>
+      elements()
+    </fieldset>
+  }
   
   define page root(){
     init{

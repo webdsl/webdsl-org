@@ -7,11 +7,9 @@ module login
       var e:Email;
       var p:Secret;
       form{
-          validate(checkLogin(e,p),"Login failed")
-          
           label("Email"){input(e)}
           label("Password"){input(p)}
-          
+          <div>validate(checkLogin(e,p),"Login failed")</div>
           submit login()[class="loginbutton"]{"login"}
       }
       action login(){

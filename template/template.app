@@ -4,17 +4,25 @@ module template/template
   to align the sidebar left of the body, it is part of a bigger block main(), maincenter() is a smaller block inside main()
   both are centered using margin-left:auto;margin-right:auto;
   */
-  define no-span main() 
+  define main() 
   {
     <div class="page-wrap">
-      <span class="main">
-      sidebarPlaceholder() 
-        maincenter()
-      </span>
+      <div class="main">
+        <div class="sidebarPlaceholder">
+          <div class="sidebar">
+            sidebarPlaceholder()
+          </div> 
+        </div>
+        <div class="maincenter"> 
+          maincenter()
+        </div>
+      </div>
       <div class="clear"></div> 
       <div class="push"></div> 
     </div>  
-    footer()
+    <div class="footer">
+      footer()
+    </div>
     
     //google analytics
     <script type="text/javascript">
@@ -31,9 +39,9 @@ module template/template
   
   define maincenter(){
     title{"WebDSL.org"}
-    top()
-    sitemenu()
-    body()
+    <div class="top"> top() </div>
+    <div class="sitemenu"> sitemenu() </div>
+    <div class="body"> body() </div>
   }
   
   
@@ -43,7 +51,7 @@ module template/template
   }
   
   define sitemenu(){
-    <span class="menucontent">
+    <div class="menucontent">
       navigate(home()){"Home"}
       output(topmenu)
       if(loggedIn()){
@@ -70,7 +78,7 @@ module template/template
       } 
 
       searchform()
-    </span>
+    </div>
   }
   
   
@@ -78,9 +86,9 @@ module template/template
   } 
   
   define sidebar(){
-    <span class="sidebarcontent">
+    <div class="sidebarcontent">
       elements
-    </span>
+    </div>
   }
   
   define localBody(){
@@ -88,7 +96,9 @@ module template/template
   }
   
   define top() {
-    topRight()
+    <div class="topRight"> 
+      topRight() 
+    </div>
     navigate(home()){
       image("/images/logosmall.png")
     }
@@ -107,8 +117,12 @@ module template/template
   
   define footer() {
     <div class="footerinner">
-      leftFooter()
-      rightFooter()
+      <div class="leftFooter">
+        leftFooter()
+      </div>
+      <div class="rightFooter">
+        rightFooter()
+      </div>
     </div>
   }
 

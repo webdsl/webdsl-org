@@ -13,11 +13,11 @@ module message/page
   
   define ignore-access-control errorTemplateInput(messages : List<String>){
     <div style = "clear:left; float:left; border: 1px solid #FF0000; margin: 5px 5px 5px -5px; padding: 4px 8px 4px 4px;">
-      validatedInput
+      elements()
       for(ve: String in messages){
         block()[style := "width:100%; clear:left; float:left; color: #FF0000; margin-top: 5px;"]{
-          formgroupDoubleColumn{output(ve)} //inserted
-         }     
+          output(ve) //inserted
+        }     
       }
     </div>
   }

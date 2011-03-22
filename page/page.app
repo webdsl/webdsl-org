@@ -90,7 +90,7 @@ module page/page
           label("Title"){input(p.title)}
           label("Content"){editContents(p.contentlist)}
           label("Hidden"){input(p.hidden)}
-          formgroupDoubleColumn{"Hidden pages will still be accessible, but not shown in the index selections."}
+          "Hidden pages will still be accessible, but not shown in the index selections."
         }
         action("Preview",refresh() ) 
         action("Finalize",finalize())
@@ -155,9 +155,9 @@ module page/page
           return singlepage(old);
         }
       }
-      //hide footer using a local template override
-      define rightFooter(){}
     }
+    //hide footer using a local template override
+    define rightFooter(){}
   }
 
   define page createPage(){ 
@@ -175,7 +175,7 @@ module page/page
       form{
         formgroup("Create Page"){
           label("Identifier"){input(p.url)}
-          formgroupDoubleColumn{"The identifier will be used in the URL for this page."}
+          "The identifier will be used in the URL for this page."
           label("Title"){input(p.title)}
           break
           action("save",save())
