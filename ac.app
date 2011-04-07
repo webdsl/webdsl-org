@@ -1,6 +1,6 @@
 module ac
 
-  define page accessDenied(){
+  define override page accessDenied(){
     main()
     define localBody(){
       header{"Access Denied"}
