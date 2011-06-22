@@ -6,6 +6,8 @@ module template/template
   */
   define main() 
   {
+    includeJS("http://ajax.googleapis.com/ajax/libs/jquery/1.5.0/jquery.min.js")
+    includeJS("codeblockhover.js")
     <div class="page-wrap">
       <div class="main">
         <div class="sidebarPlaceholder">

@@ -100,6 +100,7 @@ label{
 .body {    
   width   := 700px;
   display := block;
+  padding-left: 25px;
 }
   .body a:link {
     color   : Black;
@@ -294,6 +295,7 @@ pre {
   margin: 5px 15px 5px 5px;
   padding: 5px 5px 5px 5px;
   background: #EEEEEE;
+  overflow: hidden; /* large size handled using codeblockhover.js */
 }
 
 li {
