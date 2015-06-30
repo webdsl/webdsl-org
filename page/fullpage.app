@@ -16,21 +16,21 @@ module page/fullpage
     </div>*/
   }
   
-  define showFullPage(p:Page,list:List<Page>){
+  define showFullPage(page:Page,list:List<Page>){
     var newlist : List<Page>;
-    init{ newlist.addAll(list).add(p); }
-    if(!(p in list)){
-      anchor(p.url)
-      navigate(singlepage(p)) {
+    init{ newlist.addAll(list).add(page); }
+    if(!(page in list)){
+      anchor(page.url)
+      navigate(singlepage(page)) {
         header{
-          output(p.title)
+          output(page.title)
         } 
       }
-      lastEditedBy(p)
-      pageDetails(p, false)
-      output(p.contentlist.contents.get(0) as WikiContent)
+      lastEditedBy(page)
+      pageDetails(page, false)
+      output(page.contentlist.contents.get(0) as WikiContent)
       break
-      for(p:Page in (p.contentlist.contents.get(1) as IndexContent).index){
+      for(p:Page in (page.contentlist.contents.get(1) as IndexContent).index){
         showFullPage(p,newlist)
       }
     }
