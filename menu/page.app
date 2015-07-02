@@ -18,7 +18,7 @@ module menu/page
 
 //see comments in content/indexcontent/page for improvements, list component could be reused with generics on entities
   define page editMenu(){
-      var addCol := select u from Page as u;
+      var addCol := select u from Page as u
       init{
         for(p:Page in addCol){
           if(!p.isLatestVersion()
@@ -54,24 +54,25 @@ module menu/page
       action save(m:MenuItem){
         m.save();
       }
-  
-      table{
-        for(m:MenuItem in topmenu.items){
-          row{
-            output(m)
-            form{
-              action("up",up(m))
-              action("down",down(m))
-              action("remove",remove(m))
-              input(m.viewtype)
-              action("save",save(m))
+      standardLayout{
+        table{
+          for(m:MenuItem in topmenu.items){
+            row{
+              output(m)
+              form{
+                action("up",up(m))
+                action("down",down(m))
+                action("remove",remove(m))
+                input(m.viewtype)
+                action("save",save(m))
+              }
             }
           }
         }
-      }
-      form{
-        select(toAdd from addCol)
-        action("add",add())
+        form{
+          select(toAdd from addCol)
+          action("add",add())
+        }
       }
       action add(){
         if(toAdd != null){

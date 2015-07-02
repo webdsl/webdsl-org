@@ -1,41 +1,45 @@
 module user/page
-  
-  define page user(u:User){ 
+
+  page user(u:User){
     main()
     define localBody(){
-      formgroup("User"){
-        label("Name"){output(u.displayname)}
-        //label("Email"){output(u.email)}
-        label("Homepage"){output(u.homepage)}
-        showAdminStatus(u)
+      standardLayout{
+        formgroup("User"){
+          label("Name"){output(u.displayname)}
+          //label("Email"){output(u.email)}
+          label("Homepage"){output(u.homepage)}
+          showAdminStatus(u)
+        }
+        break
+        navigate(editUser(u)){"edit"}
       }
-      break
-      navigate(editUser(u)){"edit"}
     }
   }
-  
-  define editUserDetails(u:User){
+
+  template editUserDetails(u:User){
     action save(){
       u.save();
       message("user info updated");
       return user(u);
     }
-    form{
-      formgroup("Edit User"){
-        label("Name"){input(u.displayname)}
-        label("Email"){input(u.email)}
-        label("Homepage"){input(u.homepage)}
-        break
-        action("save",save())
+    standardLayout{
+      form{
+        formgroup("Edit User"){
+          label("Name"){input(u.displayname)}
+          label("Email"){input(u.email)}
+          label("Homepage"){input(u.homepage)}
+          break
+          action("save",save())
+        }
       }
     }
   }
-  
-  define showAdminStatus(u:User){
+
+  template showAdminStatus(u:User){
     label("Is Admin"){output(u.isAdmin)}
-  }  
-  
-  define editAdminStatus(u:User){
+  }
+
+  template editAdminStatus(u:User){
     action save(){
       u.save();
       message("user info updated");
@@ -47,11 +51,11 @@ module user/page
         break
         action("save",save())
       }
-    }  
+    }
   }
-  
-  define editUserPassword(u:User){
-    var temp : Secret := "";
+
+  template editUserPassword(u:User){
+    var temp : Secret := ""
     action changePassword(){
       var pass : String := u.password.toString();
       u.password := u.password.digest();
@@ -69,8 +73,8 @@ module user/page
       }
     }
   }
-  
-  define editUserResetPassword(u:User){
+
+  template editUserResetPassword(u:User){
     action resetPassword(){
       requestPasswordReset(u);
       message("Password reset requested.");
@@ -82,22 +86,24 @@ module user/page
       }
     }
   }
-  
-  define page editUser(u:User){ 
+
+  page editUser(u:User){
     main()
     define localBody(){
-      editUserDetails(u)
-      editUserPassword(u)
-      editAdminStatus(u)
-      editUserResetPassword(u)
+      standardLayout{
+        editUserDetails(u)
+        editUserPassword(u)
+        editAdminStatus(u)
+        editUserResetPassword(u)
+      }
     }
   }
-  
-  define page createUser(){ 
+
+  page createUser(){
     main()
     define localBody(){
-      var u := User{};  //TODO vars cannot be in enclosing def, fix 
-      var temp : Secret := "";
+      var u := User{}  //TODO vars cannot be in enclosing def, fix
+      var temp : Secret := ""
       action save(){
         u.password := u.password.digest();
         u.save();
@@ -109,26 +115,30 @@ module user/page
         message("user info updated");
         return user(u);
       }
-      form{
-        formgroup("Create User"){
-          label("Name"){input(u.displayname)}
-          label("Email"){input(u.email)}
-          label("Password"){input(u.password)}
-          label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
-          break
-          action("save",save())
+      standardLayout{
+        form{
+          formgroup("Create User"){
+            label("Name"){input(u.displayname)}
+            label("Email"){input(u.email)}
+            label("Password"){input(u.password)}
+            label("Repeat Password"){input(temp){ validate(u.password == temp, "Password does not match") } }
+            break
+            action("save",save())
+          }
         }
       }
     }
   }
-  
-  define page listUsers(){ 
+
+  page listUsers(){
     main()
     define localBody(){
-      group("Users"){
-        table{
-          for(u:User order by u.displayname){
-            output(u)
+      standardLayout{
+        group("Users"){
+          table{
+            for(u:User order by u.displayname){
+              output(u)
+            }
           }
         }
       }

@@ -1,30 +1,32 @@
 module page/singlepage
- 
-  define page singlepage(p:Page){
+
+  page singlepage(p:Page){
     main()
-    define localBody(){
-      showPage(p)
-      if(isAdmin()){
-        navigate(page(p)){"Full page"}
+    template localBody(){
+      standardLayout{
+        showPage(p)
+        if(isAdmin()){
+          navigate(page(p)){"Full page"}
+        }
       }
     }
-    define sidebarPlaceholder(){
+    template sidebarPlaceholder(){
       pageSidebar(p)
     }
   }
-  
+
   function isAdmin():Bool{
     return securityContext.principal != null && securityContext.principal.isAdmin;
   }
- 
-  define pageDetails(p:Page, showAlways:Bool){
+
+  template pageDetails(p:Page, showAlways:Bool){
     if(isAdmin()){
       "Version: "
       if(p.isLatestVersion()){
         output(p.version)
       }
       else{
-        output(p.previousVersionNumber)    
+        output(p.previousVersionNumber)
       }
       " "
       "Last Edit: "
@@ -65,7 +67,7 @@ module page/singlepage
       lastEditedBy(p)
     }
   }
-  
+
   access control rules
     rule template pageDetails(p:Page, showAlways :Bool){
       loggedIn() || showAlways

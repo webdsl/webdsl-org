@@ -1,11 +1,11 @@
 module page/indexpage
 
-  define showIndexPage(p:Page,list:List<Page>,indent:Int, hideCurrentTitle:Bool){
+  template showIndexPage(p:Page,list:List<Page>,indent:Int, hideCurrentTitle:Bool){
     showIndexPage(p,list,indent,hideCurrentTitle,p,p,99)
   }
 
-  define showIndexPage(p:Page,list:List<Page>,indent:Int, hideCurrentTitle:Bool, selected:Page, top:Page, depth:Int){
-    var newlist : List<Page>;
+  template showIndexPage(p:Page,list:List<Page>,indent:Int, hideCurrentTitle:Bool, selected:Page, top:Page, depth:Int){
+    var newlist : List<Page>
     init{ newlist.addAll(list).add(p); }
     var subpages := (p.contentlist.contents.get(1) as IndexContent).index
 
@@ -37,15 +37,17 @@ module page/indexpage
       }
     }
   }
-  
-  define page indexpage(p:Page){
+
+  page indexpage(p:Page){
     main()
-    define localBody(){
-      <h1>output(p.title)</h1>
-      pageDetails(p, false)
-      showIndexPage(p,List<Page>(),0, true)
+    template localBody(){
+      standardLayout{
+        <h1>output(p.title)</h1>
+        pageDetails(p, false)
+        showIndexPage(p,List<Page>(),0, true)
+      }
     }
-    define sidebarPlaceholder(){
+    template sidebarPlaceholder(){
       pageSidebar(p, p)
     }
   }

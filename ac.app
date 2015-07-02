@@ -11,8 +11,7 @@ module ac
   access control rules
     
     rule page home(){true}
-    rule page login(){ !loggedIn() }
-    rule page logout1(){ loggedIn() }
+    rule page login(){ true }
+    rule page logout1(){ true }
     rule page manage(){ loggedIn() && principal.isAdmin }
-    //rule page search(){ true }
     rule template *(*){true}

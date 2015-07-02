@@ -1,33 +1,33 @@
 module page/page
-  
-  define showPage(p:Page){
-    header{ 
+
+  template showPage(p:Page){
+    header{
       output(p.title)
     }
     pageDetails(p, true)
-    
+
     output(p.contentlist.contents[0])
     outputIndexContentLinksInContext(p,true)
-    
+
     break
   }
-  
-  define page editPage(p:Page){
+
+  page editPage(p:Page){
     /**
      *  need to create a temp object right away in order to keep track of the latest version number
      *  that way changes to the object while editing can be observed
-     */     
+     */
     init{
       var temp : Page; // TODO fix bug: this is seen as page var, vardeclinit init was happening twice
-      
+
       temp := p.clone();
-      
+
       temp.save();
-      
+
       return previewPage(temp);
     }
   }
-  
+
   function previewPageWarning(p: Page): Bool{
     var old : Page := p.previousPage;
     var oldPageCurrentHash :String := old.versionHash();
@@ -38,7 +38,7 @@ module page/page
     }
     return false;
   }
-  
+
   function finalizePageEdit(p: Page): Bool{
     var old : Page := p.previousPage;
     if(previewPageWarning(p)){
@@ -49,23 +49,23 @@ module page/page
       var creator := old.creator;
       var previous := old.previous;
       var contentlist := old.contentlist;
-      var title := old.title;  
+      var title := old.title;
       var time := old.time;
       var hidden := old.hidden;
-        
+
       //old becomes the new, to keep clean url on latest version
       old.previous := p;
       old.creator := p.creator;
       old.contentlist := p.contentlist;
       old.title := p.title;
-      old.time := p.time; 
+      old.time := p.time;
       old.url := p.tempurl;
       old.hidden := p.hidden;
       old.save();
-      
+
       p.hidden := hidden;
       p.time := time;
-      p.title := title;   
+      p.title := title;
       p.contentlist := contentlist;
       p.previous := previous;
       p.creator := creator;
@@ -74,16 +74,16 @@ module page/page
       //p.next := old; not necessary due to inverse relation
       p.save();
       return true;
-    }    
+    }
   }
-  
-  define page previewPage(p: Page){
+
+  page previewPage(p: Page){
     var old : Page := p.previousPage
     main()
     define localBody(){
-      var oldcontent := (old.contentlist.contents.get(0) as WikiContent).content;
-      var previewcontent := (p.contentlist.contents.get(0) as WikiContent).content;
-                
+      var oldcontent := (old.contentlist.contents.get(0) as WikiContent).content
+      var previewcontent := (p.contentlist.contents.get(0) as WikiContent).content
+
       form{
         formgroup("Edit")[labelWidth := "75"]{
           label("Identifier"){input(p.tempurl){validate(isUniquePageId(p.tempurl,p.previousPage),"Identifier is taken")}}
@@ -92,7 +92,7 @@ module page/page
           label("Hidden"){input(p.hidden)}
           "Hidden pages will still be accessible, but not shown in the index selections."
         }
-        action("Preview",refresh() ) 
+        action("Preview",refresh() )
         action("Finalize",finalize())
         navigate(page(old)){"cancel"} //temp page entities still need to be removed somewhere
       }
@@ -102,12 +102,12 @@ module page/page
       "Links to other pages in the wiki can be created using [[page(identifier)|caption]], e.g. [[page(Types)|Types page]]."
 
       <h2>"Preview"</h2>
-        header{ 
+        header{
           output(p.title)
-        } 
+        }
       output(p.contentlist)
-   
-      
+
+
       //TODO replace with toggle visibility abstraction
       <script>
         function toggle_visibility(id) {
@@ -120,38 +120,38 @@ module page/page
       </script>
       break
       <a onclick="toggle_visibility('hidden-diff-page')">"show differences"</a>
-     
+
       <div id="hidden-diff-page" style="display:none;">
         <div class="differences">
           <h2>"Differences"</h2>
-          output((old.contentlist.contents.get(0) as WikiContent).content.diff((p.contentlist.contents.get(0) as WikiContent).content))  
+          output((old.contentlist.contents.get(0) as WikiContent).content.diff((p.contentlist.contents.get(0) as WikiContent).content))
         </div>
-   
+
         //need to tweak custom layout here, provide clear css class hooks
         <div class="original-page">
           <h2>"Original page"</h2>
-          header{ 
+          header{
             output(old.title)
-          } 
-          output(old.contentlist)  
+          }
+          output(old.contentlist)
           input(oldcontent) //abuse of input here, since there is no form around it, it wont be submitted
         </div>
         <div class="preview-page">
           <h2>"Preview"</h2>
-          header{ 
+          header{
             output(p.title)
-          } 
+          }
           output(p.contentlist)
           input(previewcontent)
         </div>
       </div>
-     
+
       action refresh(){
         previewPageWarning(p);
         p.save();
       }
       action finalize(){
-        if(finalizePageEdit(p)){           
+        if(finalizePageEdit(p)){
           return singlepage(old);
         }
       }
@@ -160,10 +160,10 @@ module page/page
     define rightFooter(){}
   }
 
-  define page createPage(){ 
+  page createPage(){
     main()
     define localBody(){
-      var p := Page{}; 
+      var p := Page{}
       action save(){
         p.initContentList();
         p.creator := securityContext.principal;
@@ -192,7 +192,7 @@ module page/page
     }
     return tmp;
   }
-  define listPagesTemplate(lim:Int,off:Int){
+  template listPagesTemplate(lim:Int,off:Int){
     var pages := produceListOfPages(lim,off)
     main()
     define localBody(){
@@ -211,14 +211,14 @@ module page/page
       }
     }
   }
-  define page listPages(){ 
+  page listPages(){
     listPagesTemplate(25,0)
   }
-  define page listSpecificPages(lim:Int,off:Int){ 
+  page listSpecificPages(lim:Int,off:Int){
     listPagesTemplate(lim,off)
   }
-  
-  define page listAllPages(){ 
+
+  page listAllPages(){
     main()
     define localBody(){
       group("Pages"){
@@ -241,7 +241,7 @@ module page/page
       }
     }
   }
-  
+
   /*
   define page deletePage(p:Page){
     main()
@@ -262,18 +262,18 @@ module page/page
       }
     }
   }
-  
+
   function checkDeleteEdit(p:Page):Bool{
     return (select u from Page as u where ((u._previousPage = ~p)
                                              and (u._temp = 1))).length == 0;
   }
   function checkDeleteRef(p:Page):Bool{
-    var tmp : List<IndexContent> := select u from IndexContent as u; 
+    var tmp : List<IndexContent> := select u from IndexContent as u;
     for(ic:IndexContent in tmp){
       if(!(p in ic.index)){
         tmp.remove(ic);
       }
     }
-    return tmp.length == 0;     
+    return tmp.length == 0;
   }
   */

@@ -14,20 +14,15 @@ imports ac
 imports login
 imports global-settings
 
-  define page home() 
-  {
-    main()
-    define localBody() {
-      showNews()
-    }
-    define sidebarPlaceholder(){
-      sidebar{
-        "News"
-      }
+
+  // old main page, redirect to keep old links working
+  page home(){
+    init{
+      return root();
     }
   }
-  
-  define formgroup(s:String){
+
+  template formgroup(s:String){
     <fieldset>
       <legend>
         output(s)
@@ -35,12 +30,18 @@ imports global-settings
       elements()
     </fieldset>
   }
-  
-  define page root(){
-    init{
-      return home();
+
+  page root(){
+    main()
+    template localBody() {
+      showNews()
+    }
+    template sidebarPlaceholder(){
+      sidebar{
+        "News"
+      }
     }
   }
 
-  access control rules 
-    rule page root(){true}
+  access control rules
+    rule page root(){ true }

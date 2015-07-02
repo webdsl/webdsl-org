@@ -1,438 +1,48 @@
-* {
-  margin:0;
-  padding:0;
+
+.news-post {
+  margin-bottom: 60px;
 }
 
-p{
-  padding-top:5pt;
+.news-post-title {
+  margin-bottom: 5px;
+  font-size: 30px;
 }
 
-h2{
+.news-post-meta {
+  margin-bottom: 20px;
+  color: #999;
+}
+
+.news-header {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.news-title {
+  margin-top: 30px;
+  margin-bottom: 0;
+  font-size: 60px;
   font-weight: normal;
-  font-size:13pt;
-  font-weight:bold;
-  margin-bottom:6pt;
-  margin-top:10pt;
 }
 
-html{
-  font-family: arial,sans-serif;
-  color: Black;
-  font-size: 12pt;
-  text-decoration: none;
-  line-height: 22px;
+.news-description {
+  font-size: 20px;
+  color: #999;
 }
 
-textarea{
-  width : 600px; 
-  height : 400px;   
+.logo-image {
+  max-height: 25px;
+  margin-top: -3px;
 }
 
-img {
-  border-width   : 0px;
+a.doc-index-link {
+  padding: 3px !important;
 }
 
-fieldset { 
-  border:1px solid black;
-  margin-right:20px; 
-  -moz-border-radius:10px 10px 10px 10px;
-  padding-left:20px;
-  padding-top:10px;
-  padding-bottom:10px;
-}
-legend {
-  padding: 0.2em 0.5em;
-  border:1px solid black;
-  font-size:90%;
-  text-align:right;
-}
-label{
-  font-size:90%;
-  display:block;
-}
-  
-.main {
-  display  : block;
-  width    : 900px;
-  margin-right: 0px;
-  margin-left: 0px;
-}
-
-.maincenter {
-  display  : block;
-  width    : 700px;
-  
-  margin-right: auto;
-  margin-left: 200px;
-  
-  border-width   : 0px;
-  background-color : white;
-}
-
-.top {
-  display        : block;
-  width          : 700px;
-}
-
-.topRight {
-  float:right;
-  margin-right : auto;
-  margin-top:0;
-  font-size :  10pt;
-}
-  .topRight a:link {
-    color   : Black;
-    text-decoration: none;
-  }
-  .topRight a:active {
-    color   : Black;
-    text-decoration: none;
-  }
-  .topRight a:visited {
-    color   : Black;
-    text-decoration: none;
-  }
-  .topRight a:hover {
-    color   : Black;
-    text-decoration: underline;
-  }
-
-.body {    
-  width   := 700px;
-  display := block;
-  padding-left: 25px;
-}
-  .body a:link {
-    color   : Black;
-    text-decoration: underline;
-  }
-  .body a:active {
-    color   : Black;
-    text-decoration: underline;
-  }
-  .body a:visited {
-    color   : Black;
-    text-decoration: underline;
-  }
-  .body a:hover {
-    color   : Black;
-    text-decoration: underline;
-  }
-
-.localBody {
-  width   : 680px;
-  display : block;
-  margin-left:auto;
-  margin-right:none;
-}
-  
-.sitemenu { 
-  color : White;
-  width : 700px; 
-  padding-bottom : 25px;
-  padding-top : 25px;
-  display        : block;
-  margin-left:auto;
-  margin-right:auto;
-  background: url(/images/menu.png) left no-repeat;
-}
-    .sitemenu a:link {
-      color   : White;
-      text-decoration: none;
-    }
-    .sitemenu a:active {
-      color   : White;
-      text-decoration: none;
-    }
-    .sitemenu a:visited {
-      color   : White;
-      text-decoration: none;
-    }
-    .sitemenu a:hover {
-      color   : White;
-      text-decoration: underline;
-    }
-
-.menucontent {
-  padding-left:25px;
-}
-
-body {
-  height:100% !important;
-  min-height:100%;
-}
-
-/* push footer down to bottom of page */           
-html {
-  height: 100%;
-  overflow-y: scroll; /* force scrollbar */
-}
-
-/* does not have display:block, but also no direct content */
-.page-wrap { 
-    margin:0 auto -2.5em;
-    min-height:100%;
-    width: 57em;
-}
-.push{
-  height : 2em;
-}
-.clear {
-  clear : both;
-}
-
-.footer{
-  height:2.5em;
-}
-  .footer div.footerinner {
-    height:2.5em;
-    line-height:2.3em;
-    margin-left:auto;
-    margin-right:auto;
-    width: 57em;
-  }
-    .footer div.footerinner .leftFooter {
-      font-size: 10pt;
-      float: left;		
-    }
-    .footer div.footerinner .rightFooter {
-      font-size: 10pt;
-      float: right;
-      margin-right: 17px;
-      margin-top: 3px;
-    }
-  .footer a:link {
-    color   : Black;
-    text-decoration: none;
-  }
-  .footer a:active {
-    color   : Black;
-    text-decoration: none;
-  }
-  .footer a:visited {
-    color   : Black;
-    text-decoration: none;
-  }
-  .footer a:hover {
-    color   : Black;
-    text-decoration: underline;
-  }
-
-
-
-.sidebar {
-  color:White;
-  top:140px;
-  position: absolute /*fixed*/;
-  width: 200px;
-  background: url(/images/sb-mid.png) right repeat-y 
-}
-.sidebar::before {
-  display: block;
-  line-height: 0;
-  background: url(/images/sb-tr.png) top right no-repeat;
-  content: url(/images/sb-tl.png) 
-}
-.sidebar::after {
-  display: block;
-  line-height: 0;
-  background: url(/images/sb-br.png) bottom right no-repeat;
-  content: url(/images/sb-bl.png) 
-}
-
-.sidebarcontent{
-  padding-left:25px;
-  display:block;
-}
-    .sidebarcontent a:link {
-      color   : White;
-      text-decoration: none;
-    }
-    .sidebarcontent a:active {
-      color   : White;
-      text-decoration: none;
-    }
-    .sidebarcontent a:visited {
-      color   : White;
-      text-decoration: none;
-    }
-    .sidebarcontent a:hover {
-      color   : White;
-      text-decoration: underline;
-    }
-    
-.selectedpagelink {
-  color: #880000;
-}
-  .selectedpagelink a:link {
-    color: #880000;
-    text-decoration: none;
-  }
-  .selectedpagelink a:active {
-    color: #880000;
-    text-decoration: none;
-  }
-  .selectedpagelink a:visited {
-    color: #880000;
-    text-decoration: none;
-  }
-  .selectedpagelink a:hover {
-    color: #880000;
-    text-decoration: underline;
-  }
-      
-h1 {
-  font-weight: normal;
-  font-size: 16pt;
-  font-weight:bold;
-  margin-top:10pt;
-  margin-bottom:10pt;
-  text-decoration: none;
-  color: #880000;
-}
-
-pre {
-  margin: 5px 15px 5px 5px;
-  padding: 5px 5px 5px 5px;
-  background: #EEEEEE;
-  overflow: hidden; /* large size handled using codeblockhover.js */
-  border: 1px solid silver;
-}
-
-li {
-  list-style: disc inside;
-  padding-left: 20px;
-  padding-top: 5px;
-  padding-bottom: 0px;
-}
-
-.original-page { 
-  position: absolute;
-  right: 10px;
-  width: 680px;
-}
-
-.preview-page{
-  position: absolute;
-  left: 10px;
-  width: 680px;
-}
-
-#hidden-diff-page div textarea {
-  height : 2000px;
-}
-
-.small-preview-text {
-border-style:solid;
-border-width:1px;
-font-size:8pt;
-height:150px;
-margin:6px 0 0 20px;
-overflow:scroll;
-}
-.search-result-row{
--moz-border-radius:10px 10px;
--webkit-border-radius:10px 10px;
-border-radius:10px 10px;
-border-style:solid;
-border-width:2px;
-padding:5px;
-margin-top:6px;
-}
-.search-form-top{
-  float:right;
-  margin:-1px 13px 0 0;
-}
-.highlight-search-text{
-  background-color: yellow;
-}
-
-.created-by {
-  color:#999999;
-  font-size:8pt;
-  line-height:0;
-  margin-bottom:8px;
-}
-
-
-
-
-select {
-  border : 2px solid #cccccc;
-  padding : 1px;
-}
-textarea { 
-  border : 2px solid #cccccc;
-  padding : 3px;
-  margin-bottom : .5em;
-  font-family : courier;
-}
-input { 
-  border : 2px solid #cccccc;
-  padding : 3px;
-  margin-right : .5em;
-  margin-bottom : .5em;
-  font-family : courier;
-}
-textarea:focus { 
-  border : 2px solid #444444;
-  background : #eeeeee;
-}
-input:focus { 
-  border : 2px solid #444444;
-  background : #eeeeee;
-}
-input:hover{  
-  background : #eeeeee;
-}
-textarea:hover{ 
-  background : #eeeeee;
-}
-
-input.button { 
-  border : 1px solid #777777;
-  height : auto;
-  /*line-height: 1em;*/
-  vertical-align: center;
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  font-family : georgia, sans-serif;
-  clear:both;
-  float: left;
-}
-input.button:focus {
-  
-}
-input.button:hover { 
-  background : #aaaaaa;
-
-}
-
-/* generic sizes for form elements */
-
-textarea.inputTextarea { 
-  min-height : 20em;
-  min-width  : 95%;
-  max-width : 50em;
-}
-input.inputString{ 
-  width : 40em;
-  display:block;
-}
-input.inputSecret{ 
-  width : 40em;
-  display:block;
-}
-input.inputURL{ 
-  width : 40em;
-}
-
-
-input.searchinput{
-  width:150px;	
-  display:inline;
-}
-input.searchbutton{
-  float:right;	
+.bs-docs-sidebar .nav>.active>a {
+  padding-left: 18px;
+  font-weight: 700;
+  color: navy;
+  background-color: transparent;
+  border-left: 2px solid navy;
 }

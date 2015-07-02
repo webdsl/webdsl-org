@@ -1,30 +1,47 @@
 module news/page
-  
-  define showNews(){
-    for(n:News in select u from News as u order by _time descending){
-      output(n)
+
+  template showNews(){
+    container{
+      gridrow{
+        gridcolmiddle{
+          <div class="news-header">
+            <h1 class="news-title">"WebDSL"</h1>
+            <p class="lead news-description">"Domain-Specific Language for Web Applications"</p>
+          </div>
+        }
+      }
+      gridrow{
+        gridcolmiddle{
+          for(n: News in select u from News as u order by time descending){
+            <div class="news-post">
+              output(n)
+            </div>
+          }
+        }
+      }
     }
   }
-  
-  define output(n:News){ 
-    <h1>output(n.title)</h1>
-    <div class="created-by">
+
+  template output(n: News){
+    <h2 class="news-post-title">output(n.title)</h2>
+    <p class="news-post-meta">
       output("by " + n.creator.name + " at "  + n.time.format("d MMM yyyy HH:mm"))
-    </div>
-    output(n.content)
-    break
+    </p>
+    <p>
+      output(n.content)
+    </p>
     if(loggedIn()){
       break
-      navigate(editNews(n)){"edit"} 
+      navigate(editNews(n)){"edit"}
       " "
       navigate(deleteNews(n)){"delete"}
     }
   }
-  
-  define page createNews(){
+
+  page createNews(){
     main()
     define localBody(){
-      var n := News{creator := securityContext.principal time:=now()};
+      var n := News{creator := securityContext.principal time:=now()}
       action save(){
         n.save();
         return home();
@@ -39,11 +56,11 @@ module news/page
         }
         action("save",save())
         navigate(home()){"cancel"}
-      } 
-    } 
+      }
+    }
   }
- 
-  define page editNews(n: News){
+
+  page editNews(n: News){
     main()
     define localBody(){
       action save(){
@@ -62,9 +79,9 @@ module news/page
         navigate("cancel",home())
       }
     }
-  } 
-  
-  define page deleteNews(n: News){
+  }
+
+  page deleteNews(n: News){
     main()
     define localBody(){
       output(n)
@@ -79,5 +96,4 @@ module news/page
         return home();
       }
     }
-  } 
- 
+  }
