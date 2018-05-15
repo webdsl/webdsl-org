@@ -34,7 +34,7 @@ module login
   }
 
   function getUsersWithEmailAddress(e:Email): List<User>{
-     return select u from User as u where (u._email = ~e);
+     return select u from User as u where (u.email = ~e);
   }
 
   page logout1()
