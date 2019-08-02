@@ -21,7 +21,7 @@ module page/ac
       page listAllPages(), 
       page listSpecificPages(*) 
     }
-    rules pointcut openPages(){
+    rule pointcut openPages(){
       true
     }
     
