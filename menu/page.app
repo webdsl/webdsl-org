@@ -70,7 +70,7 @@ module menu/page
           }
         }
         form{
-          select(toAdd from addCol)
+          input(toAdd, addCol)
           action("add",add())
         }
       }

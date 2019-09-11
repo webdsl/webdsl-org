@@ -98,7 +98,7 @@ module content/indexcontent/page
           }
         }
       }
-      select(toAdd from addCol)
+      input(toAdd, addCol)
       action("add",add())
 
       //if(c.subsections.length > 0) { editSubsections(c) }
