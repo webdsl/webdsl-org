@@ -54,8 +54,8 @@ module news/page
           label("Creator"){input(n.creator)}
           label("Time"){input(n.time)}
         }
-        action("save",save())
-        navigate(home()){"cancel"}
+        submit save { "save" }
+        navigate home { "cancel" }
       }
     }
   }
@@ -75,8 +75,8 @@ module news/page
           label("Creator"){input(n.creator)}
           label("Time"){input(n.time)}
         }
-        action("save",save())
-        navigate("cancel",home())
+        submit save { "save" }
+        navigate home { "cancel" }
       }
     }
   }
@@ -88,9 +88,9 @@ module news/page
       break
       "This news item will be deleted "
       form{
-        action("confirm",delete())
+        submit delete { "confirm" }
       }
-      navigate(home()){"cancel"}
+      navigate home { "cancel" }
       action delete(){
         n.delete();
         return home();
